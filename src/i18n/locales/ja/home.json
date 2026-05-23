@@ -1,0 +1,21 @@
+{
+  "terminal": {
+    "prompt": "whoami"
+  },
+  "typewriter": "AWS DevOps Engineer",
+  "subtitle": "コードからクラウドまで、スケーラブルな AWS インフラを構築します。Terraform IaC、ArgoCD による Kubernetes オーケストレーション、CI/CD 自動化を専門とする DevOps エンジニア。複雑な高可用性要件を信頼性のある本番システムに変えます。",
+  "stats": {
+    "yearsExperience": "経験年数",
+    "serversMigrated": "移行済みサーバー",
+    "costReduction": "コスト削減",
+    "technologies": "技術"
+  },
+  "featuredTechs": {
+    "title": "主要技術",
+    "subtitle": "スケーラブルなシステムの構築・デプロイに日々使用している技術の厳選セレクション"
+  },
+  "cta": {
+    "title": "ビジョンをデプロイする準備はできましたか？",
+    "body": "一緒に素晴らしいものを作りましょう。インフラ自動化からフルスタック開発まで、あなたのアイデアを本番環境の現実に変えるためにここにいます。"
+  }
+}

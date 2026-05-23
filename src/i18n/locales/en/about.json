@@ -1,0 +1,98 @@
+{
+  "terminal": {
+    "command": "cat about.txt",
+    "description": "Displaying professional background and technical philosophy"
+  },
+  "bio": {
+    "filename": "bio.txt",
+    "greeting": "Hello, I'm Alexandre Sonicka Gomah — AWS DevOps Engineer based in Brazzaville, Congo.",
+    "p1": "I'm an AWS DevOps engineer with a Platform Engineering lens. My job isn't to wire up pipelines for their own sake — it's to build the systems and conventions that make the developers around me faster, more autonomous, and more confident in production.",
+    "p2": "At Akieni, that means a self-service GitOps platform on Kubernetes (Terraform + ArgoCD) that turns a <code>git push</code> into a reviewed, audited deploy. It means cost-efficiency and security baked into the modules every team consumes, not bolted on later. Before that at Ginov, the same instinct showed up as a 40% cloud bill reduction across 230+ instances and a 40-tool automation suite that shortened onboarding from weeks to days.",
+    "p3": "My background — Linux sysadmin, DBA intern, full-stack PHP developer, network engineer, Linux trainer — taught me that the leverage isn't in any single tool. It's in the standards: how environments are shaped, how secrets are handled, how a new service gets from <code>git init</code> to production on day one instead of week six. That's the layer I work on.",
+    "p4": "Engineers who work with my platforms ship faster, debug faster, and pick up cleaner habits along the way. That's the metric I optimize for — not how many YAML files I wrote, but how much friction I removed from somebody else's day."
+  },
+  "stats": {
+    "title": "Quick Stats",
+    "experienceLabel": "Experience",
+    "experienceValue": "9+ years",
+    "cloudPlatformLabel": "Cloud Platform",
+    "cloudPlatformValue": "AWS",
+    "serversMigratedLabel": "Servers Migrated",
+    "serversMigratedValue": "230+",
+    "technologiesLabel": "Technologies",
+    "technologiesValue": "20+ mastered"
+  },
+  "specializations": {
+    "title": "Specializations",
+    "items": [
+      "Platform Engineering",
+      "Developer Experience",
+      "AWS Cloud Architecture",
+      "GitOps with ArgoCD",
+      "Terraform IaC",
+      "Kubernetes Operations",
+      "Cost Optimization",
+      "Linux Administration"
+    ]
+  },
+  "timeline": {
+    "title": "Career Timeline",
+    "subtitle": "From Linux sysadmin and full-stack development to AWS DevOps and platform engineering",
+    "items": [
+      {
+        "year": "2024 - Present",
+        "title": "DevOps Engineer",
+        "company": "Akieni — Brazzaville, Congo",
+        "description": "Automating and optimizing cloud infrastructure with Terraform, CI/CD pipelines, and Kubernetes deployments via ArgoCD. Enhancing security and managing AWS cost-efficiency for the platform."
+      },
+      {
+        "year": "2022 - 2024",
+        "title": "AWS DevOps Engineer — Team Lead",
+        "company": "Ginov Digital Congo — Pointe-Noire",
+        "description": "Led migration of 230+ NodeJS/React instances to AWS, reducing cloud expenses by 40%. Built 40+ tools to automate deployment, administration, and monitoring across EC2, S3, EBS, CodeCommit, and Route 53."
+      },
+      {
+        "year": "2020 - 2022",
+        "title": "Technical Manager",
+        "company": "OCSNETWORK — Pointe-Noire",
+        "description": "Designed, implemented, and maintained network infrastructures. Supervised technical teams, coordinated deployments, and ensured operational continuity through proactive monitoring and incident response."
+      },
+      {
+        "year": "2018 - 2019",
+        "title": "Trainer — Linux System Administration",
+        "company": "NGO YEKOLAB — Pointe-Noire",
+        "description": "Designed and delivered LPIC 1 & 2 courses covering system and network configuration, service management, and IT security. Mentored professionals toward autonomy in Linux operations."
+      },
+      {
+        "year": "2016 - 2018",
+        "title": "Full Stack PHP Developer",
+        "company": "KS Programming — Pointe-Noire",
+        "description": "Built and maintained dynamic web applications using the CakePHP framework, mentored by a senior PHP developer. Focused on best development practices and database management."
+      },
+      {
+        "year": "2013 - 2016",
+        "title": "License — Networking & Telecommunications",
+        "company": "Ecole Africain de Développement — Pointe-Noire",
+        "description": "Bachelor's degree in computer networking and telecommunications, foundation for a career spanning sysadmin, full-stack, and cloud DevOps."
+      }
+    ]
+  },
+  "philosophy": {
+    "title": "Tech Philosophy",
+    "subtitle": "Core principles that guide how I build platforms and the developer experience around them",
+    "items": [
+      {
+        "title": "Developer Experience First",
+        "description": "A platform is judged by how much friction it removes, not by how much YAML it contains. Optimize for the engineer using it."
+      },
+      {
+        "title": "Standards over Tools",
+        "description": "Tools come and go — conventions, contracts, and reusable modules are what keep teams shipping consistently."
+      },
+      {
+        "title": "Automation as a Product",
+        "description": "Every pipeline, module, and runbook is a product with users. Treat onboarding, docs, and feedback loops accordingly."
+      }
+    ]
+  }
+}

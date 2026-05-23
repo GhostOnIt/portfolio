@@ -1,0 +1,98 @@
+{
+  "terminal": {
+    "command": "cat about.txt",
+    "description": "Affichage du parcours professionnel et de la philosophie technique"
+  },
+  "bio": {
+    "filename": "bio.txt",
+    "greeting": "Bonjour, je suis Alexandre Sonicka Gomah — AWS DevOps Engineer basé à Brazzaville, Congo.",
+    "p1": "Je suis un ingénieur AWS DevOps avec une approche Platform Engineering. Mon rôle n'est pas de câbler des pipelines pour le plaisir — c'est de construire les systèmes et conventions qui rendent les développeurs autour de moi plus rapides, plus autonomes et plus confiants en production.",
+    "p2": "Chez Akieni, cela se traduit par une plateforme GitOps self-service sur Kubernetes (Terraform + ArgoCD) qui transforme un <code>git push</code> en déploiement audité et revu. Cela veut dire que la maîtrise des coûts et la sécurité sont intégrées aux modules que chaque équipe consomme, pas rajoutées après coup. Avant cela, chez Ginov, le même instinct s'est traduit par une réduction de 40 % de la facture cloud sur 230+ instances, et par une suite de 40 outils d'automatisation qui a fait passer l'onboarding de plusieurs semaines à quelques jours.",
+    "p3": "Mon parcours — administrateur Linux, stagiaire DBA, développeur PHP full-stack, ingénieur réseau, formateur Linux — m'a appris que le levier n'est pas dans un outil unique. Il est dans les standards : la façon dont les environnements sont façonnés, dont les secrets sont gérés, dont un nouveau service passe de <code>git init</code> à la production en un jour plutôt qu'en six semaines. C'est la couche sur laquelle je travaille.",
+    "p4": "Les ingénieurs qui utilisent mes plateformes livrent plus vite, débogguent plus vite et acquièrent au passage des habitudes plus propres. C'est la métrique que j'optimise — pas combien de fichiers YAML j'ai écrits, mais combien de friction j'ai retirée de la journée de quelqu'un d'autre."
+  },
+  "stats": {
+    "title": "Statistiques",
+    "experienceLabel": "Expérience",
+    "experienceValue": "9+ années",
+    "cloudPlatformLabel": "Plateforme Cloud",
+    "cloudPlatformValue": "AWS",
+    "serversMigratedLabel": "Serveurs migrés",
+    "serversMigratedValue": "230+",
+    "technologiesLabel": "Technologies",
+    "technologiesValue": "20+ maîtrisées"
+  },
+  "specializations": {
+    "title": "Spécialisations",
+    "items": [
+      "Platform Engineering",
+      "Developer Experience",
+      "Architecture Cloud AWS",
+      "GitOps avec ArgoCD",
+      "Terraform IaC",
+      "Opérations Kubernetes",
+      "Optimisation des coûts",
+      "Administration Linux"
+    ]
+  },
+  "timeline": {
+    "title": "Parcours professionnel",
+    "subtitle": "D'administrateur Linux et développeur full-stack à AWS DevOps et Platform Engineering",
+    "items": [
+      {
+        "year": "2024 - Présent",
+        "title": "DevOps Engineer",
+        "company": "Akieni — Brazzaville, Congo",
+        "description": "Automatisation et optimisation de l'infrastructure cloud avec Terraform, pipelines CI/CD et déploiements Kubernetes via ArgoCD. Renforcement de la sécurité et gestion de la maîtrise des coûts AWS pour la plateforme."
+      },
+      {
+        "year": "2022 - 2024",
+        "title": "AWS DevOps Engineer — Team Lead",
+        "company": "Ginov Digital Congo — Pointe-Noire",
+        "description": "Pilotage de la migration de 230+ instances NodeJS/React vers AWS, réduisant la facture cloud de 40 %. Conception de 40+ outils d'automatisation pour le déploiement, l'administration et le monitoring sur EC2, S3, EBS, CodeCommit et Route 53."
+      },
+      {
+        "year": "2020 - 2022",
+        "title": "Responsable technique",
+        "company": "OCSNETWORK — Pointe-Noire",
+        "description": "Conception, mise en œuvre et maintenance d'infrastructures réseau. Supervision d'équipes techniques, coordination des déploiements et garantie de la continuité opérationnelle via un monitoring proactif et la réponse aux incidents."
+      },
+      {
+        "year": "2018 - 2019",
+        "title": "Formateur — Administration Système Linux",
+        "company": "NGO YEKOLAB — Pointe-Noire",
+        "description": "Conception et animation des cours LPIC 1 & 2 couvrant la configuration système et réseau, la gestion des services et la sécurité IT. Accompagnement des professionnels vers l'autonomie en environnement Linux."
+      },
+      {
+        "year": "2016 - 2018",
+        "title": "Développeur PHP Full Stack",
+        "company": "KS Programming — Pointe-Noire",
+        "description": "Construction et maintenance d'applications web dynamiques avec le framework CakePHP, mentoré par un développeur PHP senior. Focus sur les bonnes pratiques de développement et la gestion de bases de données."
+      },
+      {
+        "year": "2013 - 2016",
+        "title": "Licence — Réseaux & Télécommunications",
+        "company": "École Africaine de Développement — Pointe-Noire",
+        "description": "Licence en réseaux informatiques et télécommunications, fondation d'une carrière couvrant sysadmin, full-stack et cloud DevOps."
+      }
+    ]
+  },
+  "philosophy": {
+    "title": "Philosophie technique",
+    "subtitle": "Les principes qui guident ma façon de construire des plateformes et l'expérience développeur qui les entoure",
+    "items": [
+      {
+        "title": "Developer Experience d'abord",
+        "description": "Une plateforme se juge à la friction qu'elle retire, pas à la quantité de YAML qu'elle contient. Optimiser pour l'ingénieur qui l'utilise."
+      },
+      {
+        "title": "Les standards avant les outils",
+        "description": "Les outils vont et viennent — ce sont les conventions, les contrats et les modules réutilisables qui permettent aux équipes de livrer de façon constante."
+      },
+      {
+        "title": "L'automatisation comme produit",
+        "description": "Chaque pipeline, module et runbook est un produit avec des utilisateurs. Traiter l'onboarding, la documentation et les boucles de feedback en conséquence."
+      }
+    ]
+  }
+}

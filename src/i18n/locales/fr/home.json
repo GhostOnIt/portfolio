@@ -1,0 +1,21 @@
+{
+  "terminal": {
+    "prompt": "whoami"
+  },
+  "typewriter": "AWS DevOps Engineer",
+  "subtitle": "Construction d'infrastructures AWS scalables, du code au cloud. Ingénieur DevOps spécialisé en Terraform IaC, en orchestration Kubernetes via ArgoCD, et en automatisation CI/CD — transformer des exigences complexes de haute disponibilité en systèmes de production fiables.",
+  "stats": {
+    "yearsExperience": "Années d'expérience",
+    "serversMigrated": "Serveurs migrés",
+    "costReduction": "Réduction des coûts",
+    "technologies": "Technologies"
+  },
+  "featuredTechs": {
+    "title": "Technologies phares",
+    "subtitle": "Une sélection des technologies que j'utilise au quotidien pour construire et déployer des systèmes scalables"
+  },
+  "cta": {
+    "title": "Prêt à déployer votre vision ?",
+    "body": "Construisons quelque chose d'incroyable ensemble. De l'automatisation d'infrastructure au développement full-stack, je suis là pour transformer vos idées en réalité de production."
+  }
+}

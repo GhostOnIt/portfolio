@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "about": "自己紹介",
+    "skills": "スキル",
+    "projects": "プロジェクト",
+    "blog": "ブログ",
+    "caseStudies": "ケーススタディ",
+    "contact": "お問い合わせ"
+  },
+  "footer": {
+    "copyright": "© {{year}} Alexandre Sonicka Gomah — AWS DevOps エンジニア",
+    "builtWith": "React、TypeScript、サイバーターミナルの美学で構築",
+    "status": "ステータス：機会を募集中",
+    "poweredBy": "使用技術："
+  },
+  "ctas": {
+    "viewProjects": "プロジェクトを見る",
+    "contactMe": "お問い合わせ",
+    "startProject": "プロジェクトを始める",
+    "viewAllSkills": "すべてのスキルを見る",
+    "viewCode": "コードを見る"
+  },
+  "languages": {
+    "en": "EN",
+    "fr": "FR",
+    "ja": "JP"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "header": {
+    "subtitle": "Analyses, tutoriels et bonnes pratiques du monde du DevOps, de l'infrastructure cloud et du développement full-stack"
+  },
+  "stats": {
+    "totalArticles": "Total d'articles",
+    "totalViews": "Vues totales",
+    "totalViewsChange": "Suivi en temps réel",
+    "engagementRate": "Taux d'engagement",
+    "engagementChange": "Lectorat actif",
+    "avgReadTime": "Temps de lecture moyen",
+    "avgReadChange": "Moyenne du secteur : 7 min"
+  },
+  "featured": {
+    "title": "Articles à la une",
+    "badge": "À la une"
+  },
+  "filters": {
+    "all": "Tous",
+    "searchPlaceholder": "Rechercher des articles...",
+    "sortLatest": "Plus récents",
+    "sortViews": "Plus vus",
+    "sortLikes": "Plus aimés"
+  },
+  "difficulty": {
+    "Beginner": "Débutant",
+    "Intermediate": "Intermédiaire",
+    "Advanced": "Avancé"
+  },
+  "empty": {
+    "title": "Aucun article trouvé",
+    "body": "Essayez d'ajuster votre recherche ou vos filtres"
+  },
+  "newsletter": {
+    "body": "Abonnez-vous pour recevoir les dernières analyses, tutoriels et bonnes pratiques DevOps dans votre boîte mail.",
+    "placeholder": "Entrez votre email",
+    "subscribe": "S'abonner",
+    "disclaimer": "Pas de spam, désabonnement à tout moment."
+  },
+  "modal": {
+    "views": "vues"
+  }
+}

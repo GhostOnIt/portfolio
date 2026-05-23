@@ -1,0 +1,52 @@
+{
+  "terminal": {
+    "command": "docker ps -a",
+    "description": "Listing deployed projects and applications"
+  },
+  "filters": {
+    "all": "All Projects",
+    "devops": "DevOps",
+    "fullstack": "Full-Stack"
+  },
+  "badge": {
+    "devops": "DevOps",
+    "fullstack": "Full-Stack"
+  },
+  "more": "+{{count}} more",
+  "links": {
+    "code": "Code",
+    "live": "Live"
+  },
+  "empty": "No projects found in this category.",
+  "summary": {
+    "total": "Total Projects:",
+    "devops": "DevOps Projects:",
+    "fullstack": "Full-Stack Projects:",
+    "technologies": "Technologies Used:",
+    "echo": "Each project demonstrates real-world implementation of cloud-native architecture and modern development practices"
+  },
+  "cta": {
+    "title": "Interested in Collaboration?",
+    "body": "These projects showcase my expertise in DevOps and full-stack development. Let's discuss how we can work together on your next project.",
+    "viewAll": "View All Projects",
+    "start": "Start a Project"
+  },
+  "items": {
+    "awsMigration": {
+      "title": "AWS Cloud Migration & Cost Optimization",
+      "description": "Led the migration of 230+ NodeJS and React application instances from on-premise infrastructure to AWS Cloud at Ginov Digital Congo. Reduced cloud service expenses by 40% through right-sizing, reserved instances, and architecture rationalization. Worked across EC2, S3, EBS, CodeCommit, Route 53, and CloudFormation."
+    },
+    "gitops": {
+      "title": "GitOps Platform with ArgoCD & Kubernetes",
+      "description": "Production-grade GitOps platform at Akieni deploying microservices to Kubernetes via ArgoCD, with declarative configuration, automated sync, and audit-friendly rollbacks. Pipelines provision and update infrastructure through Terraform plan/apply workflows triggered from Git."
+    },
+    "terraform": {
+      "title": "Terraform Infrastructure as Code",
+      "description": "Modular Terraform codebase provisioning multi-environment AWS infrastructure with reusable modules, remote state, and CI-driven plan/apply workflows. Designed to keep dev, staging, and production environments consistent and auditable."
+    },
+    "automationToolkit": {
+      "title": "DevOps Automation Toolkit",
+      "description": "Suite of 40+ Python and Bash tools built at Ginov to automate deployment, administration, and monitoring of web services on AWS. Reduced operational toil and shortened onboarding time for new engineers joining the platform."
+    }
+  }
+}

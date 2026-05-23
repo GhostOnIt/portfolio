@@ -1,0 +1,52 @@
+{
+  "terminal": {
+    "command": "docker ps -a",
+    "description": "デプロイ済みのプロジェクトとアプリケーションを一覧表示中"
+  },
+  "filters": {
+    "all": "すべてのプロジェクト",
+    "devops": "DevOps",
+    "fullstack": "フルスタック"
+  },
+  "badge": {
+    "devops": "DevOps",
+    "fullstack": "フルスタック"
+  },
+  "more": "他 {{count}} 件",
+  "links": {
+    "code": "コード",
+    "live": "デモ"
+  },
+  "empty": "このカテゴリにはプロジェクトがありません。",
+  "summary": {
+    "total": "プロジェクト総数：",
+    "devops": "DevOps プロジェクト：",
+    "fullstack": "フルスタックプロジェクト：",
+    "technologies": "使用技術：",
+    "echo": "各プロジェクトは、クラウドネイティブアーキテクチャとモダンな開発プラクティスの実際の実装を示しています"
+  },
+  "cta": {
+    "title": "協業に興味がありますか？",
+    "body": "これらのプロジェクトは、DevOps とフルスタック開発における私の専門性を示しています。次のプロジェクトでどのように協力できるか、ぜひお話ししましょう。",
+    "viewAll": "すべてのプロジェクトを見る",
+    "start": "プロジェクトを始める"
+  },
+  "items": {
+    "awsMigration": {
+      "title": "AWS クラウド移行とコスト最適化",
+      "description": "Ginov Digital Congo にて、230 以上の NodeJS および React アプリケーションインスタンスをオンプレミス環境から AWS クラウドへ移行するプロジェクトを主導。right-sizing、リザーブドインスタンス、アーキテクチャの合理化により、クラウドコストを 40% 削減。EC2、S3、EBS、CodeCommit、Route 53、CloudFormation を横断的に活用。"
+    },
+    "gitops": {
+      "title": "ArgoCD と Kubernetes による GitOps プラットフォーム",
+      "description": "Akieni における本番品質の GitOps プラットフォーム。ArgoCD を介して Kubernetes にマイクロサービスをデプロイし、宣言的な構成、自動同期、監査可能なロールバックを実現。パイプラインは Git から起動される Terraform plan/apply ワークフローでインフラをプロビジョニング・更新します。"
+    },
+    "terraform": {
+      "title": "Terraform による Infrastructure as Code",
+      "description": "再利用可能なモジュール、リモートステート、CI 駆動の plan/apply ワークフローを備え、マルチ環境の AWS インフラをプロビジョニングするモジュール式 Terraform コードベース。dev、staging、production の各環境を一貫性のある監査可能な状態に保つよう設計。"
+    },
+    "automationToolkit": {
+      "title": "DevOps 自動化ツールキット",
+      "description": "AWS 上の Web サービスのデプロイ・管理・モニタリングを自動化するために Ginov で構築した 40 以上の Python・Bash ツール群。運用上の手作業を削減し、プラットフォームに参加する新規エンジニアのオンボーディング時間を短縮しました。"
+    }
+  }
+}

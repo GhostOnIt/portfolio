@@ -1,0 +1,107 @@
+{
+  "terminal": {
+    "command": "ls -la skills/",
+    "description": "Exploration de l'expertise technique dans les domaines cloud, développement et DevOps"
+  },
+  "expertise": {
+    "title": "Expertise technique",
+    "subtitle": "Un ensemble de compétences complet couvrant l'infrastructure cloud, le développement et les pratiques DevOps"
+  },
+  "explorer": {
+    "title": "Explorateur de compétences interactif",
+    "subtitle": "Utilisez des commandes terminal pour explorer mes compétences en détail",
+    "ready": "Explorateur de compétences prêt. Tapez 'help' pour lister les commandes, ou 'man <commande>' pour les détails.",
+    "readyInput": "prêt pour la saisie...",
+    "processing": "traitement...",
+    "placeholder": "entrez une commande..."
+  },
+  "categories": {
+    "cloud": "Plateformes Cloud",
+    "containers": "Conteneurs & Orchestration",
+    "infrastructure": "Infrastructure as Code",
+    "os": "Systèmes d'exploitation",
+    "devops": "DevOps & Automatisation",
+    "development": "Stack de développement",
+    "database": "Bases de données"
+  },
+  "quickCommands": {
+    "whoami": "Qui suis-je ?",
+    "top": "Top compétences",
+    "tree": "Arbre des catégories",
+    "stats": "Résumé des compétences"
+  },
+  "help": [
+    "Commandes disponibles :",
+    "  help                Afficher cette liste de commandes",
+    "  man <commande>      Afficher le manuel détaillé d'une commande",
+    "  whoami              Afficher l'identité du propriétaire du portfolio",
+    "  ls [catégorie]      Lister les compétences d'une catégorie (ou les catégories)",
+    "  cat <compétence>    Afficher les détails d'une compétence",
+    "  top [n]             Afficher les N meilleures compétences (défaut : 5)",
+    "  find <mot-clé>      Rechercher des compétences par nom ou catégorie",
+    "  stats               Afficher les statistiques globales des compétences",
+    "  tree                Afficher l'arbre des catégories de compétences",
+    "  levels              Afficher l'échelle des niveaux de maîtrise",
+    "  contact             Afficher les informations de contact",
+    "  history             Afficher les commandes récentes",
+    "  echo <texte>        Réafficher le texte dans le terminal",
+    "  clear               Effacer l'écran du terminal",
+    "",
+    "Exemples :",
+    "  ls cloud            Lister les compétences cloud",
+    "  cat AWS             Afficher les détails d'AWS",
+    "  top 3               Afficher les 3 meilleures compétences",
+    "  find docker         Rechercher \"docker\"",
+    "  man tree            Lire le manuel de tree"
+  ],
+  "levels": [
+    "Niveaux de maîtrise :",
+    "  Débutant      (0-39%)   Familier, apprentissage en cours",
+    "  Intermédiaire (40-69%)  Expérience pratique sur de vraies tâches",
+    "  Avancé        (70-89%)  Usage en production, capable de former",
+    "  Expert        (90-100%) Expertise approfondie, décisions de conception"
+  ],
+  "whoami": {
+    "role": "DevOps Engineer @ Akieni",
+    "location": "Pointe-Noire / Brazzaville, République du Congo",
+    "status": "Statut : Disponible pour de nouvelles opportunités",
+    "tip": "Astuce : tapez \"contact\" pour les détails, \"stats\" pour un résumé des compétences."
+  },
+  "output": {
+    "manUsage": "Usage : man <commande>",
+    "typeHelp": "Tapez \"help\" pour lister les commandes disponibles.",
+    "noManual": "Aucune entrée de manuel pour \"{{target}}\".",
+    "categoryHeading": "{{title}} ({{count}}) :",
+    "unknownCategory": "Catégorie inconnue : \"{{category}}\"",
+    "availableCategories": "Catégories disponibles :",
+    "lsTip": "Astuce : tapez \"ls <catégorie>\" pour lister ses compétences.",
+    "catUsage": "Usage : cat <compétence>",
+    "catTip": "Astuce : tapez \"tree\" ou \"ls\" pour découvrir les noms de compétences.",
+    "skillLabel": "Compétence :",
+    "categoryLabel": "Catégorie :",
+    "proficiencyLabel": "Maîtrise :",
+    "iconLabel": "Icône :",
+    "skillNotFound": "Compétence \"{{name}}\" introuvable.",
+    "findTip": "Astuce : tapez \"find {{name}}\" pour rechercher par sous-chaîne.",
+    "topHeading": "Top {{count}} compétences par maîtrise :",
+    "findUsage": "Usage : find <mot-clé>",
+    "findDesc": "Recherche les compétences par nom ou catégorie (insensible à la casse).",
+    "matchesHeading": "Résultats pour \"{{query}}\" ({{count}}) :",
+    "noMatches": "Aucune compétence ne correspond à \"{{query}}\".",
+    "statsHeading": "Statistiques des compétences :",
+    "statsTotal": "Total des compétences :",
+    "statsCategories": "Catégories :",
+    "statsAverage": "Niveau moyen :",
+    "statsHighest": "Plus élevé :",
+    "statsByCategory": "Par catégorie :",
+    "skillsSuffix": "compétences",
+    "contactHeading": "Contact :",
+    "contactEmail": "Email :",
+    "contactPhone": "Téléphone :",
+    "contactLocation": "Localisation :",
+    "socialHeading": "Réseaux :",
+    "historyHeading": "Commandes récentes :",
+    "historyEmpty": "Aucun historique pour l'instant — commencez à taper des commandes.",
+    "commandNotFound": "Commande introuvable : {{cmd}}"
+  }
+}

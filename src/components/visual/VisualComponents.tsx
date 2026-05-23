@@ -324,12 +324,14 @@ interface CategoryFilterProps {
   categories: string[];
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
+  allLabel?: string;
 }
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   categories,
   selectedCategory,
-  onCategoryChange
+  onCategoryChange,
+  allLabel = 'All'
 }) => {
   return (
     <div className="flex flex-wrap gap-2">
@@ -343,7 +345,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
             : 'bg-gray-800 text-green-400 border border-gray-600 hover:border-green-400'
         }`}
       >
-        All
+        {allLabel}
       </motion.button>
       
       {categories.map((category) => (
@@ -408,13 +410,15 @@ interface EngagementMetricsProps {
   likes?: string;
   comments?: string;
   featured?: boolean;
+  featuredLabel?: string;
 }
 
 export const EngagementMetrics: React.FC<EngagementMetricsProps> = ({
   views,
   likes,
   comments,
-  featured = false
+  featured = false,
+  featuredLabel = 'Featured'
 }) => {
   return (
     <div className="flex items-center gap-4 text-xs text-gray-400">
@@ -439,7 +443,7 @@ export const EngagementMetrics: React.FC<EngagementMetricsProps> = ({
       {featured && (
         <div className="flex items-center gap-1 text-yellow-400">
           <Star className="w-3 h-3 fill-current" />
-          <span>Featured</span>
+          <span>{featuredLabel}</span>
         </div>
       )}
     </div>

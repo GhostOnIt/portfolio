@@ -1,0 +1,107 @@
+{
+  "terminal": {
+    "command": "ls -la skills/",
+    "description": "クラウド、開発、DevOps 領域にわたる技術的専門性を探索中"
+  },
+  "expertise": {
+    "title": "技術的専門性",
+    "subtitle": "クラウドインフラ、開発、DevOps プラクティスにわたる包括的なスキルセット"
+  },
+  "explorer": {
+    "title": "インタラクティブ・スキルエクスプローラー",
+    "subtitle": "ターミナルコマンドを使って私のスキルを詳しく探索できます",
+    "ready": "スキルエクスプローラー準備完了。'help' でコマンド一覧、'man <command>' で詳細を表示します。",
+    "readyInput": "入力待機中...",
+    "processing": "処理中...",
+    "placeholder": "コマンドを入力..."
+  },
+  "categories": {
+    "cloud": "クラウドプラットフォーム",
+    "containers": "コンテナ & オーケストレーション",
+    "infrastructure": "Infrastructure as Code",
+    "os": "オペレーティングシステム",
+    "devops": "DevOps & 自動化",
+    "development": "開発スタック",
+    "database": "データベース"
+  },
+  "quickCommands": {
+    "whoami": "私は誰？",
+    "top": "トップスキル",
+    "tree": "カテゴリツリー",
+    "stats": "スキル概要"
+  },
+  "help": [
+    "利用可能なコマンド：",
+    "  help                このコマンド一覧を表示",
+    "  man <command>       コマンドの詳細マニュアルを表示",
+    "  whoami              ポートフォリオ所有者の情報を表示",
+    "  ls [category]       カテゴリ内のスキルを一覧表示（またはカテゴリ一覧）",
+    "  cat <skill>         特定のスキルの詳細を表示",
+    "  top [n]             習熟度上位 N 件のスキルを表示（既定：5）",
+    "  find <keyword>      名前またはカテゴリでスキルを検索",
+    "  stats               スキル全体の統計を表示",
+    "  tree                全スキルのカテゴリツリーを表示",
+    "  levels              習熟度レベルの目安を表示",
+    "  contact             連絡先情報を表示",
+    "  history             最近のコマンドを表示",
+    "  echo <text>         テキストをターミナルに出力",
+    "  clear               ターミナル画面をクリア",
+    "",
+    "例：",
+    "  ls cloud            クラウドのスキルを一覧表示",
+    "  cat AWS             AWS の詳細を表示",
+    "  top 3               上位 3 件のスキルを表示",
+    "  find docker         \"docker\" を検索",
+    "  man tree            tree のマニュアルを読む"
+  ],
+  "levels": [
+    "習熟度レベル：",
+    "  初級   (0-39%)   理解あり、学習中",
+    "  中級   (40-69%)  実タスクでの実務経験あり",
+    "  上級   (70-89%)  本番環境で使用、他者の指導が可能",
+    "  エキスパート (90-100%) 深い専門性、設計レベルの意思決定"
+  ],
+  "whoami": {
+    "role": "DevOps Engineer @ Akieni",
+    "location": "ポワントノワール / ブラザヴィル、コンゴ共和国",
+    "status": "ステータス：新しい機会を募集中",
+    "tip": "ヒント：詳細は \"contact\"、スキル概要は \"stats\" を実行してください。"
+  },
+  "output": {
+    "manUsage": "使い方：man <command>",
+    "typeHelp": "\"help\" と入力すると利用可能なコマンドを一覧表示します。",
+    "noManual": "\"{{target}}\" のマニュアルエントリがありません。",
+    "categoryHeading": "{{title}}（{{count}}）：",
+    "unknownCategory": "不明なカテゴリ：\"{{category}}\"",
+    "availableCategories": "利用可能なカテゴリ：",
+    "lsTip": "ヒント：\"ls <category>\" でそのスキルを一覧表示します。",
+    "catUsage": "使い方：cat <skill>",
+    "catTip": "ヒント：\"tree\" または \"ls\" でスキル名を確認できます。",
+    "skillLabel": "スキル：",
+    "categoryLabel": "カテゴリ：",
+    "proficiencyLabel": "習熟度：",
+    "iconLabel": "アイコン：",
+    "skillNotFound": "スキル \"{{name}}\" が見つかりません。",
+    "findTip": "ヒント：\"find {{name}}\" で部分一致検索ができます。",
+    "topHeading": "習熟度上位 {{count}} 件のスキル：",
+    "findUsage": "使い方：find <keyword>",
+    "findDesc": "名前またはカテゴリでスキルを検索します（大文字小文字を区別しません）。",
+    "matchesHeading": "\"{{query}}\" の検索結果（{{count}}）：",
+    "noMatches": "\"{{query}}\" に一致するスキルはありません。",
+    "statsHeading": "スキル統計：",
+    "statsTotal": "スキル総数：",
+    "statsCategories": "カテゴリ数：",
+    "statsAverage": "平均レベル：",
+    "statsHighest": "最高：",
+    "statsByCategory": "カテゴリ別：",
+    "skillsSuffix": "スキル",
+    "contactHeading": "連絡先：",
+    "contactEmail": "メール：",
+    "contactPhone": "電話：",
+    "contactLocation": "所在地：",
+    "socialHeading": "ソーシャル：",
+    "historyHeading": "最近のコマンド：",
+    "historyEmpty": "まだ履歴がありません — コマンドを入力してください。",
+    "commandNotFound": "コマンドが見つかりません：{{cmd}}"
+  }
+}

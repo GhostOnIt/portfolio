@@ -1,0 +1,57 @@
+{
+  "terminal": {
+    "command": "ping contact.server",
+    "description": "Establishing connection to communication endpoint"
+  },
+  "form": {
+    "heading": "Send Message",
+    "labels": {
+      "name": "name",
+      "email": "email",
+      "subject": "subject",
+      "message": "message"
+    },
+    "placeholders": {
+      "name": "Your full name",
+      "email": "your.email@example.com",
+      "subject": "What's this about?",
+      "message": "Tell me about your project or inquiry..."
+    },
+    "errors": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required",
+      "messageTooShort": "Message must be at least 10 characters",
+      "submitFailed": "Failed to send message. Please try again."
+    },
+    "sending": "SENDING...",
+    "submit": "[ SEND MESSAGE ]",
+    "success": {
+      "title": "Message Sent Successfully!",
+      "body": "> Message delivered. Expect response within 24 hours."
+    }
+  },
+  "methods": {
+    "title": "Contact Methods",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location"
+  },
+  "availability": {
+    "title": "Availability Status",
+    "status": "Available for new projects",
+    "responseTime": "Response time: Within 24 hours",
+    "timezone": "Time zone: WAT (UTC+1)"
+  },
+  "social": {
+    "title": "Connect With Me"
+  },
+  "footer": {
+    "thanks": "Thank you for visiting!",
+    "line1": "I'm always interested in discussing new opportunities and challenging projects.",
+    "line2": "Let's build something amazing together.",
+    "connection": "Connection established. Awaiting your message..."
+  }
+}

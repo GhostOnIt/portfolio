@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { ExternalLink, Github, Filter } from 'lucide-react';
 import { PROJECTS_BY_CATEGORY } from '../data/portfolio';
 
 export const Projects = () => {
+  const { t } = useTranslation('projects');
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filters = [
-    { id: 'all', label: 'All Projects', count: PROJECTS_BY_CATEGORY.all.length },
-    { id: 'devops', label: 'DevOps', count: PROJECTS_BY_CATEGORY.devops.length },
-    { id: 'fullstack', label: 'Full-Stack', count: PROJECTS_BY_CATEGORY.fullstack.length },
+    { id: 'all', label: t('filters.all'), count: PROJECTS_BY_CATEGORY.all.length },
+    { id: 'devops', label: t('filters.devops'), count: PROJECTS_BY_CATEGORY.devops.length },
+    { id: 'fullstack', label: t('filters.fullstack'), count: PROJECTS_BY_CATEGORY.fullstack.length },
   ];
 
   const getProjects = () => {
@@ -21,8 +23,8 @@ export const Projects = () => {
     <div className="min-h-screen bg-bg-page">
       {/* Terminal Header */}
       <TerminalHeader
-        command="docker ps -a"
-        description="Listing deployed projects and applications"
+        command={t('terminal.command')}
+        description={t('terminal.description')}
       />
 
       {/* Filter Tabs */}
@@ -89,7 +91,7 @@ export const Projects = () => {
                         ? 'bg-green-500/20 text-green-500 border border-green-500/30'
                         : 'bg-blue-500/20 text-blue-500 border border-blue-500/30'
                     }`}>
-                      {project.category === 'devops' ? 'DevOps' : 'Full-Stack'}
+                      {project.category === 'devops' ? t('badge.devops') : t('badge.fullstack')}
                     </span>
                   </div>
                 </div>
@@ -98,12 +100,12 @@ export const Projects = () => {
                 <div className="p-6 space-y-4">
                   {/* Title */}
                   <h3 className="font-mono text-xl font-bold text-primary-500 group-hover:text-primary-400 transition-colors">
-                    {project.title}
+                    {t(`items.${project.id}.title`)}
                   </h3>
 
                   {/* Description */}
                   <p className="text-neutral-200 text-sm leading-relaxed line-clamp-3">
-                    {project.description}
+                    {t(`items.${project.id}.description`)}
                   </p>
 
                   {/* Technologies */}
@@ -118,7 +120,7 @@ export const Projects = () => {
                     ))}
                     {project.technologies.length > 4 && (
                       <span className="px-2 py-1 bg-neutral-800 text-neutral-400 text-xs rounded border border-neutral-700">
-                        +{project.technologies.length - 4} more
+                        {t('more', { count: project.technologies.length - 4 })}
                       </span>
                     )}
                   </div>
@@ -132,7 +134,7 @@ export const Projects = () => {
                       className="flex items-center space-x-2 text-neutral-400 hover:text-primary-500 transition-colors group/btn"
                     >
                       <Github size={16} className="group-hover/btn:scale-110 transition-transform" />
-                      <span className="text-sm font-mono">Code</span>
+                      <span className="text-sm font-mono">{t('links.code')}</span>
                     </a>
                     
                     {project.websiteLink && (
@@ -143,7 +145,7 @@ export const Projects = () => {
                         className="flex items-center space-x-2 text-neutral-400 hover:text-primary-500 transition-colors group/btn"
                       >
                         <ExternalLink size={16} className="group-hover/btn:scale-110 transition-transform" />
-                        <span className="text-sm font-mono">Live</span>
+                        <span className="text-sm font-mono">{t('links.live')}</span>
                       </a>
                     )}
                   </div>
@@ -160,7 +162,7 @@ export const Projects = () => {
               className="text-center py-24"
             >
               <div className="font-mono text-4xl text-neutral-600 mb-4">404</div>
-              <div className="text-neutral-400">No projects found in this category.</div>
+              <div className="text-neutral-400">{t('empty')}</div>
             </motion.div>
           )}
         </div>
@@ -183,19 +185,19 @@ export const Projects = () => {
               
               <div className="space-y-2 text-neutral-200">
                 <div className="flex justify-between">
-                  <span>Total Projects:</span>
+                  <span>{t('summary.total')}</span>
                   <span className="text-primary-500">{PROJECTS_BY_CATEGORY.all.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>DevOps Projects:</span>
+                  <span>{t('summary.devops')}</span>
                   <span className="text-primary-500">{PROJECTS_BY_CATEGORY.devops.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Full-Stack Projects:</span>
+                  <span>{t('summary.fullstack')}</span>
                   <span className="text-primary-500">{PROJECTS_BY_CATEGORY.fullstack.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Technologies Used:</span>
+                  <span>{t('summary.technologies')}</span>
                   <span className="text-primary-500">
                     {new Set(PROJECTS_BY_CATEGORY.all.flatMap(p => p.technologies)).size}+
                   </span>
@@ -205,7 +207,7 @@ export const Projects = () => {
               <div className="pt-4 border-t border-neutral-700 text-sm text-neutral-400">
                 <div className="flex items-center space-x-2">
                   <span className="text-accent-500">$</span>
-                  <span>echo "Each project demonstrates real-world implementation of cloud-native architecture and modern development practices"</span>
+                  <span>echo "{t('summary.echo')}"</span>
                 </div>
               </div>
             </div>
@@ -224,11 +226,10 @@ export const Projects = () => {
             className="bg-gradient-to-br from-bg-elevated to-bg-surface border border-primary-500/20 p-12 rounded-2xl shadow-glow"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-6">
-              Interested in Collaboration?
+              {t('cta.title')}
             </h2>
             <p className="text-xl text-neutral-200 mb-8 leading-relaxed">
-              These projects showcase my expertise in DevOps and full-stack development. 
-              Let's discuss how we can work together on your next project.
+              {t('cta.body')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -238,14 +239,14 @@ export const Projects = () => {
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-bg-surface font-semibold rounded-lg hover:bg-primary-700 transition-all duration-200 shadow-glow hover:shadow-card-hover"
               >
                 <Github className="mr-2 h-5 w-5" />
-                View All Projects
+                {t('cta.viewAll')}
               </a>
               <a
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-neutral-600 text-neutral-200 hover:border-primary-500 hover:text-primary-500 font-semibold rounded-lg transition-all duration-200"
               >
                 <ExternalLink className="mr-2 h-5 w-5" />
-                Start a Project
+                {t('cta.start')}
               </a>
             </div>
           </motion.div>

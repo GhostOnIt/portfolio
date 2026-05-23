@@ -1,0 +1,53 @@
+{
+  "header": {
+    "subtitle": "Des projets concrets illustrant des solutions innovantes, un impact mesurable et l'excellence technique en DevOps, infrastructure cloud et développement full-stack"
+  },
+  "stats": {
+    "completed": "Projets réalisés",
+    "costReduction": "Réduction des coûts cloud",
+    "costReductionChange": "Migration AWS Ginov",
+    "serversMigrated": "Serveurs migrés",
+    "serversMigratedChange": "Flotte NodeJS / React"
+  },
+  "filters": {
+    "all": "Tous"
+  },
+  "featured": "À la une",
+  "featuredProject": "Projet à la une",
+  "timeline": {
+    "startDate": "Date de début",
+    "duration": "Durée",
+    "completion": "Achèvement"
+  },
+  "tabs": {
+    "overview": "Aperçu",
+    "solution": "Solution",
+    "results": "Résultats"
+  },
+  "sections": {
+    "challenge": "Défi",
+    "technologies": "Technologies utilisées",
+    "architecture": "Pattern d'architecture",
+    "solutionApproach": "Approche de la solution",
+    "impactResults": "Impact & résultats"
+  },
+  "metrics": {
+    "deploymentTime": "Temps de déploiement",
+    "cost": "Coût",
+    "performance": "Performance",
+    "availability": "Disponibilité",
+    "scalability": "Scalabilité",
+    "before": "Avant",
+    "after": "Après",
+    "improvement": "Amélioration",
+    "reduction": "Réduction",
+    "uptime": "Temps de fonctionnement",
+    "capacity": "Capacité",
+    "performanceGain": "Gain de performance"
+  },
+  "cta": {
+    "body": "Discutons de la façon dont nous pouvons transformer votre infrastructure et obtenir des résultats similaires pour votre organisation.",
+    "start": "Lancer votre projet",
+    "downloadPdf": "Télécharger l'étude de cas (PDF)"
+  }
+}

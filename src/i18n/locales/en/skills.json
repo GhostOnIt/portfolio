@@ -1,0 +1,107 @@
+{
+  "terminal": {
+    "command": "ls -la skills/",
+    "description": "Exploring technical expertise across cloud, development, and DevOps domains"
+  },
+  "expertise": {
+    "title": "Technical Expertise",
+    "subtitle": "Comprehensive skill set spanning cloud infrastructure, development, and DevOps practices"
+  },
+  "explorer": {
+    "title": "Interactive Skill Explorer",
+    "subtitle": "Use terminal commands to explore my skills in detail",
+    "ready": "Skills Explorer ready. Type 'help' to list commands, or 'man <command>' for details.",
+    "readyInput": "ready for input...",
+    "processing": "processing...",
+    "placeholder": "enter command..."
+  },
+  "categories": {
+    "cloud": "Cloud Platforms",
+    "containers": "Container & Orchestration",
+    "infrastructure": "Infrastructure as Code",
+    "os": "Operating Systems",
+    "devops": "DevOps & Automation",
+    "development": "Development Stack",
+    "database": "Databases"
+  },
+  "quickCommands": {
+    "whoami": "Who am I?",
+    "top": "Top skills",
+    "tree": "Category tree",
+    "stats": "Skills summary"
+  },
+  "help": [
+    "Available commands:",
+    "  help                Show this list of commands",
+    "  man <command>       Show detailed manual for a command",
+    "  whoami              Print portfolio owner identity",
+    "  ls [category]       List skills in a category (or list categories)",
+    "  cat <skill>         Show details for a specific skill",
+    "  top [n]             Show top N skills by proficiency (default: 5)",
+    "  find <keyword>      Search skills by name or category",
+    "  stats               Show overall skill statistics",
+    "  tree                Show category tree of all skills",
+    "  levels              Show the proficiency level scale",
+    "  contact             Show contact information",
+    "  history             Show recent commands",
+    "  echo <text>         Print text back to the terminal",
+    "  clear               Clear the terminal screen",
+    "",
+    "Examples:",
+    "  ls cloud            List cloud skills",
+    "  cat AWS             Show AWS details",
+    "  top 3               Show top 3 skills",
+    "  find docker         Search for \"docker\"",
+    "  man tree            Read the manual for tree"
+  ],
+  "levels": [
+    "Proficiency Levels:",
+    "  Beginner     (0-39%)   Familiar, learning in progress",
+    "  Intermediate (40-69%)  Practical experience on real tasks",
+    "  Advanced     (70-89%)  Production usage, can mentor others",
+    "  Expert       (90-100%) Deep expertise, design-level decisions"
+  ],
+  "whoami": {
+    "role": "DevOps Engineer @ Akieni",
+    "location": "Pointe-Noire / Brazzaville, Republic of Congo",
+    "status": "Status: Available for new opportunities",
+    "tip": "Tip: run \"contact\" for details, \"stats\" for a skill summary."
+  },
+  "output": {
+    "manUsage": "Usage: man <command>",
+    "typeHelp": "Type \"help\" to list available commands.",
+    "noManual": "No manual entry for \"{{target}}\".",
+    "categoryHeading": "{{title}} ({{count}}):",
+    "unknownCategory": "Unknown category: \"{{category}}\"",
+    "availableCategories": "Available categories:",
+    "lsTip": "Tip: run \"ls <category>\" to list its skills.",
+    "catUsage": "Usage: cat <skill>",
+    "catTip": "Tip: run \"tree\" or \"ls\" to discover skill names.",
+    "skillLabel": "Skill:",
+    "categoryLabel": "Category:",
+    "proficiencyLabel": "Proficiency:",
+    "iconLabel": "Icon:",
+    "skillNotFound": "Skill \"{{name}}\" not found.",
+    "findTip": "Tip: run \"find {{name}}\" to search by substring.",
+    "topHeading": "Top {{count}} skills by proficiency:",
+    "findUsage": "Usage: find <keyword>",
+    "findDesc": "Searches skills by name or category (case-insensitive).",
+    "matchesHeading": "Matches for \"{{query}}\" ({{count}}):",
+    "noMatches": "No skill matches \"{{query}}\".",
+    "statsHeading": "Skill statistics:",
+    "statsTotal": "Total skills:",
+    "statsCategories": "Categories:",
+    "statsAverage": "Average level:",
+    "statsHighest": "Highest:",
+    "statsByCategory": "By category:",
+    "skillsSuffix": "skills",
+    "contactHeading": "Contact:",
+    "contactEmail": "Email:",
+    "contactPhone": "Phone:",
+    "contactLocation": "Location:",
+    "socialHeading": "Social:",
+    "historyHeading": "Recent commands:",
+    "historyEmpty": "No history yet — start typing commands.",
+    "commandNotFound": "Command not found: {{cmd}}"
+  }
+}

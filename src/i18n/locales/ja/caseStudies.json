@@ -1,0 +1,53 @@
+{
+  "header": {
+    "subtitle": "DevOps、クラウドインフラ、フルスタック開発にわたる、革新的なソリューション、測定可能な成果、技術的卓越性を示す実プロジェクト"
+  },
+  "stats": {
+    "completed": "完了プロジェクト",
+    "costReduction": "クラウドコスト削減",
+    "costReductionChange": "Ginov AWS 移行",
+    "serversMigrated": "移行済みサーバー",
+    "serversMigratedChange": "NodeJS / React 群"
+  },
+  "filters": {
+    "all": "すべて"
+  },
+  "featured": "注目",
+  "featuredProject": "注目プロジェクト",
+  "timeline": {
+    "startDate": "開始日",
+    "duration": "期間",
+    "completion": "完了"
+  },
+  "tabs": {
+    "overview": "概要",
+    "solution": "ソリューション",
+    "results": "成果"
+  },
+  "sections": {
+    "challenge": "課題",
+    "technologies": "使用技術",
+    "architecture": "アーキテクチャパターン",
+    "solutionApproach": "ソリューションのアプローチ",
+    "impactResults": "インパクトと成果"
+  },
+  "metrics": {
+    "deploymentTime": "デプロイ時間",
+    "cost": "コスト",
+    "performance": "パフォーマンス",
+    "availability": "可用性",
+    "scalability": "スケーラビリティ",
+    "before": "前",
+    "after": "後",
+    "improvement": "改善",
+    "reduction": "削減",
+    "uptime": "稼働率",
+    "capacity": "キャパシティ",
+    "performanceGain": "パフォーマンス向上"
+  },
+  "cta": {
+    "body": "あなたのインフラをどう変革し、組織に同様の成果をもたらせるか、ぜひお話ししましょう。",
+    "start": "プロジェクトを始める",
+    "downloadPdf": "ケーススタディ PDF をダウンロード"
+  }
+}

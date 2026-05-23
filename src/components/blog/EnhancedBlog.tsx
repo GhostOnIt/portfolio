@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   BookOpen, 
   Calendar, 
@@ -274,9 +275,10 @@ Security with Terraform is less about clever tricks and more about making the sa
   }
 ];
 
-const categories = ['All', 'DevOps', 'Cloud Infrastructure'];
+const categories = ['DevOps', 'Cloud Infrastructure'];
 
 const EnhancedBlog: React.FC = () => {
+  const { t } = useTranslation('blog');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [view, setView] = useState<'grid' | 'list'>('grid');
@@ -354,7 +356,7 @@ const EnhancedBlog: React.FC = () => {
             TECH_BLOG.EXE
           </h1>
           <p className="text-green-200 text-lg max-w-2xl mx-auto">
-            Insights, tutorials, and best practices from the world of DevOps, Cloud Infrastructure, and Full-Stack Development
+            {t('header.subtitle')}
           </p>
         </motion.div>
 
@@ -366,31 +368,31 @@ const EnhancedBlog: React.FC = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
         >
           <StatsCard
-            title="Total Articles"
+            title={t('stats.totalArticles')}
             value="4"
             icon={<BookOpen className="w-6 h-6" />}
             color="completed"
           />
           <StatsCard
-            title="Total Views"
+            title={t('stats.totalViews')}
             value={totalViewsFormatted}
-            change="Real-time tracking"
+            change={t('stats.totalViewsChange')}
             icon={<Eye className="w-6 h-6" />}
             color="completed"
             trend="up"
           />
           <StatsCard
-            title="Engagement Rate"
+            title={t('stats.engagementRate')}
             value="72%"
-            change="Active readership"
+            change={t('stats.engagementChange')}
             icon={<Heart className="w-6 h-6" />}
             color="completed"
             trend="up"
           />
           <StatsCard
-            title="Avg. Read Time"
+            title={t('stats.avgReadTime')}
             value="8 min"
-            change="Industry average: 7 min"
+            change={t('stats.avgReadChange')}
             icon={<Clock className="w-6 h-6" />}
             color="completed"
             trend="up"
@@ -406,7 +408,7 @@ const EnhancedBlog: React.FC = () => {
         >
           <h2 className="text-2xl font-bold mb-6 text-green-400 flex items-center gap-2">
             <Star className="w-6 h-6" />
-            Featured Articles
+            {t('featured.title')}
           </h2>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -420,7 +422,7 @@ const EnhancedBlog: React.FC = () => {
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
                     <TechBadge name={post.category} category={post.category} size="sm" />
-                    <span className="text-xs text-yellow-400 font-medium">⭐ Featured</span>
+                    <span className="text-xs text-yellow-400 font-medium">⭐ {t('featured.badge')}</span>
                   </div>
                   
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">
@@ -437,6 +439,7 @@ const EnhancedBlog: React.FC = () => {
                       likes={post.likes}
                       comments={post.comments}
                       featured={post.featured}
+                      featuredLabel={t('featured.badge')}
                     />
                     
                     <div className="flex items-center gap-4 text-xs text-gray-500">
@@ -469,7 +472,7 @@ const EnhancedBlog: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search articles..."
+              placeholder={t('filters.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-green-400"
@@ -480,6 +483,7 @@ const EnhancedBlog: React.FC = () => {
             categories={categories}
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
+            allLabel={t('filters.all')}
           />
           
           <ViewToggle view={view} onViewChange={setView} />
@@ -489,9 +493,9 @@ const EnhancedBlog: React.FC = () => {
             onChange={(e) => setSortBy(e.target.value as 'date' | 'views' | 'likes')}
             className="px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-green-400"
           >
-            <option value="date">Latest</option>
-            <option value="views">Most Viewed</option>
-            <option value="likes">Most Liked</option>
+            <option value="date">{t('filters.sortLatest')}</option>
+            <option value="views">{t('filters.sortViews')}</option>
+            <option value="likes">{t('filters.sortLikes')}</option>
           </select>
         </motion.div>
 
@@ -526,7 +530,7 @@ const EnhancedBlog: React.FC = () => {
                         post.difficulty === 'Intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
                         'bg-red-500/20 text-red-400'
                       }`}>
-                        {post.difficulty}
+                        {t(`difficulty.${post.difficulty}`)}
                       </span>
                       {post.featured && (
                         <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -547,6 +551,7 @@ const EnhancedBlog: React.FC = () => {
                     likes={post.likes}
                     comments={post.comments}
                     featured={post.featured}
+                    featuredLabel={t('featured.badge')}
                   />
                   
                   <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-700">
@@ -577,8 +582,8 @@ const EnhancedBlog: React.FC = () => {
             className="text-center py-12"
           >
             <BookOpen className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">No articles found</h3>
-            <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+            <h3 className="text-xl font-semibold text-gray-400 mb-2">{t('empty.title')}</h3>
+            <p className="text-gray-500">{t('empty.body')}</p>
           </motion.div>
         )}
 
@@ -593,22 +598,22 @@ const EnhancedBlog: React.FC = () => {
             STAY_UPDATED.EXE
           </h2>
           <p className="text-green-200 mb-6 max-w-2xl mx-auto">
-            Subscribe to get the latest DevOps insights, tutorials, and best practices delivered to your inbox.
+            {t('newsletter.body')}
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder={t('newsletter.placeholder')}
               className="flex-1 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-green-400"
             />
             <InteractiveButton variant="primary">
-              Subscribe
+              {t('newsletter.subscribe')}
             </InteractiveButton>
           </div>
-          
+
           <p className="text-xs text-gray-400 mt-3">
-            No spam, unsubscribe at any time.
+            {t('newsletter.disclaimer')}
           </p>
         </motion.section>
 
@@ -638,7 +643,7 @@ const EnhancedBlog: React.FC = () => {
                         selectedPost.difficulty === 'Intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
                         'bg-red-500/20 text-red-400'
                       }`}>
-                        {selectedPost.difficulty}
+                        {t(`difficulty.${selectedPost.difficulty}`)}
                       </span>
                       {selectedPost.featured && (
                         <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -667,7 +672,7 @@ const EnhancedBlog: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-1">
                       <Eye className="w-4 h-4" />
-                      <span>{getPostViews(selectedPost)} views</span>
+                      <span>{getPostViews(selectedPost)} {t('modal.views')}</span>
                     </div>
                   </div>
                 </div>

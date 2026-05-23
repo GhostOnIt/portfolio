@@ -1,0 +1,52 @@
+{
+  "terminal": {
+    "command": "docker ps -a",
+    "description": "Liste des projets et applications déployés"
+  },
+  "filters": {
+    "all": "Tous les projets",
+    "devops": "DevOps",
+    "fullstack": "Full-Stack"
+  },
+  "badge": {
+    "devops": "DevOps",
+    "fullstack": "Full-Stack"
+  },
+  "more": "+{{count}} de plus",
+  "links": {
+    "code": "Code",
+    "live": "Démo"
+  },
+  "empty": "Aucun projet trouvé dans cette catégorie.",
+  "summary": {
+    "total": "Total des projets :",
+    "devops": "Projets DevOps :",
+    "fullstack": "Projets Full-Stack :",
+    "technologies": "Technologies utilisées :",
+    "echo": "Chaque projet illustre une mise en œuvre concrète d'architecture cloud-native et de pratiques de développement modernes"
+  },
+  "cta": {
+    "title": "Envie de collaborer ?",
+    "body": "Ces projets démontrent mon expertise en DevOps et en développement full-stack. Discutons de la façon dont nous pourrions travailler ensemble sur votre prochain projet.",
+    "viewAll": "Voir tous les projets",
+    "start": "Lancer un projet"
+  },
+  "items": {
+    "awsMigration": {
+      "title": "Migration Cloud AWS & optimisation des coûts",
+      "description": "Pilotage de la migration de plus de 230 instances d'applications NodeJS et React, d'une infrastructure on-premise vers le Cloud AWS chez Ginov Digital Congo. Réduction des dépenses cloud de 40 % grâce au right-sizing, aux instances réservées et à la rationalisation de l'architecture. Travail sur EC2, S3, EBS, CodeCommit, Route 53 et CloudFormation."
+    },
+    "gitops": {
+      "title": "Plateforme GitOps avec ArgoCD & Kubernetes",
+      "description": "Plateforme GitOps de qualité production chez Akieni, déployant des microservices sur Kubernetes via ArgoCD, avec configuration déclarative, synchronisation automatisée et rollbacks auditables. Les pipelines provisionnent et mettent à jour l'infrastructure via des workflows Terraform plan/apply déclenchés depuis Git."
+    },
+    "terraform": {
+      "title": "Infrastructure as Code avec Terraform",
+      "description": "Base de code Terraform modulaire provisionnant une infrastructure AWS multi-environnements avec des modules réutilisables, un état distant et des workflows plan/apply pilotés par la CI. Conçue pour garder les environnements dev, staging et production cohérents et auditables."
+    },
+    "automationToolkit": {
+      "title": "Boîte à outils d'automatisation DevOps",
+      "description": "Suite de plus de 40 outils Python et Bash développés chez Ginov pour automatiser le déploiement, l'administration et le monitoring de services web sur AWS. Réduction du travail opérationnel répétitif et raccourcissement du temps d'onboarding des nouveaux ingénieurs rejoignant la plateforme."
+    }
+  }
+}

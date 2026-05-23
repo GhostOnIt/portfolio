@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
 import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, ExternalLink, CheckCircle } from 'lucide-react';
 import { CONTACT } from '../data/portfolio';
 
 export const Contact = () => {
+  const { t } = useTranslation('contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,23 +22,23 @@ export const Contact = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('form.errors.nameRequired');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('form.errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
+      newErrors.email = t('form.errors.emailInvalid');
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
+      newErrors.subject = t('form.errors.subjectRequired');
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t('form.errors.messageRequired');
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+      newErrors.message = t('form.errors.messageTooShort');
     }
 
     setErrors(newErrors);
@@ -78,7 +80,7 @@ export const Contact = () => {
         throw new Error(data.error || 'Form submission failed');
       }
     } catch (error) {
-      setErrors({ submit: 'Failed to send message. Please try again.' });
+      setErrors({ submit: t('form.errors.submitFailed') });
     } finally {
       setIsSubmitting(false);
     }
@@ -97,21 +99,21 @@ export const Contact = () => {
   const contactMethods = [
     {
       icon: Mail,
-      label: 'Email',
+      label: t('methods.email'),
       value: CONTACT.email,
       href: `mailto:${CONTACT.email}`,
       color: 'text-blue-500',
     },
     {
       icon: Phone,
-      label: 'Phone',
+      label: t('methods.phone'),
       value: CONTACT.phoneNo,
       href: `tel:${CONTACT.phoneNo}`,
       color: 'text-green-500',
     },
     {
       icon: MapPin,
-      label: 'Location',
+      label: t('methods.location'),
       value: CONTACT.address,
       href: '#',
       color: 'text-purple-500',
@@ -143,8 +145,8 @@ export const Contact = () => {
     <div className="min-h-screen bg-bg-page">
       {/* Terminal Header */}
       <TerminalHeader
-        command="ping contact.server"
-        description="Establishing connection to communication endpoint"
+        command={t('terminal.command')}
+        description={t('terminal.description')}
       />
 
       <section className="py-24">
@@ -161,7 +163,7 @@ export const Contact = () => {
               <div className="bg-bg-surface border border-neutral-700 rounded-xl p-8 shadow-card">
                 <div className="mb-8">
                   <h2 className="font-mono text-2xl font-bold text-primary-500 mb-4">
-                    Send Message
+                    {t('form.heading')}
                   </h2>
                   <div className="font-mono text-sm text-accent-500">
                     <span>$</span>
@@ -177,10 +179,10 @@ export const Contact = () => {
                   >
                     <CheckCircle size={64} className="text-primary-500 mx-auto mb-4" />
                     <h3 className="font-mono text-xl font-semibold text-primary-500 mb-2">
-                      Message Sent Successfully!
+                      {t('form.success.title')}
                     </h3>
                     <Typewriter
-                      text="> Message delivered. Expect response within 24 hours."
+                      text={t('form.success.body')}
                       delay={50}
                       className="text-neutral-400 text-sm"
                     />
@@ -191,7 +193,7 @@ export const Contact = () => {
                     <div>
                       <label className="block font-mono text-sm text-accent-500 mb-2">
                         <span className="text-primary-500 mr-2">&gt;</span>
-                        name
+                        {t('form.labels.name')}
                       </label>
                       <input
                         type="text"
@@ -199,7 +201,7 @@ export const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className={`w-full bg-bg-elevated border ${errors.name ? 'border-red-500' : 'border-neutral-700'} rounded-md px-4 py-3 text-neutral-200 placeholder-neutral-600 font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors`}
-                        placeholder="Your full name"
+                        placeholder={t('form.placeholders.name')}
                       />
                       {errors.name && (
                         <p className="text-red-500 text-sm mt-2">{errors.name}</p>
@@ -210,7 +212,7 @@ export const Contact = () => {
                     <div>
                       <label className="block font-mono text-sm text-accent-500 mb-2">
                         <span className="text-primary-500 mr-2">&gt;</span>
-                        email
+                        {t('form.labels.email')}
                       </label>
                       <input
                         type="email"
@@ -218,7 +220,7 @@ export const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         className={`w-full bg-bg-elevated border ${errors.email ? 'border-red-500' : 'border-neutral-700'} rounded-md px-4 py-3 text-neutral-200 placeholder-neutral-600 font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors`}
-                        placeholder="your.email@example.com"
+                        placeholder={t('form.placeholders.email')}
                       />
                       {errors.email && (
                         <p className="text-red-500 text-sm mt-2">{errors.email}</p>
@@ -229,7 +231,7 @@ export const Contact = () => {
                     <div>
                       <label className="block font-mono text-sm text-accent-500 mb-2">
                         <span className="text-primary-500 mr-2">&gt;</span>
-                        subject
+                        {t('form.labels.subject')}
                       </label>
                       <input
                         type="text"
@@ -237,7 +239,7 @@ export const Contact = () => {
                         value={formData.subject}
                         onChange={handleChange}
                         className={`w-full bg-bg-elevated border ${errors.subject ? 'border-red-500' : 'border-neutral-700'} rounded-md px-4 py-3 text-neutral-200 placeholder-neutral-600 font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors`}
-                        placeholder="What's this about?"
+                        placeholder={t('form.placeholders.subject')}
                       />
                       {errors.subject && (
                         <p className="text-red-500 text-sm mt-2">{errors.subject}</p>
@@ -248,7 +250,7 @@ export const Contact = () => {
                     <div>
                       <label className="block font-mono text-sm text-accent-500 mb-2">
                         <span className="text-primary-500 mr-2">&gt;</span>
-                        message
+                        {t('form.labels.message')}
                       </label>
                       <textarea
                         name="message"
@@ -256,7 +258,7 @@ export const Contact = () => {
                         onChange={handleChange}
                         rows={6}
                         className={`w-full bg-bg-elevated border ${errors.message ? 'border-red-500' : 'border-neutral-700'} rounded-md px-4 py-3 text-neutral-200 placeholder-neutral-600 font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none`}
-                        placeholder="Tell me about your project or inquiry..."
+                        placeholder={t('form.placeholders.message')}
                       />
                       {errors.message && (
                         <p className="text-red-500 text-sm mt-2">{errors.message}</p>
@@ -291,12 +293,12 @@ export const Contact = () => {
                       {isSubmitting ? (
                         <div className="flex items-center justify-center space-x-2">
                           <div className="w-5 h-5 border-2 border-neutral-400 border-t-transparent rounded-full animate-spin" />
-                          <span>SENDING...</span>
+                          <span>{t('form.sending')}</span>
                         </div>
                       ) : (
                         <div className="flex items-center justify-center space-x-2">
                           <Send size={20} />
-                          <span>[ SEND MESSAGE ]</span>
+                          <span>{t('form.submit')}</span>
                         </div>
                       )}
                     </button>
@@ -316,7 +318,7 @@ export const Contact = () => {
               {/* Contact Methods */}
               <div className="bg-bg-elevated border border-neutral-700 rounded-xl p-6">
                 <h3 className="font-mono text-lg font-semibold text-primary-500 mb-6">
-                  Contact Methods
+                  {t('methods.title')}
                 </h3>
                 <div className="space-y-4">
                   {contactMethods.map((method) => {
@@ -339,16 +341,16 @@ export const Contact = () => {
               {/* Availability Status */}
               <div className="bg-bg-elevated border border-neutral-700 rounded-xl p-6">
                 <h3 className="font-mono text-lg font-semibold text-primary-500 mb-6">
-                  Availability Status
+                  {t('availability.title')}
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-primary-500 rounded-full animate-pulse" />
-                    <span className="font-mono text-sm text-neutral-200">Available for new projects</span>
+                    <span className="font-mono text-sm text-neutral-200">{t('availability.status')}</span>
                   </div>
                   <div className="text-sm text-neutral-400">
-                    <div className="mb-2">Response time: Within 24 hours</div>
-                    <div>Time zone: WAT (UTC+1)</div>
+                    <div className="mb-2">{t('availability.responseTime')}</div>
+                    <div>{t('availability.timezone')}</div>
                   </div>
                 </div>
               </div>
@@ -356,7 +358,7 @@ export const Contact = () => {
               {/* Social Links */}
               <div className="bg-bg-elevated border border-neutral-700 rounded-xl p-6">
                 <h3 className="font-mono text-lg font-semibold text-primary-500 mb-6">
-                  Connect With Me
+                  {t('social.title')}
                 </h3>
                 <div className="grid grid-cols-3 gap-4">
                   {socialLinks.map((link) => {
@@ -392,18 +394,18 @@ export const Contact = () => {
             className="bg-bg-surface border border-neutral-700 rounded-xl p-8 font-mono"
           >
             <div className="text-accent-500 mb-4">
-              $ echo "Thank you for visiting!"
+              $ echo "{t('footer.thanks')}"
             </div>
             <div className="space-y-2 text-neutral-200">
-              <p>I'm always interested in discussing new opportunities and challenging projects.</p>
+              <p>{t('footer.line1')}</p>
               <p className="text-primary-500">
-                Let's build something amazing together.
+                {t('footer.line2')}
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-neutral-700 text-sm text-neutral-400">
               <div className="flex items-center justify-center space-x-2">
                 <ExternalLink size={16} />
-                <span>Connection established. Awaiting your message...</span>
+                <span>{t('footer.connection')}</span>
               </div>
             </div>
           </motion.div>

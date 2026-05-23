@@ -1,0 +1,43 @@
+{
+  "header": {
+    "subtitle": "DevOps、クラウドインフラ、フルスタック開発の世界からの知見、チュートリアル、ベストプラクティス"
+  },
+  "stats": {
+    "totalArticles": "記事総数",
+    "totalViews": "総閲覧数",
+    "totalViewsChange": "リアルタイム計測",
+    "engagementRate": "エンゲージメント率",
+    "engagementChange": "活発な読者層",
+    "avgReadTime": "平均読了時間",
+    "avgReadChange": "業界平均：7分"
+  },
+  "featured": {
+    "title": "注目の記事",
+    "badge": "注目"
+  },
+  "filters": {
+    "all": "すべて",
+    "searchPlaceholder": "記事を検索...",
+    "sortLatest": "最新",
+    "sortViews": "閲覧数順",
+    "sortLikes": "いいね順"
+  },
+  "difficulty": {
+    "Beginner": "初級",
+    "Intermediate": "中級",
+    "Advanced": "上級"
+  },
+  "empty": {
+    "title": "記事が見つかりません",
+    "body": "検索条件やフィルターを調整してみてください"
+  },
+  "newsletter": {
+    "body": "最新の DevOps の知見、チュートリアル、ベストプラクティスをメールでお届けします。",
+    "placeholder": "メールアドレスを入力",
+    "subscribe": "購読する",
+    "disclaimer": "スパムはありません。いつでも購読を解除できます。"
+  },
+  "modal": {
+    "views": "ビュー"
+  }
+}

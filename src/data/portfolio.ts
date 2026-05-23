@@ -47,6 +47,7 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
+    id: 'awsMigration',
     title: 'AWS Cloud Migration & Cost Optimization',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     description: 'Led the migration of 230+ NodeJS and React application instances from on-premise infrastructure to AWS Cloud at Ginov Digital Congo. Reduced cloud service expenses by 40% through right-sizing, reserved instances, and architecture rationalization. Worked across EC2, S3, EBS, CodeCommit, Route 53, and CloudFormation.',
@@ -56,6 +57,7 @@ export const PROJECTS = [
     websiteLink: '',
   },
   {
+    id: 'gitops',
     title: 'GitOps Platform with ArgoCD & Kubernetes',
     image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     description: 'Production-grade GitOps platform at Akieni deploying microservices to Kubernetes via ArgoCD, with declarative configuration, automated sync, and audit-friendly rollbacks. Pipelines provision and update infrastructure through Terraform plan/apply workflows triggered from Git.',
@@ -65,6 +67,7 @@ export const PROJECTS = [
     websiteLink: '',
   },
   {
+    id: 'terraform',
     title: 'Terraform Infrastructure as Code',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     description: 'Modular Terraform codebase provisioning multi-environment AWS infrastructure with reusable modules, remote state, and CI-driven plan/apply workflows. Designed to keep dev, staging, and production environments consistent and auditable.',
@@ -74,6 +77,7 @@ export const PROJECTS = [
     websiteLink: '',
   },
   {
+    id: 'automationToolkit',
     title: 'DevOps Automation Toolkit',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     description: 'Suite of 40+ Python and Bash tools built at Ginov to automate deployment, administration, and monitoring of web services on AWS. Reduced operational toil and shortened onboarding time for new engineers joining the platform.',

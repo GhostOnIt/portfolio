@@ -1,0 +1,53 @@
+{
+  "header": {
+    "subtitle": "Real-world projects showcasing innovative solutions, measurable impact, and technical excellence across DevOps, Cloud Infrastructure, and Full-Stack Development"
+  },
+  "stats": {
+    "completed": "Projects Completed",
+    "costReduction": "Cloud Cost Reduction",
+    "costReductionChange": "Ginov AWS migration",
+    "serversMigrated": "Servers Migrated",
+    "serversMigratedChange": "NodeJS / React fleet"
+  },
+  "filters": {
+    "all": "All"
+  },
+  "featured": "Featured",
+  "featuredProject": "Featured Project",
+  "timeline": {
+    "startDate": "Start Date",
+    "duration": "Duration",
+    "completion": "Completion"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "solution": "Solution",
+    "results": "Results"
+  },
+  "sections": {
+    "challenge": "Challenge",
+    "technologies": "Technologies Used",
+    "architecture": "Architecture Pattern",
+    "solutionApproach": "Solution Approach",
+    "impactResults": "Impact & Results"
+  },
+  "metrics": {
+    "deploymentTime": "Deployment Time",
+    "cost": "Cost",
+    "performance": "Performance",
+    "availability": "Availability",
+    "scalability": "Scalability",
+    "before": "Before",
+    "after": "After",
+    "improvement": "Improvement",
+    "reduction": "Reduction",
+    "uptime": "Uptime",
+    "capacity": "Capacity",
+    "performanceGain": "Performance Gain"
+  },
+  "cta": {
+    "body": "Let's discuss how we can transform your infrastructure and achieve similar results for your organization.",
+    "start": "Start Your Project",
+    "downloadPdf": "Download Case Study PDF"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "terminal": {
+    "command": "ping contact.server",
+    "description": "通信エンドポイントへの接続を確立中"
+  },
+  "form": {
+    "heading": "メッセージを送信",
+    "labels": {
+      "name": "名前",
+      "email": "メール",
+      "subject": "件名",
+      "message": "メッセージ"
+    },
+    "placeholders": {
+      "name": "氏名",
+      "email": "your.email@example.com",
+      "subject": "ご用件は？",
+      "message": "プロジェクトやお問い合わせについてお聞かせください..."
+    },
+    "errors": {
+      "nameRequired": "名前は必須です",
+      "emailRequired": "メールアドレスは必須です",
+      "emailInvalid": "有効なメールアドレスを入力してください",
+      "subjectRequired": "件名は必須です",
+      "messageRequired": "メッセージは必須です",
+      "messageTooShort": "メッセージは10文字以上で入力してください",
+      "submitFailed": "メッセージの送信に失敗しました。もう一度お試しください。"
+    },
+    "sending": "送信中...",
+    "submit": "[ メッセージを送信 ]",
+    "success": {
+      "title": "メッセージを送信しました！",
+      "body": "> メッセージを配信しました。24時間以内に返信します。"
+    }
+  },
+  "methods": {
+    "title": "連絡方法",
+    "email": "メール",
+    "phone": "電話",
+    "location": "所在地"
+  },
+  "availability": {
+    "title": "対応状況",
+    "status": "新規プロジェクト受付中",
+    "responseTime": "返信時間：24時間以内",
+    "timezone": "タイムゾーン：WAT (UTC+1)"
+  },
+  "social": {
+    "title": "つながりましょう"
+  },
+  "footer": {
+    "thanks": "ご訪問ありがとうございます！",
+    "line1": "新しい機会や挑戦的なプロジェクトについて、いつでもお話しできることを楽しみにしています。",
+    "line2": "一緒に素晴らしいものを作りましょう。",
+    "connection": "接続が確立されました。メッセージをお待ちしています..."
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   FileText, 
   Calendar, 
@@ -180,6 +181,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 const EnhancedCaseStudies: React.FC = () => {
+  const { t } = useTranslation('caseStudies');
   const [selectedStudy, setSelectedStudy] = useState<number | null>(caseStudies[0]?.id || null);
   const [activeTab, setActiveTab] = useState<'overview' | 'solution' | 'results'>('overview');
 
@@ -216,7 +218,7 @@ const EnhancedCaseStudies: React.FC = () => {
             CASE_STUDIES.EXE
           </h1>
           <p className="text-green-200 text-lg max-w-3xl mx-auto">
-            Real-world projects showcasing innovative solutions, measurable impact, and technical excellence across DevOps, Cloud Infrastructure, and Full-Stack Development
+            {t('header.subtitle')}
           </p>
         </motion.div>
 
@@ -228,23 +230,23 @@ const EnhancedCaseStudies: React.FC = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12"
         >
           <StatsCard
-            title="Projects Completed"
+            title={t('stats.completed')}
             value="3"
             icon={<FileText className="w-6 h-6" />}
             color="completed"
           />
           <StatsCard
-            title="Cloud Cost Reduction"
+            title={t('stats.costReduction')}
             value="40%"
-            change="Ginov AWS migration"
+            change={t('stats.costReductionChange')}
             icon={<TrendingUp className="w-6 h-6" />}
             color="completed"
             trend="up"
           />
           <StatsCard
-            title="Servers Migrated"
+            title={t('stats.serversMigrated')}
             value="230+"
-            change="NodeJS / React fleet"
+            change={t('stats.serversMigratedChange')}
             icon={<Target className="w-6 h-6" />}
             color="completed"
             trend="up"
@@ -271,7 +273,7 @@ const EnhancedCaseStudies: React.FC = () => {
                     : 'bg-gray-800 text-green-400 border border-gray-600 hover:border-green-400'
                 }`}
               >
-                {category}
+                {category === 'All' ? t('filters.all') : category}
               </motion.button>
             ))}
           </div>
@@ -292,7 +294,7 @@ const EnhancedCaseStudies: React.FC = () => {
                 <div className="flex items-center justify-between mb-2">
                   <TechBadge name={study.category} category={study.category} size="sm" />
                   {study.featured && (
-                    <span className="text-xs text-yellow-400 font-medium">⭐ Featured</span>
+                    <span className="text-xs text-yellow-400 font-medium">⭐ {t('featured')}</span>
                   )}
                 </div>
                 
@@ -332,7 +334,7 @@ const EnhancedCaseStudies: React.FC = () => {
                     <div className="flex items-center gap-3 mb-2">
                       <TechBadge name={selectedStudyData.category} category={selectedStudyData.category} />
                       {selectedStudyData.featured && (
-                        <span className="text-xs text-yellow-400 font-medium">⭐ Featured Project</span>
+                        <span className="text-xs text-yellow-400 font-medium">⭐ {t('featuredProject')}</span>
                       )}
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -347,17 +349,17 @@ const EnhancedCaseStudies: React.FC = () => {
                     <div className="text-center">
                       <Calendar className="w-5 h-5 mx-auto mb-1 text-green-400" />
                       <p className="font-medium">{selectedStudyData.timeline.start}</p>
-                      <p className="text-xs">Start Date</p>
+                      <p className="text-xs">{t('timeline.startDate')}</p>
                     </div>
                     <div className="text-center">
                       <Clock className="w-5 h-5 mx-auto mb-1 text-green-400" />
                       <p className="font-medium">{selectedStudyData.timeline.duration}</p>
-                      <p className="text-xs">Duration</p>
+                      <p className="text-xs">{t('timeline.duration')}</p>
                     </div>
                     <div className="text-center">
                       <CheckCircle className="w-5 h-5 mx-auto mb-1 text-green-400" />
                       <p className="font-medium">{selectedStudyData.timeline.end}</p>
-                      <p className="text-xs">Completion</p>
+                      <p className="text-xs">{t('timeline.completion')}</p>
                     </div>
                   </div>
                 </div>
@@ -366,9 +368,9 @@ const EnhancedCaseStudies: React.FC = () => {
               {/* Tab Navigation */}
               <div className="flex border-b border-gray-700">
                 {[
-                  { id: 'overview', label: 'Overview', icon: <FileText className="w-4 h-4" /> },
-                  { id: 'solution', label: 'Solution', icon: <Code className="w-4 h-4" /> },
-                  { id: 'results', label: 'Results', icon: <BarChart3 className="w-4 h-4" /> }
+                  { id: 'overview', label: t('tabs.overview'), icon: <FileText className="w-4 h-4" /> },
+                  { id: 'solution', label: t('tabs.solution'), icon: <Code className="w-4 h-4" /> },
+                  { id: 'results', label: t('tabs.results'), icon: <BarChart3 className="w-4 h-4" /> }
                 ].map((tab) => (
                   <motion.button
                     key={tab.id}
@@ -401,7 +403,7 @@ const EnhancedCaseStudies: React.FC = () => {
                         <div>
                           <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
                             <AlertCircle className="w-5 h-5" />
-                            Challenge
+                            {t('sections.challenge')}
                           </h3>
                           <p className="text-gray-300 leading-relaxed">
                             {selectedStudyData.challenge}
@@ -412,7 +414,7 @@ const EnhancedCaseStudies: React.FC = () => {
                           <div>
                             <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
                               <Settings className="w-5 h-5" />
-                              Technologies Used
+                              {t('sections.technologies')}
                             </h3>
                             <div className="flex flex-wrap gap-2">
                               {selectedStudyData.technologies.map((tech) => (
@@ -424,7 +426,7 @@ const EnhancedCaseStudies: React.FC = () => {
                           <div>
                             <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
                               <GitBranch className="w-5 h-5" />
-                              Architecture Pattern
+                              {t('sections.architecture')}
                             </h3>
                             <p className="text-gray-300 mb-2 font-medium">
                               {selectedStudyData.architecture?.pattern}
@@ -445,7 +447,7 @@ const EnhancedCaseStudies: React.FC = () => {
                       <div className="space-y-6">
                         <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
                           <Code className="w-5 h-5" />
-                          Solution Approach
+                          {t('sections.solutionApproach')}
                         </h3>
                         <div className="space-y-4">
                           {selectedStudyData.solution.map((item, index) => (
@@ -472,7 +474,7 @@ const EnhancedCaseStudies: React.FC = () => {
                       <div className="space-y-6">
                         <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
                           <BarChart3 className="w-5 h-5" />
-                          Impact & Results
+                          {t('sections.impactResults')}
                         </h3>
 
                         {/* Impact Metrics */}
@@ -481,23 +483,23 @@ const EnhancedCaseStudies: React.FC = () => {
                             <div key={key} className="bg-gray-800/50 rounded-lg p-4">
                               <div className="flex items-center gap-2 mb-3">
                                 {getIconForMetric(key)}
-                                <h4 className="font-bold text-white capitalize">
-                                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                                <h4 className="font-bold text-white">
+                                  {t(`metrics.${key}`)}
                                 </h4>
                               </div>
                               
                               {key === 'deploymentTime' && metrics && (metrics as any).before && (metrics as any).after && (metrics as any).improvement && (
                                 <div className="space-y-2">
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">Before</span>
+                                    <span className="text-gray-400">{t('metrics.before')}</span>
                                     <span className="text-red-400">{(metrics as any).before}</span>
                                   </div>
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">After</span>
+                                    <span className="text-gray-400">{t('metrics.after')}</span>
                                     <span className="text-green-400">{(metrics as any).after}</span>
                                   </div>
                                   <div className="flex justify-between text-sm font-bold">
-                                    <span className="text-gray-400">Improvement</span>
+                                    <span className="text-gray-400">{t('metrics.improvement')}</span>
                                     <span className="text-green-400">-{(metrics as any).improvement}</span>
                                   </div>
                                 </div>
@@ -506,15 +508,15 @@ const EnhancedCaseStudies: React.FC = () => {
                               {key === 'cost' && metrics && (metrics as any).before && (metrics as any).after && (metrics as any).reduction && (
                                 <div className="space-y-2">
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">Before</span>
+                                    <span className="text-gray-400">{t('metrics.before')}</span>
                                     <span className="text-red-400">{(metrics as any).before}</span>
                                   </div>
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">After</span>
+                                    <span className="text-gray-400">{t('metrics.after')}</span>
                                     <span className="text-green-400">{(metrics as any).after}</span>
                                   </div>
                                   <div className="flex justify-between text-sm font-bold">
-                                    <span className="text-gray-400">Reduction</span>
+                                    <span className="text-gray-400">{t('metrics.reduction')}</span>
                                     <span className="text-green-400">-{(metrics as any).reduction}</span>
                                   </div>
                                 </div>
@@ -523,11 +525,11 @@ const EnhancedCaseStudies: React.FC = () => {
                               {key === 'availability' && metrics && 'uptime' in metrics && (
                                 <div className="space-y-2">
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">Uptime</span>
+                                    <span className="text-gray-400">{t('metrics.uptime')}</span>
                                     <span className="text-green-400">{(metrics as any).uptime}</span>
                                   </div>
                                   <div className="flex justify-between text-sm font-bold">
-                                    <span className="text-gray-400">Improvement</span>
+                                    <span className="text-gray-400">{t('metrics.improvement')}</span>
                                     <span className="text-green-400">+{(metrics as any).improvement}</span>
                                   </div>
                                 </div>
@@ -536,11 +538,11 @@ const EnhancedCaseStudies: React.FC = () => {
                               {key === 'scalability' && metrics && 'capacity' in metrics && (
                                 <div className="space-y-2">
                                   <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">Capacity</span>
+                                    <span className="text-gray-400">{t('metrics.capacity')}</span>
                                     <span className="text-green-400">{(metrics as any).capacity}</span>
                                   </div>
                                   <div className="flex justify-between text-sm font-bold">
-                                    <span className="text-gray-400">Improvement</span>
+                                    <span className="text-gray-400">{t('metrics.improvement')}</span>
                                     <span className="text-green-400">+{(metrics as any).improvement}</span>
                                   </div>
                                 </div>
@@ -549,7 +551,7 @@ const EnhancedCaseStudies: React.FC = () => {
                               {key === 'performance' && metrics && 'improvement' in metrics && (
                                 <div className="space-y-2">
                                   <div className="flex justify-between text-sm font-bold">
-                                    <span className="text-gray-400">Performance Gain</span>
+                                    <span className="text-gray-400">{t('metrics.performanceGain')}</span>
                                     <span className="text-green-400">+{(metrics as any).improvement}</span>
                                   </div>
                                 </div>
@@ -593,16 +595,16 @@ const EnhancedCaseStudies: React.FC = () => {
             INTERESTED_IN_A_SIMILAR_PROJECT?
           </h2>
           <p className="text-green-200 mb-6 max-w-2xl mx-auto">
-            Let's discuss how we can transform your infrastructure and achieve similar results for your organization.
+            {t('cta.body')}
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <InteractiveButton variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
-              Start Your Project
+              {t('cta.start')}
             </InteractiveButton>
-            
+
             <InteractiveButton variant="outline" icon={<FileText className="w-4 h-4" />}>
-              Download Case Study PDF
+              {t('cta.downloadPdf')}
             </InteractiveButton>
           </div>
         </motion.section>

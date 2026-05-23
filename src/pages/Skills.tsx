@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
 import { Cloud, Container, Code, Database, Terminal as TerminalIcon, Server } from 'lucide-react';
 import { SKILLS, SKILLS_BY_CATEGORY, CONTACT } from '../data/portfolio';
 
 export const Skills = () => {
+  const { t } = useTranslation('skills');
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
   const [currentInput, setCurrentInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -14,86 +16,53 @@ export const Skills = () => {
   const categories = [
     {
       id: 'cloud',
-      title: 'Cloud Platforms',
+      title: t('categories.cloud'),
       icon: Cloud,
       skills: SKILLS_BY_CATEGORY.cloud,
       color: 'text-blue-500',
     },
     {
       id: 'containers',
-      title: 'Container & Orchestration',
+      title: t('categories.containers'),
       icon: Container,
       skills: SKILLS_BY_CATEGORY.containers,
       color: 'text-blue-400',
     },
     {
       id: 'infrastructure',
-      title: 'Infrastructure as Code',
+      title: t('categories.infrastructure'),
       icon: TerminalIcon,
       skills: SKILLS_BY_CATEGORY.infrastructure,
       color: 'text-purple-500',
     },
     {
       id: 'os',
-      title: 'Operating Systems',
+      title: t('categories.os'),
       icon: Server,
       skills: SKILLS_BY_CATEGORY.os,
       color: 'text-yellow-500',
     },
     {
       id: 'devops',
-      title: 'DevOps & Automation',
+      title: t('categories.devops'),
       icon: Code,
       skills: SKILLS_BY_CATEGORY.devops,
       color: 'text-green-500',
     },
     {
       id: 'development',
-      title: 'Development Stack',
+      title: t('categories.development'),
       icon: Code,
       skills: SKILLS_BY_CATEGORY.development,
       color: 'text-orange-500',
     },
     {
       id: 'database',
-      title: 'Databases',
+      title: t('categories.database'),
       icon: Database,
       skills: SKILLS_BY_CATEGORY.database,
       color: 'text-red-500',
     },
-  ];
-
-  const helpLines = [
-    'Available commands:',
-    '  help                Show this list of commands',
-    '  man <command>       Show detailed manual for a command',
-    '  whoami              Print portfolio owner identity',
-    '  ls [category]       List skills in a category (or list categories)',
-    '  cat <skill>         Show details for a specific skill',
-    '  top [n]             Show top N skills by proficiency (default: 5)',
-    '  find <keyword>      Search skills by name or category',
-    '  stats               Show overall skill statistics',
-    '  tree                Show category tree of all skills',
-    '  levels              Show the proficiency level scale',
-    '  contact             Show contact information',
-    '  history             Show recent commands',
-    '  echo <text>         Print text back to the terminal',
-    '  clear               Clear the terminal screen',
-    '',
-    'Examples:',
-    '  ls cloud            List cloud skills',
-    '  cat AWS             Show AWS details',
-    '  top 3               Show top 3 skills',
-    '  find docker         Search for "docker"',
-    '  man tree            Read the manual for tree',
-  ];
-
-  const levelsLines = [
-    'Proficiency Levels:',
-    '  Beginner     (0-39%)   Familiar, learning in progress',
-    '  Intermediate (40-69%)  Practical experience on real tasks',
-    '  Advanced     (70-89%)  Production usage, can mentor others',
-    '  Expert       (90-100%) Deep expertise, design-level decisions',
   ];
 
   const manPages: Record<string, string[]> = {
@@ -292,17 +261,17 @@ export const Skills = () => {
 
       switch (mainCmd) {
         case 'help':
-          output = helpLines;
+          output = t('help', { returnObjects: true }) as string[];
           break;
 
         case 'man': {
           const target = args[1];
           if (!target) {
-            output = ['Usage: man <command>', 'Type "help" to list available commands.'];
+            output = [t('output.manUsage'), t('output.typeHelp')];
           } else if (manPages[target]) {
             output = manPages[target];
           } else {
-            output = [`No manual entry for "${target}".`, 'Type "help" to list available commands.'];
+            output = [t('output.noManual', { target }), t('output.typeHelp')];
           }
           break;
         }
@@ -310,11 +279,11 @@ export const Skills = () => {
         case 'whoami':
           output = [
             'Alexandre Sonicka Gomah',
-            'DevOps Engineer @ Akieni',
-            'Pointe-Noire / Brazzaville, Republic of Congo',
-            'Status: Available for new opportunities',
+            t('whoami.role'),
+            t('whoami.location'),
+            t('whoami.status'),
             '',
-            'Tip: run "contact" for details, "stats" for a skill summary.',
+            t('whoami.tip'),
           ];
           break;
 
@@ -323,22 +292,22 @@ export const Skills = () => {
           if (category && categories.find(c => c.id === category)) {
             const cat = categories.find(c => c.id === category)!;
             output = [
-              `${cat.title} (${cat.skills.length}):`,
+              t('output.categoryHeading', { title: cat.title, count: cat.skills.length }),
               ...cat.skills.map(s => formatSkillLine(s.name, s.level)),
             ];
           } else if (category) {
             output = [
-              `Unknown category: "${category}"`,
+              t('output.unknownCategory', { category }),
               '',
-              'Available categories:',
+              t('output.availableCategories'),
               ...categories.map(c => `  ${c.id.padEnd(16)} ${c.title}`),
             ];
           } else {
             output = [
-              'Available categories:',
+              t('output.availableCategories'),
               ...categories.map(c => `  ${c.id.padEnd(16)} ${c.title} (${c.skills.length})`),
               '',
-              'Tip: run "ls <category>" to list its skills.',
+              t('output.lsTip'),
             ];
           }
           break;
@@ -347,21 +316,21 @@ export const Skills = () => {
         case 'cat': {
           const skillName = args.slice(1).join(' ');
           if (!skillName) {
-            output = ['Usage: cat <skill>', 'Tip: run "tree" or "ls" to discover skill names.'];
+            output = [t('output.catUsage'), t('output.catTip')];
             break;
           }
           const skill = SKILLS.find(s => s.name.toLowerCase() === skillName);
           if (skill) {
             output = [
-              `Skill:        ${skill.name}`,
-              `Category:     ${skill.category}`,
-              `Proficiency:  ${skill.level}%`,
-              `Icon:         ${skill.icon}`,
+              `${t('output.skillLabel')} ${skill.name}`,
+              `${t('output.categoryLabel')} ${t(`categories.${skill.category}`)}`,
+              `${t('output.proficiencyLabel')} ${skill.level}%`,
+              `${t('output.iconLabel')} ${skill.icon}`,
             ];
           } else {
             output = [
-              `Skill "${skillName}" not found.`,
-              'Tip: run "find ' + skillName + '" to search by substring.',
+              t('output.skillNotFound', { name: skillName }),
+              t('output.findTip', { name: skillName }),
             ];
           }
           break;
@@ -372,7 +341,7 @@ export const Skills = () => {
           const n = Number.isFinite(requested) && requested > 0 ? requested : 5;
           const sorted = [...SKILLS].sort((a, b) => b.level - a.level).slice(0, n);
           output = [
-            `Top ${sorted.length} skills by proficiency:`,
+            t('output.topHeading', { count: sorted.length }),
             '',
             ...sorted.map((s, i) => `  ${String(i + 1).padStart(2)}. ${formatSkillLine(s.name, s.level, s.category).trim()}`),
           ];
@@ -383,15 +352,15 @@ export const Skills = () => {
         case 'grep': {
           const query = args.slice(1).join(' ');
           if (!query) {
-            output = ['Usage: find <keyword>', 'Searches skills by name or category (case-insensitive).'];
+            output = [t('output.findUsage'), t('output.findDesc')];
             break;
           }
           const matches = SKILLS.filter(s =>
             s.name.toLowerCase().includes(query) || s.category.toLowerCase().includes(query)
           );
           output = matches.length
-            ? [`Matches for "${query}" (${matches.length}):`, '', ...matches.map(s => formatSkillLine(s.name, s.level, s.category))]
-            : [`No skill matches "${query}".`];
+            ? [t('output.matchesHeading', { query, count: matches.length }), '', ...matches.map(s => formatSkillLine(s.name, s.level, s.category))]
+            : [t('output.noMatches', { query })];
           break;
         }
 
@@ -400,14 +369,14 @@ export const Skills = () => {
           const avg = Math.round(SKILLS.reduce((acc, s) => acc + s.level, 0) / total);
           const highest = [...SKILLS].sort((a, b) => b.level - a.level)[0];
           output = [
-            'Skill statistics:',
-            `  Total skills:       ${total}`,
-            `  Categories:         ${categories.length}`,
-            `  Average level:      ${avg}%`,
-            `  Highest:            ${highest.name} (${highest.level}%)`,
+            t('output.statsHeading'),
+            `  ${t('output.statsTotal')} ${total}`,
+            `  ${t('output.statsCategories')} ${categories.length}`,
+            `  ${t('output.statsAverage')} ${avg}%`,
+            `  ${t('output.statsHighest')} ${highest.name} (${highest.level}%)`,
             '',
-            'By category:',
-            ...categories.map(c => `  ${c.id.padEnd(16)} ${String(c.skills.length).padStart(2)} skills`),
+            t('output.statsByCategory'),
+            ...categories.map(c => `  ${c.id.padEnd(16)} ${String(c.skills.length).padStart(2)} ${t('output.skillsSuffix')}`),
           ];
           break;
         }
@@ -430,17 +399,17 @@ export const Skills = () => {
         }
 
         case 'levels':
-          output = levelsLines;
+          output = t('levels', { returnObjects: true }) as string[];
           break;
 
         case 'contact':
           output = [
-            'Contact:',
-            `  Email:      ${CONTACT.email}`,
-            `  Phone:      ${CONTACT.phoneNo}`,
-            `  Location:   ${CONTACT.address}`,
+            t('output.contactHeading'),
+            `  ${t('output.contactEmail')} ${CONTACT.email}`,
+            `  ${t('output.contactPhone')} ${CONTACT.phoneNo}`,
+            `  ${t('output.contactLocation')} ${CONTACT.address}`,
             '',
-            'Social:',
+            t('output.socialHeading'),
             `  GitHub:     ${CONTACT.social.github}`,
             `  LinkedIn:   ${CONTACT.social.linkedin}`,
           ];
@@ -449,8 +418,8 @@ export const Skills = () => {
         case 'history': {
           const recent = history.slice(-10);
           output = recent.length
-            ? ['Recent commands:', ...recent.map((h, i) => `  ${String(i + 1).padStart(2)}  ${h}`)]
-            : ['No history yet — start typing commands.'];
+            ? [t('output.historyHeading'), ...recent.map((h, i) => `  ${String(i + 1).padStart(2)}  ${h}`)]
+            : [t('output.historyEmpty')];
           break;
         }
 
@@ -465,7 +434,7 @@ export const Skills = () => {
           return;
 
         default:
-          output = [`Command not found: ${cmd}`, 'Type "help" to list available commands.'];
+          output = [t('output.commandNotFound', { cmd }), t('output.typeHelp')];
       }
 
       setTerminalOutput(prev => [...prev, `$ ${input}`, ...output, '']);
@@ -484,8 +453,8 @@ export const Skills = () => {
     <div className="min-h-screen bg-bg-page">
       {/* Terminal Header */}
       <TerminalHeader
-        command="ls -la skills/"
-        description="Exploring technical expertise across cloud, development, and DevOps domains"
+        command={t('terminal.command')}
+        description={t('terminal.description')}
       />
 
       {/* Skills Categories */}
@@ -499,10 +468,10 @@ export const Skills = () => {
             className="text-center mb-16"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
-              Technical Expertise
+              {t('expertise.title')}
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              Comprehensive skill set spanning cloud infrastructure, development, and DevOps practices
+              {t('expertise.subtitle')}
             </p>
           </motion.div>
 
@@ -575,10 +544,10 @@ export const Skills = () => {
             className="text-center mb-16"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
-              Interactive Skill Explorer
+              {t('explorer.title')}
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              Use terminal commands to explore my skills in detail
+              {t('explorer.subtitle')}
             </p>
           </motion.div>
 
@@ -605,13 +574,13 @@ export const Skills = () => {
                 {terminalOutput.length === 0 && (
                   <div className="text-neutral-400">
                     <Typewriter
-                      text="Skills Explorer ready. Type 'help' to list commands, or 'man <command>' for details."
+                      text={t('explorer.ready')}
                       delay={30}
                       className="block"
                     />
                     <div className="mt-4">
                       <span className="text-accent-500">$</span>
-                      <span className="text-neutral-400 ml-2">ready for input...</span>
+                      <span className="text-neutral-400 ml-2">{t('explorer.readyInput')}</span>
                     </div>
                   </div>
                 )}
@@ -649,7 +618,7 @@ export const Skills = () => {
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                     className="flex-1 bg-transparent text-primary-500 outline-none placeholder-neutral-600 font-mono"
-                    placeholder={isProcessing ? "processing..." : "enter command..."}
+                    placeholder={isProcessing ? t('explorer.processing') : t('explorer.placeholder')}
                     disabled={isProcessing}
                   />
                   {!isProcessing && (
@@ -662,10 +631,10 @@ export const Skills = () => {
             {/* Quick Commands */}
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { cmd: 'whoami', desc: 'Who am I?' },
-                { cmd: 'top 5', desc: 'Top skills' },
-                { cmd: 'tree', desc: 'Category tree' },
-                { cmd: 'stats', desc: 'Skills summary' },
+                { cmd: 'whoami', desc: t('quickCommands.whoami') },
+                { cmd: 'top 5', desc: t('quickCommands.top') },
+                { cmd: 'tree', desc: t('quickCommands.tree') },
+                { cmd: 'stats', desc: t('quickCommands.stats') },
               ].map((item) => (
                 <button
                   key={item.cmd}

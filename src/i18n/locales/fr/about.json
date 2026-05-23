@@ -5,8 +5,8 @@
   },
   "bio": {
     "filename": "bio.txt",
-    "greeting": "Bonjour, je suis Alexandre Sonicka Gomah — AWS DevOps Engineer basé à Brazzaville, Congo.",
-    "p1": "Je suis un ingénieur AWS DevOps avec une approche Platform Engineering. Mon rôle n'est pas de câbler des pipelines pour le plaisir — c'est de construire les systèmes et conventions qui rendent les développeurs autour de moi plus rapides, plus autonomes et plus confiants en production.",
+    "greeting": "Bonjour, je suis Alexandre Sonicka Gomah — DevOps Engineer basé à Brazzaville, Congo.",
+    "p1": "Je suis un ingénieur DevOps avec une approche Platform Engineering. Mon rôle n'est pas de câbler des pipelines pour le plaisir — c'est de construire les systèmes et conventions qui rendent les développeurs autour de moi plus rapides, plus autonomes et plus confiants en production.",
     "p2": "Chez Akieni, cela se traduit par une plateforme GitOps self-service sur Kubernetes (Terraform + ArgoCD) qui transforme un <code>git push</code> en déploiement audité et revu. Cela veut dire que la maîtrise des coûts et la sécurité sont intégrées aux modules que chaque équipe consomme, pas rajoutées après coup. Avant cela, chez Ginov, le même instinct s'est traduit par une réduction de 40 % de la facture cloud sur 230+ instances, et par une suite de 40 outils d'automatisation qui a fait passer l'onboarding de plusieurs semaines à quelques jours.",
     "p3": "Mon parcours — administrateur Linux, stagiaire DBA, développeur PHP full-stack, ingénieur réseau, formateur Linux — m'a appris que le levier n'est pas dans un outil unique. Il est dans les standards : la façon dont les environnements sont façonnés, dont les secrets sont gérés, dont un nouveau service passe de <code>git init</code> à la production en un jour plutôt qu'en six semaines. C'est la couche sur laquelle je travaille.",
     "p4": "Les ingénieurs qui utilisent mes plateformes livrent plus vite, débogguent plus vite et acquièrent au passage des habitudes plus propres. C'est la métrique que j'optimise — pas combien de fichiers YAML j'ai écrits, mais combien de friction j'ai retirée de la journée de quelqu'un d'autre."
@@ -37,7 +37,7 @@
   },
   "timeline": {
     "title": "Parcours professionnel",
-    "subtitle": "D'administrateur Linux et développeur full-stack à AWS DevOps et Platform Engineering",
+    "subtitle": "D'administrateur Linux et développeur full-stack à DevOps et Platform Engineering",
     "items": [
       {
         "year": "2024 - Présent",
@@ -47,7 +47,7 @@
       },
       {
         "year": "2022 - 2024",
-        "title": "AWS DevOps Engineer — Team Lead",
+        "title": "DevOps Engineer — Team Lead",
         "company": "Ginov Digital Congo — Pointe-Noire",
         "description": "Pilotage de la migration de 230+ instances NodeJS/React vers AWS, réduisant la facture cloud de 40 %. Conception de 40+ outils d'automatisation pour le déploiement, l'administration et le monitoring sur EC2, S3, EBS, CodeCommit et Route 53."
       },

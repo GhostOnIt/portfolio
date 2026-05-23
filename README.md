@@ -1,6 +1,6 @@
 # Portfolio — Alexandre Sonicka Gomah
 
-Personal portfolio site for **Alexandre Sonicka Gomah**, AWS DevOps Engineer based in Pointe-Noire, Republic of Congo.
+Personal portfolio site for **Alexandre Sonicka Gomah**, DevOps Engineer based in Pointe-Noire, Republic of Congo.
 
 Built on top of a cyber-terminal-themed React + TypeScript + Vite template, customized with my own profile, experience, and project case studies.
 

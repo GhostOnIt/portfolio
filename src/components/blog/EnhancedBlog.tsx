@@ -70,7 +70,7 @@ const blogPosts: BlogPost[] = [
     content: `
 # Migrating 230+ NodeJS Instances to AWS: A 40% Cost Reduction Story
 
-When I joined Ginov Digital Congo as AWS DevOps Engineer Team Lead, the platform was running 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. The cloud bill was growing fast and visibility was low. Over the following months we drove that bill down by 40% while improving reliability.
+When I joined Ginov Digital Congo as DevOps Engineer Team Lead, the platform was running 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. The cloud bill was growing fast and visibility was low. Over the following months we drove that bill down by 40% while improving reliability.
 
 ## The Starting Point
 

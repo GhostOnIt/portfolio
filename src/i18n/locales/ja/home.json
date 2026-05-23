@@ -2,7 +2,7 @@
   "terminal": {
     "prompt": "whoami"
   },
-  "typewriter": "AWS DevOps Engineer",
+  "typewriter": "DevOps Engineer",
   "subtitle": "コードからクラウドまで、スケーラブルな AWS インフラを構築します。Terraform IaC、ArgoCD による Kubernetes オーケストレーション、CI/CD 自動化を専門とする DevOps エンジニア。複雑な高可用性要件を信頼性のある本番システムに変えます。",
   "stats": {
     "yearsExperience": "経験年数",

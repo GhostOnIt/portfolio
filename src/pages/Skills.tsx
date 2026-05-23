@@ -310,7 +310,7 @@ export const Skills = () => {
         case 'whoami':
           output = [
             'Alexandre Sonicka Gomah',
-            'AWS DevOps Engineer @ Akieni',
+            'DevOps Engineer @ Akieni',
             'Pointe-Noire / Brazzaville, Republic of Congo',
             'Status: Available for new opportunities',
             '',

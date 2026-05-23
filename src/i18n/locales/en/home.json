@@ -2,7 +2,7 @@
   "terminal": {
     "prompt": "whoami"
   },
-  "typewriter": "AWS DevOps Engineer",
+  "typewriter": "DevOps Engineer",
   "subtitle": "Building scalable AWS infrastructures from code to cloud. DevOps Engineer specializing in Terraform IaC, Kubernetes orchestration with ArgoCD, and CI/CD automation — turning complex, high-availability requirements into reliable production systems.",
   "stats": {
     "yearsExperience": "Years Experience",

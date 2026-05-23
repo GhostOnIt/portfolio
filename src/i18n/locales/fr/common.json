@@ -9,7 +9,7 @@
     "contact": "Contact"
   },
   "footer": {
-    "copyright": "© {{year}} Alexandre Sonicka Gomah — AWS DevOps Engineer",
+    "copyright": "© {{year}} Alexandre Sonicka Gomah — DevOps Engineer",
     "builtWith": "Construit avec React, TypeScript et une esthétique Cyber Terminal",
     "status": "Statut : Ouvert aux opportunités",
     "poweredBy": "Propulsé par :"

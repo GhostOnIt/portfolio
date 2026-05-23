@@ -341,7 +341,7 @@ export const Contact = () => {
                   </div>
                   <div className="text-sm text-neutral-400">
                     <div className="mb-2">Response time: Within 24 hours</div>
-                    <div>Time zone: IST (UTC+5:30)</div>
+                    <div>Time zone: WAT (UTC+1)</div>
                   </div>
                 </div>
               </div>

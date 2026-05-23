@@ -63,7 +63,7 @@ export const Footer = () => {
               <span>copyright.txt</span>
             </div>
             <div className="mt-2 space-y-1 text-xs">
-              <p>© {currentYear} DevOps & Cloud Engineer</p>
+              <p>© {currentYear} Alexandre Sonicka Gomah — AWS DevOps Engineer</p>
               <p>Built with React, TypeScript, and Cyber Terminal Aesthetic</p>
               <p className="text-primary-500">Status: Available for opportunities</p>
             </div>

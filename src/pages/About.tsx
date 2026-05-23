@@ -6,17 +6,51 @@ import { Calendar, MapPin, Code, Zap } from 'lucide-react';
 export const About = () => {
   const timeline = [
     {
-      year: '2023 - Present',
-      title: 'Freelance DevOps & Cloud Engineer',
-      company: 'Self-Employed',
+      year: '2024 - Present',
+      title: 'DevOps Engineer',
+      company: 'Akieni — Brazzaville, Congo',
       description:
-        'Working on freelance projects focusing on cloud automation, CI/CD, and container orchestration using AWS, Docker, and Kubernetes.',
-      icon: Code,},
+        'Automating and optimizing cloud infrastructure with Terraform, CI/CD pipelines, and Kubernetes deployments via ArgoCD. Enhancing security and managing AWS cost-efficiency for the platform.',
+      icon: Zap,
+    },
     {
-      year: '2019 - 2023',
-      title: 'Computer Science Graduate',
-      company: 'CVR College Of Engineering',
-      description: 'Bachelor\'s degree with focus on software engineering and cloud computing.',
+      year: '2022 - 2024',
+      title: 'AWS DevOps Engineer — Team Lead',
+      company: 'Ginov Digital Congo — Pointe-Noire',
+      description:
+        'Led migration of 230+ NodeJS/React instances to AWS, reducing cloud expenses by 40%. Built 40+ tools to automate deployment, administration, and monitoring across EC2, S3, EBS, CodeCommit, and Route 53.',
+      icon: Code,
+    },
+    {
+      year: '2020 - 2022',
+      title: 'Technical Manager',
+      company: 'OCSNETWORK — Pointe-Noire',
+      description:
+        'Designed, implemented, and maintained network infrastructures. Supervised technical teams, coordinated deployments, and ensured operational continuity through proactive monitoring and incident response.',
+      icon: MapPin,
+    },
+    {
+      year: '2018 - 2019',
+      title: 'Trainer — Linux System Administration',
+      company: 'NGO YEKOLAB — Pointe-Noire',
+      description:
+        'Designed and delivered LPIC 1 & 2 courses covering system and network configuration, service management, and IT security. Mentored professionals toward autonomy in Linux operations.',
+      icon: Code,
+    },
+    {
+      year: '2016 - 2018',
+      title: 'Full Stack PHP Developer',
+      company: 'KS Programming — Pointe-Noire',
+      description:
+        'Built and maintained dynamic web applications using the CakePHP framework, mentored by a senior PHP developer. Focused on best development practices and database management.',
+      icon: Code,
+    },
+    {
+      year: '2013 - 2016',
+      title: 'License — Networking & Telecommunications',
+      company: "Ecole Africain de Développement — Pointe-Noire",
+      description:
+        'Bachelor\'s degree in computer networking and telecommunications, foundation for a career spanning sysadmin, full-stack, and cloud DevOps.',
       icon: Calendar,
     },
   ];
@@ -67,27 +101,31 @@ export const About = () => {
                 </div>
                 <div className="space-y-4 text-neutral-200 leading-relaxed">
                   <Typewriter
-                    text="Hello, I'm Neeraj Chandra Nakka, and I turn code into production reality."
+                    text="Hello, I'm Alexandre Sonicka Gomah — AWS DevOps Engineer based in Pointe-Noire, Congo."
                     delay={30}
                     className="text-primary-500 font-semibold block mb-4"
                   />
                   <p>
-                    I design, automate, and deploy systems that turn code into production-grade reality. 
-                    My journey began with full-stack development—building web apps with Java, React, and Node.js.
+                    I'm an experienced cloud solutions architect and DevOps engineer with a solid background
+                    in IT and Linux system administration. My expertise lies in designing and implementing scalable
+                    AWS DevOps infrastructures for complex, high-availability environments.
                   </p>
                   <p>
-                    Over time, that foundation evolved into a passion for DevOps and Cloud Engineering, 
-                    where I now focus on crafting scalable infrastructure, clean CI/CD pipelines, and resilient deployments.
+                    Currently at Akieni, I automate and optimize cloud infrastructure with Terraform, ship production
+                    workloads to Kubernetes via ArgoCD, and own AWS security and cost-efficiency for the platform.
+                    Before that, as Team Lead at Ginov Digital Congo, I led the migration of 230+ NodeJS and React
+                    instances to AWS — cutting cloud expenses by 40% — and built 40+ tools automating deployment,
+                    administration, and monitoring.
                   </p>
                   <p>
-                    I work across AWS and Azure, orchestrate containers with Docker and Kubernetes, 
-                    and define infrastructure with Terraform and automation scripts. Behind the command line, 
-                    I'm equally comfortable in version control and workflow automation, using Git, GitHub, 
-                    and GitLab CI/CD to bridge collaboration and delivery.
+                    My journey started with Linux administration and database internships, then expanded through
+                    full-stack PHP development and network engineering before settling on cloud and DevOps. I also
+                    spent a year as a Linux trainer (LPIC 1 & 2) at NGO YEKOLAB — an experience that shaped how I
+                    document, mentor, and onboard teams today.
                   </p>
                   <p className="text-primary-500 font-medium">
-                    For me, DevOps isn't just about speed—it's about precision, repeatability, 
-                    and creating systems that empower developers to ship confidently and innovate faster.
+                    For me, DevOps isn't just about speed — it's about precision, repeatability, and creating systems
+                    that empower developers to ship confidently and innovate faster.
                   </p>
                 </div>
               </div>
@@ -108,19 +146,19 @@ export const About = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-neutral-400">Experience</span>
-                    <span className="text-primary-500 font-mono">1+ years</span>
+                    <span className="text-primary-500 font-mono">9+ years</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Cloud Platforms</span>
-                    <span className="text-primary-500 font-mono">AWS, Azure</span>
+                    <span className="text-neutral-400">Cloud Platform</span>
+                    <span className="text-primary-500 font-mono">AWS</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Projects</span>
-                    <span className="text-primary-500 font-mono">7+ deployed</span>
+                    <span className="text-neutral-400">Servers Migrated</span>
+                    <span className="text-primary-500 font-mono">230+</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-neutral-400">Technologies</span>
-                    <span className="text-primary-500 font-mono">19+ mastered</span>
+                    <span className="text-primary-500 font-mono">20+ mastered</span>
                   </div>
                 </div>
               </div>
@@ -130,7 +168,7 @@ export const About = () => {
                   Specializations
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {['Cloud Architecture', 'CI/CD Pipelines', 'Infrastructure as Code', 'Container Orchestration', 'Microservices'].map((skill) => (
+                  {['AWS Cloud Architecture', 'GitOps with ArgoCD', 'Terraform IaC', 'Kubernetes Operations', 'CI/CD Automation', 'Cost Optimization', 'Linux Administration'].map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 bg-neutral-800 text-neutral-200 text-sm rounded-md border border-neutral-700 hover:border-primary-500/50 transition-colors"
@@ -159,7 +197,7 @@ export const About = () => {
               Career Timeline
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              My journey from full-stack development to DevOps engineering
+              My journey from Linux sysadmin and full-stack development to AWS DevOps engineering
             </p>
           </motion.div>
 

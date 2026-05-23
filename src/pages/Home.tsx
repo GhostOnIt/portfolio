@@ -7,10 +7,10 @@ import { HERO_CONTENT, SKILLS, PROJECTS } from '../data/portfolio';
 
 export const Home = () => {
   const stats = [
-    { label: 'Years Experience', value: '1+' },
-    { label: 'Cloud Platforms', value: '3' },
-    { label: 'Projects Completed', value: '10+' },
-    { label: 'Technologies', value: '19+' },
+    { label: 'Years Experience', value: '9+' },
+    { label: 'Servers Migrated', value: '230+' },
+    { label: 'Cost Reduction', value: '40%' },
+    { label: 'Technologies', value: '20+' },
   ];
 
   const featuredSkills = SKILLS.slice(0, 6);
@@ -37,7 +37,7 @@ export const Home = () => {
 
             {/* Typewriter heading */}
             <div className="font-mono text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight text-primary-500">
-              <Typewriter text="DevOps & Cloud Engineer" delay={80} />
+              <Typewriter text="AWS DevOps Engineer" delay={80} />
               <span className="terminal-cursor ml-2" />
             </div>
 
@@ -200,7 +200,7 @@ export const Home = () => {
                 Start a Project
               </Link>
               <a
-                href="https://github.com/neerajnakka"
+                href="https://github.com/GhostOnIt"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-neutral-600 text-neutral-200 hover:border-primary-500 hover:text-primary-500 font-semibold rounded-lg transition-all duration-200"

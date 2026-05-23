@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
-import { Cloud, Container, Code, Database, Terminal as TerminalIcon } from 'lucide-react';
-import { SKILLS_BY_CATEGORY } from '../data/portfolio';
+import { Cloud, Container, Code, Database, Terminal as TerminalIcon, Server } from 'lucide-react';
+import { SKILLS, SKILLS_BY_CATEGORY, CONTACT } from '../data/portfolio';
 
 export const Skills = () => {
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
   const [currentInput, setCurrentInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
 
   const categories = [
     {
@@ -33,6 +34,13 @@ export const Skills = () => {
       color: 'text-purple-500',
     },
     {
+      id: 'os',
+      title: 'Operating Systems',
+      icon: Server,
+      skills: SKILLS_BY_CATEGORY.os,
+      color: 'text-yellow-500',
+    },
+    {
       id: 'devops',
       title: 'DevOps & Automation',
       icon: Code,
@@ -55,94 +63,415 @@ export const Skills = () => {
     },
   ];
 
-  const commands = {
+  const helpLines = [
+    'Available commands:',
+    '  help                Show this list of commands',
+    '  man <command>       Show detailed manual for a command',
+    '  whoami              Print portfolio owner identity',
+    '  ls [category]       List skills in a category (or list categories)',
+    '  cat <skill>         Show details for a specific skill',
+    '  top [n]             Show top N skills by proficiency (default: 5)',
+    '  find <keyword>      Search skills by name or category',
+    '  stats               Show overall skill statistics',
+    '  tree                Show category tree of all skills',
+    '  levels              Show the proficiency level scale',
+    '  contact             Show contact information',
+    '  history             Show recent commands',
+    '  echo <text>         Print text back to the terminal',
+    '  clear               Clear the terminal screen',
+    '',
+    'Examples:',
+    '  ls cloud            List cloud skills',
+    '  cat AWS             Show AWS details',
+    '  top 3               Show top 3 skills',
+    '  find docker         Search for "docker"',
+    '  man tree            Read the manual for tree',
+  ];
+
+  const levelsLines = [
+    'Proficiency Levels:',
+    '  Beginner     (0-39%)   Familiar, learning in progress',
+    '  Intermediate (40-69%)  Practical experience on real tasks',
+    '  Advanced     (70-89%)  Production usage, can mentor others',
+    '  Expert       (90-100%) Deep expertise, design-level decisions',
+  ];
+
+  const manPages: Record<string, string[]> = {
     help: [
-      'Available commands:',
-      '  ls <category>     - List skills in a category',
-      '  cat <skill>       - Show skill details',
-      '  levels            - Show proficiency levels',
-      '  clear             - Clear terminal',
-      '  help              - Show this help',
+      'NAME',
+      '    help — list available commands',
+      '',
+      'SYNOPSIS',
+      '    help',
+      '',
+      'DESCRIPTION',
+      '    Prints a one-line summary of every command. Use `man <command>`',
+      '    for detailed documentation of a specific command.',
+    ],
+    man: [
+      'NAME',
+      '    man — show detailed manual for a command',
+      '',
+      'SYNOPSIS',
+      '    man <command>',
+      '',
+      'DESCRIPTION',
+      '    Displays a manual page for the given command, with synopsis,',
+      '    description, and examples.',
+      '',
+      'EXAMPLES',
+      '    man cat',
+      '    man find',
+    ],
+    whoami: [
+      'NAME',
+      '    whoami — print portfolio owner identity',
+      '',
+      'SYNOPSIS',
+      '    whoami',
+      '',
+      'DESCRIPTION',
+      '    Prints the current role, employer, location, and availability',
+      '    of the portfolio owner.',
+    ],
+    ls: [
+      'NAME',
+      '    ls — list skills in a category',
+      '',
+      'SYNOPSIS',
+      '    ls [category]',
+      '',
+      'DESCRIPTION',
+      '    Lists skills within a given category. When called without',
+      '    arguments, lists all available skill categories.',
+      '',
+      'EXAMPLES',
+      '    ls',
+      '    ls cloud',
+      '    ls os',
+    ],
+    cat: [
+      'NAME',
+      '    cat — show details for a specific skill',
+      '',
+      'SYNOPSIS',
+      '    cat <skill>',
+      '',
+      'DESCRIPTION',
+      '    Displays category, proficiency level, and icon URL for the',
+      '    given skill. Matching is case-insensitive.',
+      '',
+      'EXAMPLES',
+      '    cat AWS',
+      '    cat terraform',
+      '    cat aws cli',
+    ],
+    top: [
+      'NAME',
+      '    top — show top N skills by proficiency',
+      '',
+      'SYNOPSIS',
+      '    top [n]',
+      '',
+      'DESCRIPTION',
+      '    Sorts all skills by proficiency (descending) and prints the',
+      '    top N entries. Defaults to 5 when no count is given.',
+      '',
+      'EXAMPLES',
+      '    top',
+      '    top 10',
+    ],
+    find: [
+      'NAME',
+      '    find — search skills by keyword',
+      '',
+      'SYNOPSIS',
+      '    find <keyword>',
+      '',
+      'DESCRIPTION',
+      '    Returns every skill whose name or category contains the given',
+      '    keyword (case-insensitive substring match).',
+      '',
+      'EXAMPLES',
+      '    find aws',
+      '    find database',
+    ],
+    stats: [
+      'NAME',
+      '    stats — show overall skill statistics',
+      '',
+      'SYNOPSIS',
+      '    stats',
+      '',
+      'DESCRIPTION',
+      '    Prints total skill count, number of categories, average',
+      '    proficiency, highest-ranked skill, and per-category counts.',
+    ],
+    tree: [
+      'NAME',
+      '    tree — show category tree of all skills',
+      '',
+      'SYNOPSIS',
+      '    tree',
+      '',
+      'DESCRIPTION',
+      '    Displays a hierarchical ASCII view of every category and the',
+      '    skills it contains, with proficiency levels.',
     ],
     levels: [
-      'Proficiency Levels:',
-      '  Beginner (30%)     - Basic understanding',
-      '  Intermediate (60%) - Practical experience',
-      '  Advanced (85%)     - Production usage',
-      '  Expert (100%)      - Deep expertise',
+      'NAME',
+      '    levels — show the proficiency level scale',
+      '',
+      'SYNOPSIS',
+      '    levels',
+      '',
+      'DESCRIPTION',
+      '    Prints the proficiency legend (Beginner, Intermediate,',
+      '    Advanced, Expert) used by every skill.',
     ],
-    clear: () => setTerminalOutput([]),
-    default: (input: string) => [
-      `Command not found: ${input}`,
-      'Type "help" for available commands.',
+    contact: [
+      'NAME',
+      '    contact — show contact information',
+      '',
+      'SYNOPSIS',
+      '    contact',
+      '',
+      'DESCRIPTION',
+      '    Displays email, phone, location, and social profile URLs.',
     ],
+    history: [
+      'NAME',
+      '    history — show recent commands',
+      '',
+      'SYNOPSIS',
+      '    history',
+      '',
+      'DESCRIPTION',
+      '    Prints the last 10 commands typed during this session.',
+    ],
+    echo: [
+      'NAME',
+      '    echo — print text',
+      '',
+      'SYNOPSIS',
+      '    echo <text>',
+      '',
+      'DESCRIPTION',
+      '    Prints the arguments back to the terminal verbatim.',
+      '',
+      'EXAMPLES',
+      '    echo Hello, world!',
+    ],
+    clear: [
+      'NAME',
+      '    clear — clear the terminal screen',
+      '',
+      'SYNOPSIS',
+      '    clear',
+      '',
+      'DESCRIPTION',
+      '    Clears all previous terminal output.',
+    ],
+  };
+
+  const formatSkillLine = (name: string, level: number, category?: string) => {
+    const padded = name.length >= 20 ? `${name} ` : name.padEnd(20);
+    return category ? `  ${padded} ${level}% (${category})` : `  ${padded} ${level}%`;
   };
 
   const executeCommand = (input: string) => {
     setIsProcessing(true);
-    
+    setHistory(prev => [...prev, input]);
+
     const cmd = input.toLowerCase().trim();
-    const args = cmd.split(' ');
+    const args = cmd.split(' ').filter(Boolean);
     const mainCmd = args[0];
 
     setTimeout(() => {
       let output: string[] = [];
-      
+
       switch (mainCmd) {
         case 'help':
-          output = commands.help;
+          output = helpLines;
           break;
-        case 'levels':
-          output = commands.levels;
+
+        case 'man': {
+          const target = args[1];
+          if (!target) {
+            output = ['Usage: man <command>', 'Type "help" to list available commands.'];
+          } else if (manPages[target]) {
+            output = manPages[target];
+          } else {
+            output = [`No manual entry for "${target}".`, 'Type "help" to list available commands.'];
+          }
           break;
-        case 'clear':
-          commands.clear();
-          setIsProcessing(false);
-          return;
-        case 'ls':
+        }
+
+        case 'whoami':
+          output = [
+            'Alexandre Sonicka Gomah',
+            'AWS DevOps Engineer @ Akieni',
+            'Pointe-Noire / Brazzaville, Republic of Congo',
+            'Status: Available for new opportunities',
+            '',
+            'Tip: run "contact" for details, "stats" for a skill summary.',
+          ];
+          break;
+
+        case 'ls': {
           const category = args[1];
           if (category && categories.find(c => c.id === category)) {
             const cat = categories.find(c => c.id === category)!;
             output = [
-              `${cat.title}:`,
-              ...cat.skills.map(skill => `  ${skill.name} (${skill.level}%)`)
+              `${cat.title} (${cat.skills.length}):`,
+              ...cat.skills.map(s => formatSkillLine(s.name, s.level)),
+            ];
+          } else if (category) {
+            output = [
+              `Unknown category: "${category}"`,
+              '',
+              'Available categories:',
+              ...categories.map(c => `  ${c.id.padEnd(16)} ${c.title}`),
             ];
           } else {
             output = [
               'Available categories:',
-              ...categories.map(cat => `  ${cat.id} - ${cat.title}`)
+              ...categories.map(c => `  ${c.id.padEnd(16)} ${c.title} (${c.skills.length})`),
+              '',
+              'Tip: run "ls <category>" to list its skills.',
             ];
           }
           break;
-        case 'cat':
-          const skillName = args.slice(1).join(' ');
-          const skill = SKILLS_BY_CATEGORY.cloud.find(s => s.name.toLowerCase() === skillName) ||
-                       SKILLS_BY_CATEGORY.containers.find(s => s.name.toLowerCase() === skillName) ||
-                       SKILLS_BY_CATEGORY.infrastructure.find(s => s.name.toLowerCase() === skillName) ||
-                       SKILLS_BY_CATEGORY.devops.find(s => s.name.toLowerCase() === skillName) ||
-                       SKILLS_BY_CATEGORY.development.find(s => s.name.toLowerCase() === skillName) ||
-                       SKILLS_BY_CATEGORY.database.find(s => s.name.toLowerCase() === skillName);
+        }
 
+        case 'cat': {
+          const skillName = args.slice(1).join(' ');
+          if (!skillName) {
+            output = ['Usage: cat <skill>', 'Tip: run "tree" or "ls" to discover skill names.'];
+            break;
+          }
+          const skill = SKILLS.find(s => s.name.toLowerCase() === skillName);
           if (skill) {
             output = [
-              `Skill: ${skill.name}`,
-              `Category: ${skill.category}`,
-              `Proficiency: ${skill.level}%`,
-              '',
-              `Icon: ${skill.icon}`,
+              `Skill:        ${skill.name}`,
+              `Category:     ${skill.category}`,
+              `Proficiency:  ${skill.level}%`,
+              `Icon:         ${skill.icon}`,
             ];
           } else {
-            output = [`Skill "${skillName}" not found`];
+            output = [
+              `Skill "${skillName}" not found.`,
+              'Tip: run "find ' + skillName + '" to search by substring.',
+            ];
           }
           break;
+        }
+
+        case 'top': {
+          const requested = parseInt(args[1], 10);
+          const n = Number.isFinite(requested) && requested > 0 ? requested : 5;
+          const sorted = [...SKILLS].sort((a, b) => b.level - a.level).slice(0, n);
+          output = [
+            `Top ${sorted.length} skills by proficiency:`,
+            '',
+            ...sorted.map((s, i) => `  ${String(i + 1).padStart(2)}. ${formatSkillLine(s.name, s.level, s.category).trim()}`),
+          ];
+          break;
+        }
+
+        case 'find':
+        case 'grep': {
+          const query = args.slice(1).join(' ');
+          if (!query) {
+            output = ['Usage: find <keyword>', 'Searches skills by name or category (case-insensitive).'];
+            break;
+          }
+          const matches = SKILLS.filter(s =>
+            s.name.toLowerCase().includes(query) || s.category.toLowerCase().includes(query)
+          );
+          output = matches.length
+            ? [`Matches for "${query}" (${matches.length}):`, '', ...matches.map(s => formatSkillLine(s.name, s.level, s.category))]
+            : [`No skill matches "${query}".`];
+          break;
+        }
+
+        case 'stats': {
+          const total = SKILLS.length;
+          const avg = Math.round(SKILLS.reduce((acc, s) => acc + s.level, 0) / total);
+          const highest = [...SKILLS].sort((a, b) => b.level - a.level)[0];
+          output = [
+            'Skill statistics:',
+            `  Total skills:       ${total}`,
+            `  Categories:         ${categories.length}`,
+            `  Average level:      ${avg}%`,
+            `  Highest:            ${highest.name} (${highest.level}%)`,
+            '',
+            'By category:',
+            ...categories.map(c => `  ${c.id.padEnd(16)} ${String(c.skills.length).padStart(2)} skills`),
+          ];
+          break;
+        }
+
+        case 'tree': {
+          const lines: string[] = ['skills/'];
+          categories.forEach((c, i) => {
+            const isLastCat = i === categories.length - 1;
+            const catBranch = isLastCat ? '└── ' : '├── ';
+            const childIndent = isLastCat ? '    ' : '│   ';
+            lines.push(`${catBranch}${c.title}/  (${c.skills.length})`);
+            c.skills.forEach((s, j) => {
+              const isLastSkill = j === c.skills.length - 1;
+              const skillBranch = isLastSkill ? '└── ' : '├── ';
+              lines.push(`${childIndent}${skillBranch}${s.name} (${s.level}%)`);
+            });
+          });
+          output = lines;
+          break;
+        }
+
+        case 'levels':
+          output = levelsLines;
+          break;
+
+        case 'contact':
+          output = [
+            'Contact:',
+            `  Email:      ${CONTACT.email}`,
+            `  Phone:      ${CONTACT.phoneNo}`,
+            `  Location:   ${CONTACT.address}`,
+            '',
+            'Social:',
+            `  GitHub:     ${CONTACT.social.github}`,
+            `  LinkedIn:   ${CONTACT.social.linkedin}`,
+          ];
+          break;
+
+        case 'history': {
+          const recent = history.slice(-10);
+          output = recent.length
+            ? ['Recent commands:', ...recent.map((h, i) => `  ${String(i + 1).padStart(2)}  ${h}`)]
+            : ['No history yet — start typing commands.'];
+          break;
+        }
+
+        case 'echo':
+          output = [args.slice(1).join(' ')];
+          break;
+
+        case 'clear':
+          setTerminalOutput([]);
+          setCurrentInput('');
+          setIsProcessing(false);
+          return;
+
         default:
-          output = commands.default(cmd);
+          output = [`Command not found: ${cmd}`, 'Type "help" to list available commands.'];
       }
 
       setTerminalOutput(prev => [...prev, `$ ${input}`, ...output, '']);
       setCurrentInput('');
       setIsProcessing(false);
-    }, 500);
+    }, 400);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -293,7 +622,7 @@ export const Skills = () => {
                 {terminalOutput.length === 0 && (
                   <div className="text-neutral-400">
                     <Typewriter
-                      text="Welcome to Skills Explorer. Type 'help' to see available commands."
+                      text="Skills Explorer ready. Type 'help' to list commands, or 'man <command>' for details."
                       delay={30}
                       className="block"
                     />
@@ -350,10 +679,10 @@ export const Skills = () => {
             {/* Quick Commands */}
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { cmd: 'help', desc: 'Show commands' },
-                { cmd: 'ls cloud', desc: 'Cloud skills' },
-                { cmd: 'levels', desc: 'Proficiency guide' },
-                { cmd: 'cat Docker', desc: 'Skill details' },
+                { cmd: 'whoami', desc: 'Who am I?' },
+                { cmd: 'top 5', desc: 'Top skills' },
+                { cmd: 'tree', desc: 'Category tree' },
+                { cmd: 'stats', desc: 'Skills summary' },
               ].map((item) => (
                 <button
                   key={item.cmd}

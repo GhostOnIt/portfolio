@@ -58,18 +58,18 @@ export const About = () => {
   const philosophyPoints = [
     {
       icon: Zap,
-      title: 'Automation First',
-      description: 'Every manual process should be automated, every deployment should be reproducible.',
+      title: 'Developer Experience First',
+      description: 'A platform is judged by how much friction it removes, not by how much YAML it contains. Optimize for the engineer using it.',
     },
     {
       icon: Code,
-      title: 'Infrastructure as Code',
-      description: 'Treat infrastructure with the same discipline as application code.',
+      title: 'Standards over Tools',
+      description: 'Tools come and go — conventions, contracts, and reusable modules are what keep teams shipping consistently.',
     },
     {
       icon: MapPin,
-      title: 'Cloud Native',
-      description: 'Build for the cloud from day one, embrace containerization and orchestration.',
+      title: 'Automation as a Product',
+      description: 'Every pipeline, module, and runbook is a product with users. Treat onboarding, docs, and feedback loops accordingly.',
     },
   ];
 
@@ -101,31 +101,34 @@ export const About = () => {
                 </div>
                 <div className="space-y-4 text-neutral-200 leading-relaxed">
                   <Typewriter
-                    text="Hello, I'm Alexandre Sonicka Gomah — AWS DevOps Engineer based in Pointe-Noire, Congo."
+                    text="Hello, I'm Alexandre Sonicka Gomah — AWS DevOps Engineer based in Brazzaville, Congo."
                     delay={30}
                     className="text-primary-500 font-semibold block mb-4"
                   />
                   <p>
-                    I'm an experienced cloud solutions architect and DevOps engineer with a solid background
-                    in IT and Linux system administration. My expertise lies in designing and implementing scalable
-                    AWS DevOps infrastructures for complex, high-availability environments.
+                    I'm an AWS DevOps engineer with a Platform Engineering lens. My job isn't to wire up pipelines
+                    for their own sake — it's to build the systems and conventions that make the developers around
+                    me faster, more autonomous, and more confident in production.
                   </p>
                   <p>
-                    Currently at Akieni, I automate and optimize cloud infrastructure with Terraform, ship production
-                    workloads to Kubernetes via ArgoCD, and own AWS security and cost-efficiency for the platform.
-                    Before that, as Team Lead at Ginov Digital Congo, I led the migration of 230+ NodeJS and React
-                    instances to AWS — cutting cloud expenses by 40% — and built 40+ tools automating deployment,
-                    administration, and monitoring.
+                    At Akieni, that means a self-service GitOps platform on Kubernetes (Terraform + ArgoCD) that
+                    turns a <span className="font-mono text-primary-500">git push</span> into a reviewed, audited
+                    deploy. It means cost-efficiency and security baked into the modules every team consumes,
+                    not bolted on later. Before that at Ginov, the same instinct showed up as a 40% cloud bill
+                    reduction across 230+ instances and a 40-tool automation suite that shortened onboarding from
+                    weeks to days.
                   </p>
                   <p>
-                    My journey started with Linux administration and database internships, then expanded through
-                    full-stack PHP development and network engineering before settling on cloud and DevOps. I also
-                    spent a year as a Linux trainer (LPIC 1 & 2) at NGO YEKOLAB — an experience that shaped how I
-                    document, mentor, and onboard teams today.
+                    My background — Linux sysadmin, DBA intern, full-stack PHP developer, network engineer,
+                    Linux trainer — taught me that the leverage isn't in any single tool. It's in the standards:
+                    how environments are shaped, how secrets are handled, how a new service gets from
+                    <span className="font-mono text-primary-500"> git init </span>
+                    to production on day one instead of week six. That's the layer I work on.
                   </p>
                   <p className="text-primary-500 font-medium">
-                    For me, DevOps isn't just about speed — it's about precision, repeatability, and creating systems
-                    that empower developers to ship confidently and innovate faster.
+                    Engineers who work with my platforms ship faster, debug faster, and pick up cleaner habits
+                    along the way. That's the metric I optimize for — not how many YAML files I wrote, but how
+                    much friction I removed from somebody else's day.
                   </p>
                 </div>
               </div>
@@ -168,7 +171,7 @@ export const About = () => {
                   Specializations
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {['AWS Cloud Architecture', 'GitOps with ArgoCD', 'Terraform IaC', 'Kubernetes Operations', 'CI/CD Automation', 'Cost Optimization', 'Linux Administration'].map((skill) => (
+                  {['Platform Engineering', 'Developer Experience', 'AWS Cloud Architecture', 'GitOps with ArgoCD', 'Terraform IaC', 'Kubernetes Operations', 'Cost Optimization', 'Linux Administration'].map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 bg-neutral-800 text-neutral-200 text-sm rounded-md border border-neutral-700 hover:border-primary-500/50 transition-colors"
@@ -197,7 +200,7 @@ export const About = () => {
               Career Timeline
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              My journey from Linux sysadmin and full-stack development to AWS DevOps engineering
+              From Linux sysadmin and full-stack development to AWS DevOps and platform engineering
             </p>
           </motion.div>
 
@@ -257,7 +260,7 @@ export const About = () => {
               Tech Philosophy
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              Core principles that guide my approach to software engineering and DevOps
+              Core principles that guide how I build platforms and the developer experience around them
             </p>
           </motion.div>
 

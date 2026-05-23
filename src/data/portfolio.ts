@@ -1,6 +1,6 @@
 export const HERO_CONTENT = "Building scalable AWS infrastructures from code to cloud. DevOps Engineer specializing in Terraform IaC, Kubernetes orchestration with ArgoCD, and CI/CD automation — turning complex, high-availability requirements into reliable production systems.";
 
-export const ABOUT_TEXT = "I'm an experienced cloud solutions architect and DevOps engineer with a solid background in IT and Linux system administration. My expertise lies in designing and implementing scalable AWS DevOps infrastructures that support complex, high-availability environments — from cost-optimized migrations to GitOps-driven Kubernetes platforms. Currently at Akieni, I automate and optimize cloud infrastructure with Terraform, ship production workloads to Kubernetes via ArgoCD, and own AWS security and cost-efficiency for the platform. Before that, as Team Lead at Ginov Digital Congo, I led the migration of 230+ NodeJS and React application instances to AWS — reducing cloud service expenses by 40% — and built a suite of 40+ tools automating deployment, administration, and monitoring. My journey started in the trenches of Linux administration and database management, then expanded through full-stack PHP development and network engineering before settling on cloud and DevOps. I also spent a year as a Linux trainer (LPIC 1 & 2) at NGO YEKOLAB, an experience that shaped how I document, mentor, and onboard teams today. For me, DevOps isn't just about speed — it's about precision, repeatability, and creating systems that empower developers to ship confidently and innovate faster.";
+export const ABOUT_TEXT = "I'm an AWS DevOps engineer with a Platform Engineering lens. My job isn't to wire up pipelines for their own sake — it's to build the systems and conventions that make the developers around me faster, more autonomous, and more confident in production. At Akieni, that means a self-service GitOps platform on Kubernetes (Terraform + ArgoCD) that turns a git push into a reviewed, audited deploy, with cost-efficiency and security baked into the modules every team consumes. Before that at Ginov, the same instinct showed up as a 40% cloud bill reduction across 230+ instances and a 40-tool automation suite that shortened onboarding from weeks to days. My background — Linux sysadmin, DBA intern, full-stack PHP developer, network engineer, Linux trainer — taught me that the leverage isn't in any single tool. It's in the standards: how environments are shaped, how secrets are handled, how a new service gets from git init to production on day one rather than week six. Engineers who work with my platforms ship faster, debug faster, and pick up cleaner habits along the way. That's the metric I optimize for — not how many YAML files I wrote, but how much friction I removed from somebody else's day.";
 
 export const SKILLS = [
   // Cloud
@@ -85,7 +85,7 @@ export const PROJECTS = [
 ];
 
 export const CONTACT = {
-  address: 'Pointe-Noire, Republic of Congo',
+  address: 'Brazzaville, Republic of Congo',
   phoneNo: '+242 06 674 00 21',
   email: 'alexsonicka11@gmail.com',
   social: {

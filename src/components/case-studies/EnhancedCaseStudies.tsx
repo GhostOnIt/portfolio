@@ -69,114 +69,112 @@ interface CaseStudy {
 const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    title: "Amazon Clone — EKS & ArgoCD Deployment",
-    subtitle: "E-commerce Platform with GitOps",
-    category: "DevOps",
+    title: "AWS Cloud Migration @ Ginov Digital Congo",
+    subtitle: "230+ instances migrated, 40% cost reduction",
+    category: "Cloud Infrastructure",
     featured: true,
     timeline: {
-      start: "Sep 2024",
-      end: "Nov 2024",
-      duration: "2 months"
+      start: "Mar 2022",
+      end: "Aug 2024",
+      duration: "~2 years"
     },
-    challenge: "Migrate a complex e-commerce platform to a scalable Kubernetes infrastructure while implementing GitOps practices for automated deployments and ensuring zero-downtime updates.",
+    challenge: "Ginov Digital Congo operated 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. Costs were growing fast, environments were inconsistent, and there was no central visibility on workloads or tagging. The task: consolidate everything onto AWS, rationalize the architecture, and cut the cloud bill without sacrificing reliability.",
     solution: [
-      "Designed and implemented production-grade EKS cluster with multi-AZ deployment",
-      "Set up ArgoCD for GitOps-based continuous deployment with progressive delivery",
-      "Implemented automated CI/CD pipelines with GitHub Actions and Docker",
-      "Configured monitoring and alerting with Prometheus and Grafana",
-      "Established security practices with RBAC, network policies, and image scanning"
+      "Audited 230+ workloads, established a tagging strategy, and exported two weeks of CloudWatch metrics to surface real CPU/memory usage",
+      "Right-sized stateless workloads to smaller t3/m6i instance families based on measured utilization",
+      "Committed steady-state compute to 1-year Savings Plans (~60% of fleet) once usage patterns were proven",
+      "Codified the inventory in CloudFormation modules, eliminating snowflake servers and making new environments reproducible",
+      "Implemented S3 lifecycle rules and an EBS snapshot retention Lambda to cut storage waste",
+      "Built and shipped 40+ Python/Bash automation tools for deployment, administration, and monitoring"
     ],
     impact: [
-      "Reduced deployment time from 45 minutes to 5 minutes",
-      "Achieved 99.9% uptime with automated failover",
-      "Decreased infrastructure costs by 30% through autoscaling",
-      "Improved developer productivity with self-service deployments",
-      "Enhanced security posture with automated compliance checks"
+      "Reduced cloud service expenses by 40%",
+      "Migrated 230+ NodeJS/React application instances to AWS",
+      "Eliminated snowflake servers via CloudFormation as source of truth",
+      "Shortened onboarding for new engineers thanks to standardized tooling and documentation",
+      "Established baseline observability and tagging across the fleet"
     ],
-    technologies: ["AWS EKS", "ArgoCD", "GitOps", "Kubernetes", "Docker", "Terraform", "GitHub Actions"],
+    technologies: ["AWS EC2", "AWS S3", "AWS EBS", "Route 53", "CodeCommit", "CloudFormation", "Python", "Bash", "Jenkins"],
     impactMetrics: {
-      deploymentTime: { before: "45 min", after: "8 min", improvement: "82%" },
-      cost: { before: "$2,400/mo", after: "$1,800/mo", reduction: "25%" },
-      availability: { uptime: "99.5%", improvement: "1.5%" },
-      scalability: { capacity: "5x", improvement: "500%" }
+      cost: { before: "Baseline", after: "-40%", reduction: "40%" },
+      scalability: { capacity: "230+ workloads", improvement: "Standardized" }
     },
     architecture: {
-      components: ["EKS Cluster", "ArgoCD", "Application Pods", "Load Balancers", "Database", "Cache Layer"],
-      pattern: "Microservices with GitOps"
+      components: ["EC2 Fleet", "S3 Storage", "Route 53", "CodeCommit", "CloudFormation Stacks", "Python Tooling"],
+      pattern: "Cloud Migration with IaC and Right-Sizing"
     }
   },
   {
     id: 2,
-    title: "Realtime Chat Application",
-    subtitle: "WebSocket Architecture with Scaling",
-    category: "Full-Stack",
-    featured: false,
+    title: "GitOps Adoption @ Akieni",
+    subtitle: "Terraform + ArgoCD + Kubernetes platform",
+    category: "DevOps",
+    featured: true,
     timeline: {
-      start: "Oct 2024",
-      end: "Dec 2024",
-      duration: "3 months"
+      start: "Sep 2024",
+      end: "Present",
+      duration: "Ongoing"
     },
-    challenge: "Build a real-time chat application capable of handling thousands of concurrent users with message persistence, typing indicators, and file sharing capabilities.",
+    challenge: "Akieni's deployment workflow relied on manual SSH-based releases, with configuration drift between environments and limited audit trail. The mission: stand up a GitOps platform on Kubernetes where every change is a reviewed commit, every environment is reproducible, and rollback is a git revert away.",
     solution: [
-      "Implemented WebSocket-based real-time communication architecture",
-      "Designed horizontal scaling strategy with Redis Pub/Sub for session sharing",
-      "Created message queue system for handling high message volumes",
-      "Built responsive React frontend with real-time UI updates",
-      "Implemented end-to-end encryption for secure communications"
+      "Provisioned AWS EKS clusters via modular Terraform with remote state, locking, and encrypted defaults",
+      "Deployed ArgoCD as the GitOps controller with sync waves for ordered resource application",
+      "Standardized application packaging with Helm and Kustomize, hosted in a single platform repository",
+      "Locked down the platform repo with branch protection, required reviews, and CI checks (tflint, checkov)",
+      "Added Sealed Secrets so encrypted manifests live alongside the rest of the configuration",
+      "Wired ArgoCD notifications to the team channel on sync failures and drift",
+      "Wrote onboarding documentation and platform-access guides so new engineers ramp up in days, not weeks"
     ],
     impact: [
-      "Supports 10,000+ concurrent users seamlessly",
-      "Achieved <100ms message delivery latency",
-      "Reduced server costs by 40% through efficient resource usage",
-      "Improved user engagement by 65% with instant messaging",
-      "Maintained 99.8% uptime with automatic scaling"
+      "Manual SSH deploys replaced by declarative, reviewed GitOps flow",
+      "Rollback time reduced from minutes-to-hours of manual work to a git revert + sync (~seconds)",
+      "Configuration drift between environments effectively eliminated",
+      "Full audit trail of every infrastructure and application change via Git history",
+      "Improved AWS security posture (IAM least-privilege, encrypted state, drift detection)"
     ],
-    technologies: ["Node.js", "WebSocket", "Redis", "MongoDB", "React", "Socket.io", "AWS"],
+    technologies: ["Terraform", "Kubernetes", "ArgoCD", "AWS EKS", "Helm", "Kustomize", "Sealed Secrets", "Git"],
     impactMetrics: {
-      performance: { improvement: "80%" },
-      scalability: { capacity: "500+ users", improvement: "300%" },
-      availability: { uptime: "99.2%", improvement: "1.2%" }
+      deploymentTime: { before: "Manual SSH", after: "Git push", improvement: "Declarative" },
+      availability: { uptime: "Improved", improvement: "Auditable rollbacks" }
     },
     architecture: {
-      components: ["WebSocket Server", "Redis Cluster", "MongoDB", "React Client", "CDN", "Load Balancer"],
-      pattern: "Real-time with Horizontal Scaling"
+      components: ["EKS Cluster", "ArgoCD", "Helm Charts", "Sealed Secrets", "Terraform State (S3 + DynamoDB)"],
+      pattern: "GitOps with Declarative Platform Repo"
     }
   },
   {
     id: 3,
-    title: "Cloud Infrastructure Automation",
-    subtitle: "Multi-Cloud DevOps Pipeline",
-    category: "Cloud Infrastructure",
-    featured: true,
+    title: "Linux Training Program @ NGO YEKOLAB",
+    subtitle: "LPIC 1 & 2 curriculum delivered to working IT professionals",
+    category: "DevOps",
+    featured: false,
     timeline: {
-      start: "Aug 2024",
-      end: "Oct 2024",
-      duration: "3 months"
+      start: "2018",
+      end: "2019",
+      duration: "1 year"
     },
-    challenge: "Design and implement a comprehensive cloud infrastructure automation solution that supports multi-cloud deployments with consistent security, monitoring, and governance across AWS, Azure, and GCP.",
+    challenge: "NGO YEKOLAB needed to upskill working IT professionals on Linux system administration — from system and network configuration to service management and IT security — with limited classroom time and learners holding day jobs.",
     solution: [
-      "Created unified Infrastructure as Code templates using Terraform",
-      "Implemented automated security scanning and compliance checking",
-      "Built centralized logging and monitoring with ELK stack",
-      "Designed disaster recovery and backup automation",
-      "Established governance frameworks with policy-as-code"
+      "Designed an LPIC 1 & 2-aligned curriculum split between theory and hands-on labs",
+      "Built progressive lab exercises so each session reinforced the previous one",
+      "Adapted teaching pace and depth to varied learner backgrounds (junior admins, network engineers, support staff)",
+      "Created take-home cheat sheets and reference material that learners could use back at work",
+      "Mentored learners on real workplace incidents they brought to class"
     ],
     impact: [
-      "Reduced infrastructure provisioning time by 75%",
-      "Achieved consistent security posture across all cloud providers",
-      "Decreased compliance violations by 90%",
-      "Improved disaster recovery time from hours to minutes",
-      "Enhanced resource utilization efficiency by 45%"
+      "Multiple promotions of IT professionals trained on Linux fundamentals and advanced administration",
+      "Positive learner feedback on autonomy and confidence post-training",
+      "Built foundational communication and documentation habits that carried into my later DevOps roles",
+      "Established a peer network of Linux operators across multiple Congolese organizations"
     ],
-    technologies: ["Terraform", "AWS", "Azure", "GCP", "Ansible", "Jenkins", "ELK Stack"],
+    technologies: ["Linux", "LPIC 1 & 2", "Bash Scripting", "Networking", "IT Security"],
     impactMetrics: {
-      deploymentTime: { before: "4 hours", after: "45 min", improvement: "81%" },
-      cost: { before: "$3,200/mo", after: "$2,400/mo", reduction: "25%" },
-      performance: { improvement: "120%" }
+      performance: { improvement: "Learner autonomy on Linux ops" },
+      scalability: { capacity: "Multiple cohorts", improvement: "Across orgs" }
     },
     architecture: {
-      components: ["Terraform Modules", "CI/CD Pipeline", "Security Scanning", "Monitoring", "Backup System"],
-      pattern: "Multi-Cloud IaC"
+      components: ["Curriculum Design", "Hands-on Labs", "Reference Material", "Mentoring"],
+      pattern: "Theory + Practice + Mentoring"
     }
   }
 ];
@@ -187,7 +185,7 @@ const EnhancedCaseStudies: React.FC = () => {
 
   const selectedStudyData = caseStudies.find(study => study.id === selectedStudy);
 
-  const categories = ['All', 'DevOps', 'Cloud Infrastructure', 'Full-Stack'];
+  const categories = ['All', 'DevOps', 'Cloud Infrastructure'];
   const [selectedCategory, setSelectedCategory] = useState('All');
   
   const filteredStudies = selectedCategory === 'All' 
@@ -236,17 +234,17 @@ const EnhancedCaseStudies: React.FC = () => {
             color="completed"
           />
           <StatsCard
-            title="Cost Savings"
-            value="35%"
-            change="Average across projects"
+            title="Cloud Cost Reduction"
+            value="40%"
+            change="Ginov AWS migration"
             icon={<TrendingUp className="w-6 h-6" />}
             color="completed"
             trend="up"
           />
           <StatsCard
-            title="Uptime Achieved"
-            value="99.5%"
-            change="Production reliability"
+            title="Servers Migrated"
+            value="230+"
+            change="NodeJS / React fleet"
             icon={<Target className="w-6 h-6" />}
             color="completed"
             trend="up"

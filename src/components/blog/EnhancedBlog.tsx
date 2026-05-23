@@ -56,291 +56,225 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "From Zero to Hero: Building a Production-Grade EKS Cluster with GitOps",
+    title: "Migrating 230+ NodeJS Instances to AWS: A 40% Cost Reduction Story",
     category: "DevOps",
     difficulty: "Intermediate",
-    readTime: "8 min read",
-    date: "2025-01-15",
+    readTime: "9 min read",
+    date: "2025-11-12",
     featured: true,
-    views: "2.5k",
-    likes: "156",
-    comments: "23",
-    excerpt: "Learn how to set up a complete EKS cluster with ArgoCD for GitOps deployment, including best practices for production environments.",
-    tags: ["AWS", "EKS", "GitOps", "ArgoCD", "Kubernetes"],
+    views: "2.1k",
+    likes: "142",
+    comments: "21",
+    excerpt: "How we migrated 230+ NodeJS and React application instances from on-premise to AWS at Ginov Digital Congo, and the right-sizing and reserved-instance choices that cut our cloud bill by 40%.",
+    tags: ["AWS", "Migration", "Cost Optimization", "EC2", "CloudFormation"],
     content: `
-# From Zero to Hero: Building a Production-Grade EKS Cluster with GitOps
+# Migrating 230+ NodeJS Instances to AWS: A 40% Cost Reduction Story
 
-In today's cloud-native world, managing Kubernetes infrastructure efficiently is crucial. This comprehensive guide will walk you through setting up a production-grade Amazon EKS cluster with GitOps deployment using ArgoCD.
+When I joined Ginov Digital Congo as AWS DevOps Engineer Team Lead, the platform was running 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. The cloud bill was growing fast and visibility was low. Over the following months we drove that bill down by 40% while improving reliability.
 
-## Why GitOps?
+## The Starting Point
 
-GitOps is an operational framework that takes DevOps best practices used for application development (version control, collaboration, compliance) and applies them to infrastructure automation.
+- 230+ workloads, mostly NodeJS APIs and React front-ends
+- No consistent tagging strategy
+- On-demand EC2 everywhere, sized "just in case"
+- Minimal use of S3 lifecycle rules or EBS snapshot retention
 
-## Prerequisites
+## What Moved the Needle
 
-- AWS CLI configured
-- kubectl installed
-- Terraform or eksctl
-- Docker knowledge
-- Basic Kubernetes concepts
+### 1. Right-sizing with real metrics
 
-## Architecture Overview
+We instrumented CloudWatch, exported two weeks of CPU/memory data, and discovered that the median instance was using less than 15% of its allocated CPU. Moving to smaller t3/m6i families for stateless workloads was the single biggest win.
 
-Our setup includes:
-- EKS cluster with managed node groups
-- ArgoCD for GitOps
-- External DNS
-- AWS Load Balancer Controller
-- cert-manager for SSL certificates
-- Monitoring with Prometheus and Grafana
+### 2. Reserved Instances and Savings Plans
 
-## Step 1: Cluster Creation
+Once a steady-state footprint emerged, we committed 60% of compute to 1-year Savings Plans. Predictable workloads do not need on-demand pricing.
 
-\`\`\`bash
-# Using eksctl
-eksctl create cluster \\
-  --name production-eks \\
-  --region us-west-2 \\
-  --nodegroup-name linux-nodes \\
-  --node-type t3.medium \\
-  --nodes 3 \\
-  --nodes-min 2 \\
-  --nodes-max 10 \\
-  --managed
-\`\`\`
+### 3. CloudFormation for everything
 
-## Step 2: Install ArgoCD
+We ported the inventory to CloudFormation modules so any new environment was reproducible. This killed the "snowflake server" pattern that had quietly inflated costs for years.
 
-\`\`\`bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-\`\`\`
+### 4. S3 lifecycle and EBS snapshot hygiene
 
-## Step 3: Configure GitOps
+Old build artifacts moved to S3 Glacier. EBS snapshots older than 30 days were pruned automatically by a small Lambda.
 
-Create your application manifests in a Git repository and configure ArgoCD to sync them automatically.
+## Lessons
 
-This approach ensures that your infrastructure is always in sync with your Git repository, providing audit trails and rollback capabilities.
+- You can't optimize what you can't measure. Tag everything, export metrics, then act.
+- Reserved capacity only pays off once steady-state is real — don't lock in too early.
+- Right-sizing beats every other optimization combined for over-provisioned fleets.
 
-## Conclusion
+## What's Next
 
-By following this guide, you'll have a production-ready EKS cluster with GitOps capabilities that can scale with your needs and maintain compliance standards.
+The next chapter is GitOps with ArgoCD — covered in another post.
     `
   },
   {
     id: 2,
-    title: "Infrastructure as Code: Terraform Best Practices for AWS",
-    category: "Cloud Infrastructure",
+    title: "GitOps in Production with ArgoCD and Kubernetes",
+    category: "DevOps",
     difficulty: "Advanced",
-    readTime: "12 min read",
-    date: "2025-01-10",
-    featured: false,
-    views: "1.8k",
-    likes: "98",
-    comments: "15",
-    excerpt: "Master Terraform infrastructure management with proven patterns, state management, and security practices for AWS deployments.",
-    tags: ["Terraform", "AWS", "IaC", "Security", "Best Practices"],
+    readTime: "11 min read",
+    date: "2025-09-04",
+    featured: true,
+    views: "1.7k",
+    likes: "118",
+    comments: "17",
+    excerpt: "How we rolled out a declarative, audit-friendly GitOps platform at Akieni using ArgoCD and Terraform — and the production guardrails we wish we'd set up on day one.",
+    tags: ["ArgoCD", "GitOps", "Kubernetes", "Terraform", "AWS"],
     content: `
-# Infrastructure as Code: Terraform Best Practices for AWS
+# GitOps in Production with ArgoCD and Kubernetes
 
-Terraform has revolutionized how we manage infrastructure. This guide covers essential best practices for managing AWS resources with Terraform.
+At Akieni, our deployment story used to be: SSH to a box, pull a branch, restart a service, hope for the best. This post is about what replaced it.
 
-## Project Structure
+## Why GitOps
 
-Organize your Terraform code for maintainability and reusability:
+A declarative state in Git gives you three things that ad-hoc deploys never do:
 
-\`\`\`
-terraform/
-├── modules/
-│   ├── vpc/
-│   ├── ecs/
-│   └── rds/
-├── environments/
-│   ├── dev/
-│   ├── staging/
-│   └── prod/
-└── shared/
-    └── variables.tf
-\`\`\`
+1. **Auditability** — every change is a commit, signed and reviewed.
+2. **Reproducibility** — the cluster's desired state lives in a repo, not in someone's terminal history.
+3. **Rollback in seconds** — git revert + sync, no scripts to write at 2am.
 
-## State Management
+## Our Stack
 
-Use remote state storage to maintain state across team members:
+- AWS EKS clusters provisioned via Terraform
+- ArgoCD as the GitOps controller
+- Helm + Kustomize for application packaging
+- A central "platform" repo holding the desired state of every environment
 
-\`\`\`hcl
-terraform {
-  backend "s3" {
-    bucket = "my-terraform-state"
-    key    = "infrastructure/terraform.tfstate"
-    region = "us-west-2"
-    
-    dynamodb_table = "terraform-state-lock"
-  }
-}
-\`\`\`
+## Guardrails We Set Up
 
-## Security Best Practices
+### Branch protection on the platform repo
 
-1. Use separate AWS accounts for different environments
-2. Implement least privilege IAM policies
-3. Enable encryption at rest and in transit
-4. Use Terraform variables for sensitive data
-5. Implement state encryption
+The platform repo is the source of truth. Direct pushes to main are blocked. Every change goes through a PR with at least one reviewer and CI checks.
 
-## Module Reusability
+### Sync waves
 
-Create reusable modules that can be shared across projects:
+ArgoCD sync waves let us order resource application. Namespaces and CRDs first, then operators, then workloads. Without this, race conditions are inevitable.
 
-\`\`\`hcl
-module "vpc" {
-  source = "./modules/vpc"
-  
-  environment = var.environment
-  region      = var.region
-  
-  cidr_block = "10.0.0.0/16"
-}
-\`\`\`
+### Sealed Secrets
 
-## Conclusion
+Secrets in Git are a no-go in plaintext. We use Sealed Secrets so encrypted manifests can live alongside the rest of the configuration.
 
-Following these best practices will help you maintain scalable, secure, and maintainable infrastructure with Terraform.
+### Notifications
+
+ArgoCD's notification controller pings our team channel on sync failures and out-of-sync drift. Silence is the enemy of GitOps.
+
+## What I'd Do Differently
+
+Start with one application end-to-end before onboarding the whole fleet. We learned more from the first service than from the next ten.
+
+## Closing
+
+GitOps isn't magic — it's discipline encoded in tooling. Done well, it makes the platform boring in the best way.
     `
   },
   {
     id: 3,
-    title: "DevOps Trends 2025: AI, GitOps, and Cloud Native Revolution",
+    title: "From Linux Trainer to DevOps Engineer: Knowledge Sharing as a Career Multiplier",
     category: "DevOps",
     difficulty: "Beginner",
     readTime: "6 min read",
-    date: "2025-01-05",
+    date: "2025-06-18",
     featured: false,
-    views: "3.2k",
-    likes: "234",
-    comments: "41",
-    excerpt: "Explore the latest DevOps trends shaping the industry in 2025, from AI-powered automation to enhanced GitOps workflows.",
-    tags: ["Trends", "AI", "GitOps", "Cloud Native", "Automation"],
+    views: "2.4k",
+    likes: "187",
+    comments: "32",
+    excerpt: "A year teaching Linux administration at NGO YEKOLAB taught me more about engineering than any single technical role since. Here's why I think every engineer should teach.",
+    tags: ["Career", "Linux", "Mentoring", "Teaching", "LPIC"],
     content: `
-# DevOps Trends 2025: AI, GitOps, and Cloud Native Revolution
+# From Linux Trainer to DevOps Engineer: Knowledge Sharing as a Career Multiplier
 
-The DevOps landscape continues to evolve rapidly. Let's explore the key trends that will shape the industry in 2025.
+In 2018, after four years as a self-taught Linux admin, I spent a year delivering LPIC 1 & 2 courses at NGO YEKOLAB. It looked like a detour from my path toward DevOps. In retrospect, it was the most useful detour I've taken.
 
-## AI-Powered Automation
+## What Teaching Actually Teaches You
 
-AI is transforming how we approach DevOps:
-- Intelligent incident detection and response
-- Automated capacity planning
-- Predictive maintenance
-- Smart resource optimization
+### You learn what you actually know
 
-## Enhanced GitOps Workflows
+Until you have to explain why \`chmod 755\` does what it does to a room of 15 people, you don't know if you know it. Teaching is a brutal but fair audit of your own understanding.
 
-GitOps continues to mature:
-- Multi-cluster synchronization
-- Progressive delivery strategies
-- Policy-as-code enforcement
-- Enhanced rollback capabilities
+### You build communication muscles
 
-## Cloud Native Security
+DevOps lives at the seam between teams. Engineers who can explain why a deployment failed to a product manager — without jargon and without being condescending — are rare. Teaching builds that muscle.
 
-Security is becoming more integrated:
-- Zero-trust architectures
-- DevSecOps pipelines
-- Container image scanning
-- Runtime security monitoring
+### You learn to design for the learner
 
-## Platform Engineering
+The skills that make a good Linux course (clear progression, working examples, predictable feedback loops) are the same skills that make good runbooks, onboarding docs, and post-mortems.
 
-Organizations are building internal platforms:
-- Self-service developer portals
-- Standardized deployment pipelines
-- Automated compliance checks
-- Improved developer experience
+## How It Showed Up at Ginov and Akieni
 
-## Key Takeaways
+Documentation became my reflex, not my chore. When I built 40+ DevOps tools at Ginov, each one had a one-page README that an intern could follow. When I joined Akieni, the first thing I did was a platform onboarding doc.
 
-1. Embrace automation, but maintain human oversight
-2. Invest in security from day one
-3. Focus on developer experience
-4. Stay adaptable to new technologies
+That's a direct line from a YEKOLAB classroom to a DevOps platform — knowledge sharing as compound interest.
 
-The future of DevOps is bright, with these trends setting the stage for more efficient and secure software delivery.
+## If You're Considering Teaching
+
+Don't wait until you feel "expert enough." You learn it by doing it.
     `
   },
   {
     id: 4,
-    title: "Real-time Communication: WebSocket Architecture with Node.js",
-    category: "Full-Stack",
-    difficulty: "Intermediate",
+    title: "Securing AWS Infrastructures with Terraform: Patterns We Use at Akieni",
+    category: "Cloud Infrastructure",
+    difficulty: "Advanced",
     readTime: "10 min read",
-    date: "2024-12-28",
-    featured: true,
-    views: "1.9k",
-    likes: "127",
-    comments: "19",
-    excerpt: "Build scalable real-time applications using WebSocket architecture with Node.js, Redis, and message queues.",
-    tags: ["WebSocket", "Node.js", "Redis", "Real-time", "Architecture"],
+    date: "2026-02-08",
+    featured: false,
+    views: "1.3k",
+    likes: "94",
+    comments: "12",
+    excerpt: "The Terraform patterns we rely on at Akieni to keep AWS infrastructure auditable and secure: remote state with locking, least-privilege IAM, encrypted defaults, and policy-as-code checks.",
+    tags: ["Terraform", "AWS", "Security", "IaC", "IAM"],
     content: `
-# Real-time Communication: WebSocket Architecture with Node.js
+# Securing AWS Infrastructures with Terraform: Patterns We Use at Akieni
 
-Real-time communication has become essential for modern applications. This guide covers building scalable WebSocket applications.
+Terraform is everywhere, but "we use Terraform" doesn't say much about security posture. Here are the concrete patterns we lean on at Akieni.
 
-## Architecture Overview
+## Remote State with Locking
 
-\`\`\`
-Client -> Load Balancer -> WebSocket Server -> Redis Pub/Sub -> Database
-                                    -> Message Queue -> Background Workers
-\`\`\`
+State files leak more than they should. We:
 
-## WebSocket Server Setup
+- Store state in an S3 bucket with versioning and server-side encryption
+- Lock with DynamoDB
+- Restrict access via dedicated IAM roles, not user keys
 
-\`\`\`javascript
-const WebSocket = require('ws');
-const redis = require('redis');
-
-class WebSocketServer {
-  constructor(port) {
-    this.wss = new WebSocket.Server({ port });
-    this.redisClient = redis.createClient();
-    this.setupWebSocketHandlers();
-  }
-  
-  setupWebSocketHandlers() {
-    this.wss.on('connection', (ws) => {
-      console.log('New client connected');
-      
-      ws.on('message', (message) => {
-        this.handleMessage(ws, message);
-      });
-      
-      ws.on('close', () => {
-        console.log('Client disconnected');
-      });
-    });
+\`\`\`hcl
+terraform {
+  backend "s3" {
+    bucket         = "akieni-tf-state"
+    key            = "platform/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "tf-state-lock"
   }
 }
 \`\`\`
 
-## Scaling Strategies
+## Least-Privilege IAM by Default
 
-1. **Horizontal Scaling**: Use Redis for session sharing
-2. **Load Balancing**: Implement sticky sessions
-3. **Message Queues**: Handle high message volumes
-4. **Database Optimization**: Use efficient data structures
+Every module ships with the smallest IAM policy that works. We refuse \`*\` actions in production unless a code reviewer signs off in writing. AWS Access Analyzer runs as part of the CI pipeline.
 
-## Best Practices
+## Encrypted Defaults
 
-- Implement proper error handling
-- Use connection pooling
-- Monitor memory usage
-- Implement rate limiting
+- EBS volumes default to encrypted with a customer-managed KMS key
+- RDS, S3 buckets, and SNS topics same story
+- TLS-only bucket policies enforced via SCP
 
-This architecture provides a solid foundation for building real-time applications that can scale to thousands of concurrent users.
+## Policy-as-Code
+
+We pair Terraform with \`tflint\` and \`checkov\` in CI. PRs that introduce open security groups, public S3 buckets, or non-encrypted resources are blocked before merge.
+
+## Drift Detection
+
+\`terraform plan\` runs nightly against production. Any drift posts to our team channel. The goal is to know about manual changes before they become incidents.
+
+## Takeaway
+
+Security with Terraform is less about clever tricks and more about making the safe choice the default — in modules, in CI, in code review.
     `
   }
 ];
 
-const categories = ['All', 'DevOps', 'Cloud Infrastructure', 'Full-Stack'];
+const categories = ['All', 'DevOps', 'Cloud Infrastructure'];
 
 const EnhancedBlog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');

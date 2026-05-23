@@ -1,119 +1,88 @@
-export const HERO_CONTENT = "Building scalable systems from code to cloud. DevOps & Cloud Engineer | Full-Stack Developer. Passionate about automating deployments, optimizing cloud infrastructure, and developing robust web applications with modern technologies.";
+export const HERO_CONTENT = "Building scalable AWS infrastructures from code to cloud. DevOps Engineer specializing in Terraform IaC, Kubernetes orchestration with ArgoCD, and CI/CD automation — turning complex, high-availability requirements into reliable production systems.";
 
-export const ABOUT_TEXT = "I design, automate, and deploy systems that turn code into production-grade reality. My journey began with full-stack development—building web apps with Java, React, and Node.js. Over time, that foundation evolved into a passion for DevOps and Cloud Engineering, where I now focus on crafting scalable infrastructure, clean CI/CD pipelines, and resilient deployments. I work across AWS and OCI, orchestrate containers with Docker and Kubernetes, and define infrastructure with Terraform, Ansible, and CloudFormation. Behind the command line, I'm equally comfortable in version control and workflow automation, using Git, GitHub, GitLab CI/CD, CodePipeline, and Bash scripting to bridge collaboration and delivery. For me, DevOps isn't just about speed—it's about precision, repeatability, and creating systems that empower developers to ship confidently and innovate faster.";
+export const ABOUT_TEXT = "I'm an experienced cloud solutions architect and DevOps engineer with a solid background in IT and Linux system administration. My expertise lies in designing and implementing scalable AWS DevOps infrastructures that support complex, high-availability environments — from cost-optimized migrations to GitOps-driven Kubernetes platforms. Currently at Akieni, I automate and optimize cloud infrastructure with Terraform, ship production workloads to Kubernetes via ArgoCD, and own AWS security and cost-efficiency for the platform. Before that, as Team Lead at Ginov Digital Congo, I led the migration of 230+ NodeJS and React application instances to AWS — reducing cloud service expenses by 40% — and built a suite of 40+ tools automating deployment, administration, and monitoring. My journey started in the trenches of Linux administration and database management, then expanded through full-stack PHP development and network engineering before settling on cloud and DevOps. I also spent a year as a Linux trainer (LPIC 1 & 2) at NGO YEKOLAB, an experience that shaped how I document, mentor, and onboard teams today. For me, DevOps isn't just about speed — it's about precision, repeatability, and creating systems that empower developers to ship confidently and innovate faster.";
 
 export const SKILLS = [
   // Cloud
-  { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', category: 'cloud', level: 90 },
-  { name: 'OCI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg', category: 'cloud', level: 90 },
+  { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', category: 'cloud', level: 95 },
 
-  // Containers
+  // Containers & Orchestration
   { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', category: 'containers', level: 90 },
-  { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', category: 'containers', level: 90 },
+  { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', category: 'containers', level: 85 },
+  { name: 'ArgoCD', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/argo.svg', category: 'containers', level: 80 },
 
-  // Infrastructure
+  // Infrastructure as Code
   { name: 'Terraform', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', category: 'infrastructure', level: 90 },
-  { name: 'Ansible', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original-wordmark.svg', category: 'infrastructure', level: 90 },
-  { name: 'AWS CloudFormation', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/awscloudformation.svg', category: 'infrastructure', level: 90 },
+  { name: 'CloudFormation', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/awscloudformation.svg', category: 'infrastructure', level: 80 },
 
   // DevOps / Automation
-  { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-plain.svg', category: 'devops', level: 90 },
-  { name: 'Jenkins', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-plain.svg', category: 'devops', level: 90 },
-  { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', category: 'devops', level: 90 },
-  { name: 'GitLab CI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg', category: 'devops', level: 90 },
+  { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-plain.svg', category: 'devops', level: 95 },
+  { name: 'Jenkins', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-plain.svg', category: 'devops', level: 85 },
+  { name: 'AWS CodePipeline', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/awscodepipeline.svg', category: 'devops', level: 80 },
+  { name: 'AWS CLI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg', category: 'devops', level: 90 },
   { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', category: 'devops', level: 90 },
-  { name: 'AWS CodePipeline', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/awscodepipeline.svg', category: 'devops', level: 90 },
-  { name: 'AWS CodeBuild', icon: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/awscodebuild.svg', category: 'devops', level: 90 },
-  { name: 'Bash Scripting', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg', category: 'devops', level: 90 },
+  { name: 'Bash', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg', category: 'devops', level: 85 },
 
   // Development
-  { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', category: 'development', level: 90 },
-  { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg', category: 'development', level: 90 },
-  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg', category: 'development', level: 90 },
-  { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', category: 'development', level: 90 },
-  { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg', category: 'development', level: 90 },
-  { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg', category: 'development', level: 90 },
+  { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', category: 'development', level: 80 },
+  { name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg', category: 'development', level: 70 },
+  { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg', category: 'development', level: 75 },
 
   // Databases
-  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', category: 'database', level: 90 },
-  { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', category: 'database', level: 90 },
-  { name: 'Oracle SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg', category: 'database', level: 90 },
+  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', category: 'database', level: 85 },
+  { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', category: 'database', level: 85 },
+  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', category: 'database', level: 80 },
+  { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', category: 'database', level: 75 },
+  { name: 'Apache Cassandra', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachecassandra/apachecassandra-original.svg', category: 'database', level: 70 },
 ];
 
 export const PROJECTS = [
   {
-    title: 'Amazon Clone — EKS & ArgoCD Deployment',
+    title: 'AWS Cloud Migration & Cost Optimization',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Deployed a production-grade Amazon Clone on AWS EKS with full GitOps automation via ArgoCD. Integrated CI/CD pipelines using GitHub Actions, containerized microservices with Docker, and managed configuration using Kustomize for seamless auto-sync deployments.',
-    technologies: ['AWS EKS', 'Kubernetes', 'ArgoCD', 'GitHub Actions', 'Kustomize', 'Docker', 'Terraform'],
+    description: 'Led the migration of 230+ NodeJS and React application instances from on-premise infrastructure to AWS Cloud at Ginov Digital Congo. Reduced cloud service expenses by 40% through right-sizing, reserved instances, and architecture rationalization. Worked across EC2, S3, EBS, CodeCommit, Route 53, and CloudFormation.',
+    technologies: ['AWS EC2', 'AWS S3', 'AWS EBS', 'Route 53', 'CodeCommit', 'CloudFormation', 'Python'],
     category: 'devops',
-    githubLink: 'https://github.com/neerajnakka/amazon-clone-k8s-eks-argoCD',
+    githubLink: 'https://github.com/GhostOnIt',
     websiteLink: '',
   },
   {
-    title: 'Next.js CI/CD Pipeline with Docker & Kubernetes',
+    title: 'GitOps Platform with ArgoCD & Kubernetes',
     image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Developed and containerized a Next.js application, deploying it to Kubernetes clusters using GitHub Actions for automated CI/CD. Implemented multi-stage Docker builds, health probes, resource limits, and rolling updates for high availability.',
-    technologies: ['Next.js', 'Docker', 'Kubernetes', 'GitHub Actions', 'GHCR'],
+    description: 'Production-grade GitOps platform at Akieni deploying microservices to Kubernetes via ArgoCD, with declarative configuration, automated sync, and audit-friendly rollbacks. Pipelines provision and update infrastructure through Terraform plan/apply workflows triggered from Git.',
+    technologies: ['Kubernetes', 'ArgoCD', 'Terraform', 'AWS', 'Docker', 'Git'],
     category: 'devops',
-    githubLink: 'https://github.com/neerajnakka/nextjs-docker-kubernetes-app',
+    githubLink: 'https://github.com/GhostOnIt',
     websiteLink: '',
   },
   {
-    title: 'Realtime Chat App — MERN + Socket.IO',
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Developed a real-time chat application using the MERN stack with Socket.IO for instant communication. Implemented custom hooks and Zustand for efficient state management. Dockerized for deployment.',
-    technologies: ['React', 'Node', 'Express', 'MongoDB', 'Socket.IO', 'Zustand', 'Docker'],
-    category: 'fullstack',
-    githubLink: 'https://github.com/neerajnakka/Mern_ChatApp',
-    websiteLink: 'https://mern-chatapp-rfj5.onrender.com/',
-  },
-  {
-    title: 'Cloud Infrastructure Automation',
+    title: 'Terraform Infrastructure as Code',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Automated AWS infrastructure provisioning using Terraform with reusable modules for EC2, VPC, and S3. Integrated CI/CD with GitHub Actions for continuous deployment of cloud environments.',
-    technologies: ['AWS', 'Terraform', 'GitHub Actions', 'EC2', 'S3'],
+    description: 'Modular Terraform codebase provisioning multi-environment AWS infrastructure with reusable modules, remote state, and CI-driven plan/apply workflows. Designed to keep dev, staging, and production environments consistent and auditable.',
+    technologies: ['Terraform', 'AWS', 'CI/CD', 'IAM', 'VPC'],
     category: 'devops',
-    githubLink: 'https://github.com/neerajnakka',
+    githubLink: 'https://github.com/GhostOnIt',
     websiteLink: '',
   },
   {
-    title: 'Netflix Clone using React',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Built a Netflix clone with React, Tailwind CSS, and Firebase. Integrated React Router for seamless navigation and Firebase for authentication.',
-    technologies: ['React', 'Tailwind CSS', 'Firebase'],
-    category: 'fullstack',
-    githubLink: 'https://github.com/neerajnakka/NetflixReact_Clone',
-    websiteLink: 'https://netflix-clone-wi5g.onrender.com/',
-  },
-  {
-    title: 'Modern Portfolio with 3D Animations',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Designed and developed a modern portfolio website featuring smooth animations, 3D effects powered by Three.js, and a sleek user interface. Leveraged Tailwind CSS for responsive design, React for dynamic interactivity, and Zustand for state management. The site incorporates Framer Motion for fluid transitions.',
-    technologies: ['React', 'Three.js', 'Tailwind CSS', 'Framer Motion', 'Zustand', 'HTML', 'CSS'],
-    category: 'fullstack',
-    githubLink: 'https://github.com/neerajnakka/Neeraj_Portfolio',
-    websiteLink: 'https://neerajnakka.onrender.com/',
-  },
-  {
-    title: 'Portfolio Website',
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    description: 'Dynamic React portfolio showcasing projects with Tailwind CSS design and Framer Motion animations.',
-    technologies: ['Tailwind CSS', 'React.js', 'React Router Dom', 'Framer Motion'],
-    category: 'fullstack',
-    githubLink: 'https://github.com/neerajnakka/PortFolio_React/tree/master',
-    websiteLink: 'https://neerajchandra.onrender.com/',
+    title: 'DevOps Automation Toolkit',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    description: 'Suite of 40+ Python and Bash tools built at Ginov to automate deployment, administration, and monitoring of web services on AWS. Reduced operational toil and shortened onboarding time for new engineers joining the platform.',
+    technologies: ['Python', 'Bash', 'AWS CLI', 'Jenkins', 'Linux'],
+    category: 'devops',
+    githubLink: 'https://github.com/GhostOnIt',
+    websiteLink: '',
   },
 ];
 
 export const CONTACT = {
-  address: 'Hyderabad, Telangana, India',
-  phoneNo: '+91 9000600559',
-  email: 'neerajnakka.n@gmail.com',
+  address: 'Pointe-Noire, Republic of Congo',
+  phoneNo: '+242 06 674 00 21',
+  email: 'alexsonicka11@gmail.com',
   social: {
-    github: 'https://github.com/neerajnakka',
-    linkedin: 'https://linkedin.com/in/neerajchandran',
-    twitter: 'https://twitter.com/neerajnakka',
+    github: 'https://github.com/GhostOnIt',
+    linkedin: 'https://www.linkedin.com/in/alexandre-gomah',
+    twitter: '',
   }
 };
 

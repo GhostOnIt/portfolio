@@ -543,7 +543,7 @@ export const Skills = () => {
                           whileHover={{ scale: 1.02 }}
                           className="bg-bg-elevated border border-neutral-700 p-4 rounded-lg hover:border-primary-500/50 transition-all duration-300 group"
                         >
-                          <div className="flex items-center space-x-3 mb-3">
+                          <div className="flex items-center space-x-3">
                             <img
                               src={skill.icon}
                               alt={skill.name}
@@ -552,23 +552,6 @@ export const Skills = () => {
                             <span className="font-mono font-medium text-neutral-200">
                               {skill.name}
                             </span>
-                          </div>
-                          
-                          {/* Proficiency Bar */}
-                          <div className="space-y-2">
-                            <div className="flex justify-between text-xs">
-                              <span className="text-neutral-400">Proficiency</span>
-                              <span className="text-primary-500 font-mono">{skill.level}%</span>
-                            </div>
-                            <div className="w-full bg-neutral-700 rounded-full h-2">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: `${skill.level}%` }}
-                                transition={{ delay: (categoryIndex * 0.1) + (skillIndex * 0.05) + 0.3, duration: 0.8 }}
-                                viewport={{ once: true }}
-                                className="h-2 bg-gradient-to-r from-primary-500 to-primary-700 rounded-full"
-                              />
-                            </div>
                           </div>
                         </motion.div>
                       ))}

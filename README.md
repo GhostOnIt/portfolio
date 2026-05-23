@@ -23,13 +23,19 @@ The dev server runs on http://localhost:5173.
 
 ## Contact Form
 
-The contact form uses [Web3Forms](https://web3forms.com). Create a `.env` file at the project root with:
+The contact form posts to a Vercel serverless function (`api/contact.ts`) that relays via SMTP (Brevo). Set these environment variables in Vercel (Project → Settings → Environment Variables) — and locally in a `.env` file for `vercel dev`:
 
 ```
-VITE_WEB3FORMS_KEY=your-access-key-here
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_USERNAME=your_brevo_smtp_login
+MAIL_PASSWORD=your_brevo_smtp_key
+MAIL_FROM_ADDRESS=no-reply@your-domain.tld
+MAIL_FROM_NAME=My Portfolio
+MAIL_TO=where_to_receive_messages@example.com
 ```
 
-`.env` is gitignored.
+These are server-side only — no `VITE_` prefix, so they never reach the browser bundle. `.env` is gitignored.
 
 ## Contact
 

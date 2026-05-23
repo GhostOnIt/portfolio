@@ -1,16 +1,22 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ExternalLink, Github, Code2 } from 'lucide-react';
 import { Grid3DBackground } from '../components/Grid3D';
 import { Typewriter } from '../components/Typewriter';
-import { HERO_CONTENT, SKILLS, PROJECTS } from '../data/portfolio';
+import { SKILLS } from '../data/portfolio';
+import { useLocalizedPath } from '../i18n/useLocalizedPath';
 
 export const Home = () => {
+  const { t } = useTranslation('home');
+  const { t: tCommon } = useTranslation('common');
+  const localized = useLocalizedPath();
+
   const stats = [
-    { label: 'Years Experience', value: '9+' },
-    { label: 'Servers Migrated', value: '230+' },
-    { label: 'Cost Reduction', value: '40%' },
-    { label: 'Technologies', value: '20+' },
+    { label: t('stats.yearsExperience'), value: '9+' },
+    { label: t('stats.serversMigrated'), value: '230+' },
+    { label: t('stats.costReduction'), value: '40%' },
+    { label: t('stats.technologies'), value: '20+' },
   ];
 
   const featuredSkills = SKILLS.slice(0, 6);
@@ -32,12 +38,12 @@ export const Home = () => {
             {/* Terminal prompt */}
             <div className="font-mono text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide">
               <span className="text-accent-500 mr-3">$</span>
-              <span className="text-primary-500">whoami</span>
+              <span className="text-primary-500">{t('terminal.prompt')}</span>
             </div>
 
             {/* Typewriter heading */}
             <div className="font-mono text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight text-primary-500">
-              <Typewriter text="AWS DevOps Engineer" delay={80} />
+              <Typewriter text={t('typewriter')} delay={80} />
               <span className="terminal-cursor ml-2" />
             </div>
 
@@ -48,7 +54,7 @@ export const Home = () => {
               transition={{ delay: 2 }}
               className="text-xl md:text-2xl text-neutral-200 max-w-4xl mx-auto leading-relaxed"
             >
-              {HERO_CONTENT}
+              {t('subtitle')}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -59,18 +65,18 @@ export const Home = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
             >
               <Link
-                to="/projects"
+                to={localized('/projects')}
                 className="group inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-bg-surface transition-all duration-200 font-semibold tracking-wide rounded-lg shadow-glow hover:shadow-card-hover"
               >
                 <Code2 className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                View Projects
+                {tCommon('ctas.viewProjects')}
               </Link>
               <Link
-                to="/contact"
+                to={localized('/contact')}
                 className="group inline-flex items-center px-8 py-4 border-2 border-neutral-600 bg-neutral-800 text-neutral-200 hover:border-primary-500 hover:text-primary-500 transition-all duration-200 font-semibold tracking-wide rounded-lg"
               >
                 <ExternalLink className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Contact Me
+                {tCommon('ctas.contactMe')}
               </Link>
             </motion.div>
           </motion.div>
@@ -121,10 +127,10 @@ export const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
-              Featured Technologies
+              {t('featuredTechs.title')}
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              A curated selection of the technologies I work with daily to build and deploy scalable systems
+              {t('featuredTechs.subtitle')}
             </p>
           </motion.div>
 
@@ -165,10 +171,10 @@ export const Home = () => {
             className="text-center mt-12"
           >
             <Link
-              to="/skills"
+              to={localized('/skills')}
               className="inline-flex items-center text-primary-500 hover:text-primary-400 font-mono font-semibold group"
             >
-              <span className="mr-2">View all skills</span>
+              <span className="mr-2">{tCommon('ctas.viewAllSkills')}</span>
               <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
@@ -186,18 +192,17 @@ export const Home = () => {
             className="bg-bg-elevated border border-primary-500/20 p-12 rounded-2xl shadow-glow"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-6">
-              Ready to Deploy Your Vision?
+              {t('cta.title')}
             </h2>
             <p className="text-xl text-neutral-200 mb-8 leading-relaxed">
-              Let's build something amazing together. From infrastructure automation to full-stack development, 
-              I'm here to turn your ideas into production reality.
+              {t('cta.body')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/contact"
+                to={localized('/contact')}
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-bg-surface font-semibold rounded-lg hover:bg-primary-700 transition-all duration-200 shadow-glow hover:shadow-card-hover"
               >
-                Start a Project
+                {tCommon('ctas.startProject')}
               </Link>
               <a
                 href="https://github.com/GhostOnIt"
@@ -206,7 +211,7 @@ export const Home = () => {
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-neutral-600 text-neutral-200 hover:border-primary-500 hover:text-primary-500 font-semibold rounded-lg transition-all duration-200"
               >
                 <Github className="mr-2 h-5 w-5" />
-                View Code
+                {tCommon('ctas.viewCode')}
               </a>
             </div>
           </motion.div>

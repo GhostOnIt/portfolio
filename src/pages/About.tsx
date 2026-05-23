@@ -1,84 +1,47 @@
 import { motion } from 'framer-motion';
+import { useTranslation, Trans } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
 import { Calendar, MapPin, Code, Zap } from 'lucide-react';
 
-export const About = () => {
-  const timeline = [
-    {
-      year: '2024 - Present',
-      title: 'DevOps Engineer',
-      company: 'Akieni — Brazzaville, Congo',
-      description:
-        'Automating and optimizing cloud infrastructure with Terraform, CI/CD pipelines, and Kubernetes deployments via ArgoCD. Enhancing security and managing AWS cost-efficiency for the platform.',
-      icon: Zap,
-    },
-    {
-      year: '2022 - 2024',
-      title: 'AWS DevOps Engineer — Team Lead',
-      company: 'Ginov Digital Congo — Pointe-Noire',
-      description:
-        'Led migration of 230+ NodeJS/React instances to AWS, reducing cloud expenses by 40%. Built 40+ tools to automate deployment, administration, and monitoring across EC2, S3, EBS, CodeCommit, and Route 53.',
-      icon: Code,
-    },
-    {
-      year: '2020 - 2022',
-      title: 'Technical Manager',
-      company: 'OCSNETWORK — Pointe-Noire',
-      description:
-        'Designed, implemented, and maintained network infrastructures. Supervised technical teams, coordinated deployments, and ensured operational continuity through proactive monitoring and incident response.',
-      icon: MapPin,
-    },
-    {
-      year: '2018 - 2019',
-      title: 'Trainer — Linux System Administration',
-      company: 'NGO YEKOLAB — Pointe-Noire',
-      description:
-        'Designed and delivered LPIC 1 & 2 courses covering system and network configuration, service management, and IT security. Mentored professionals toward autonomy in Linux operations.',
-      icon: Code,
-    },
-    {
-      year: '2016 - 2018',
-      title: 'Full Stack PHP Developer',
-      company: 'KS Programming — Pointe-Noire',
-      description:
-        'Built and maintained dynamic web applications using the CakePHP framework, mentored by a senior PHP developer. Focused on best development practices and database management.',
-      icon: Code,
-    },
-    {
-      year: '2013 - 2016',
-      title: 'License — Networking & Telecommunications',
-      company: "Ecole Africain de Développement — Pointe-Noire",
-      description:
-        'Bachelor\'s degree in computer networking and telecommunications, foundation for a career spanning sysadmin, full-stack, and cloud DevOps.',
-      icon: Calendar,
-    },
-  ];
+const timelineIcons = [Zap, Code, MapPin, Code, Code, Calendar];
+const philosophyIcons = [Zap, Code, MapPin];
 
-  const philosophyPoints = [
-    {
-      icon: Zap,
-      title: 'Developer Experience First',
-      description: 'A platform is judged by how much friction it removes, not by how much YAML it contains. Optimize for the engineer using it.',
-    },
-    {
-      icon: Code,
-      title: 'Standards over Tools',
-      description: 'Tools come and go — conventions, contracts, and reusable modules are what keep teams shipping consistently.',
-    },
-    {
-      icon: MapPin,
-      title: 'Automation as a Product',
-      description: 'Every pipeline, module, and runbook is a product with users. Treat onboarding, docs, and feedback loops accordingly.',
-    },
-  ];
+interface TimelineItem {
+  year: string;
+  title: string;
+  company: string;
+  description: string;
+}
+
+interface PhilosophyItem {
+  title: string;
+  description: string;
+}
+
+export const About = () => {
+  const { t } = useTranslation('about');
+
+  const timelineData = t('timeline.items', { returnObjects: true }) as TimelineItem[];
+  const timeline = timelineData.map((item, i) => ({
+    ...item,
+    icon: timelineIcons[i] || Code,
+  }));
+
+  const philosophyData = t('philosophy.items', { returnObjects: true }) as PhilosophyItem[];
+  const philosophyPoints = philosophyData.map((item, i) => ({
+    ...item,
+    icon: philosophyIcons[i] || Zap,
+  }));
+
+  const specializations = t('specializations.items', { returnObjects: true }) as string[];
 
   return (
     <div className="min-h-screen bg-bg-page">
       {/* Terminal Header */}
       <TerminalHeader
-        command="cat about.txt"
-        description="Displaying professional background and technical philosophy"
+        command={t('terminal.command')}
+        description={t('terminal.description')}
       />
 
       {/* Bio Section */}
@@ -97,39 +60,30 @@ export const About = () => {
                 <div className="font-mono text-lg mb-6">
                   <span className="text-accent-500">$</span>
                   <span className="text-primary-500"> cat</span>
-                  <span className="text-neutral-400"> bio.txt</span>
+                  <span className="text-neutral-400"> {t('bio.filename')}</span>
                 </div>
                 <div className="space-y-4 text-neutral-200 leading-relaxed">
                   <Typewriter
-                    text="Hello, I'm Alexandre Sonicka Gomah — AWS DevOps Engineer based in Brazzaville, Congo."
+                    text={t('bio.greeting')}
                     delay={30}
                     className="text-primary-500 font-semibold block mb-4"
                   />
+                  <p>{t('bio.p1')}</p>
                   <p>
-                    I'm an AWS DevOps engineer with a Platform Engineering lens. My job isn't to wire up pipelines
-                    for their own sake — it's to build the systems and conventions that make the developers around
-                    me faster, more autonomous, and more confident in production.
-                  </p>
-                  <p>
-                    At Akieni, that means a self-service GitOps platform on Kubernetes (Terraform + ArgoCD) that
-                    turns a <span className="font-mono text-primary-500">git push</span> into a reviewed, audited
-                    deploy. It means cost-efficiency and security baked into the modules every team consumes,
-                    not bolted on later. Before that at Ginov, the same instinct showed up as a 40% cloud bill
-                    reduction across 230+ instances and a 40-tool automation suite that shortened onboarding from
-                    weeks to days.
+                    <Trans
+                      i18nKey="bio.p2"
+                      ns="about"
+                      components={{ code: <span className="font-mono text-primary-500" /> }}
+                    />
                   </p>
                   <p>
-                    My background — Linux sysadmin, DBA intern, full-stack PHP developer, network engineer,
-                    Linux trainer — taught me that the leverage isn't in any single tool. It's in the standards:
-                    how environments are shaped, how secrets are handled, how a new service gets from
-                    <span className="font-mono text-primary-500"> git init </span>
-                    to production on day one instead of week six. That's the layer I work on.
+                    <Trans
+                      i18nKey="bio.p3"
+                      ns="about"
+                      components={{ code: <span className="font-mono text-primary-500" /> }}
+                    />
                   </p>
-                  <p className="text-primary-500 font-medium">
-                    Engineers who work with my platforms ship faster, debug faster, and pick up cleaner habits
-                    along the way. That's the metric I optimize for — not how many YAML files I wrote, but how
-                    much friction I removed from somebody else's day.
-                  </p>
+                  <p className="text-primary-500 font-medium">{t('bio.p4')}</p>
                 </div>
               </div>
             </motion.div>
@@ -144,34 +98,34 @@ export const About = () => {
             >
               <div className="bg-bg-elevated border border-neutral-700 rounded-xl p-6">
                 <h3 className="font-mono text-primary-500 font-semibold mb-4 text-lg">
-                  Quick Stats
+                  {t('stats.title')}
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Experience</span>
-                    <span className="text-primary-500 font-mono">9+ years</span>
+                    <span className="text-neutral-400">{t('stats.experienceLabel')}</span>
+                    <span className="text-primary-500 font-mono">{t('stats.experienceValue')}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Cloud Platform</span>
-                    <span className="text-primary-500 font-mono">AWS</span>
+                    <span className="text-neutral-400">{t('stats.cloudPlatformLabel')}</span>
+                    <span className="text-primary-500 font-mono">{t('stats.cloudPlatformValue')}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Servers Migrated</span>
-                    <span className="text-primary-500 font-mono">230+</span>
+                    <span className="text-neutral-400">{t('stats.serversMigratedLabel')}</span>
+                    <span className="text-primary-500 font-mono">{t('stats.serversMigratedValue')}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-neutral-400">Technologies</span>
-                    <span className="text-primary-500 font-mono">20+ mastered</span>
+                    <span className="text-neutral-400">{t('stats.technologiesLabel')}</span>
+                    <span className="text-primary-500 font-mono">{t('stats.technologiesValue')}</span>
                   </div>
                 </div>
               </div>
 
               <div className="bg-bg-elevated border border-neutral-700 rounded-xl p-6">
                 <h3 className="font-mono text-primary-500 font-semibold mb-4 text-lg">
-                  Specializations
+                  {t('specializations.title')}
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {['Platform Engineering', 'Developer Experience', 'AWS Cloud Architecture', 'GitOps with ArgoCD', 'Terraform IaC', 'Kubernetes Operations', 'Cost Optimization', 'Linux Administration'].map((skill) => (
+                  {specializations.map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 bg-neutral-800 text-neutral-200 text-sm rounded-md border border-neutral-700 hover:border-primary-500/50 transition-colors"
@@ -197,10 +151,10 @@ export const About = () => {
             className="text-center mb-16"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
-              Career Timeline
+              {t('timeline.title')}
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              From Linux sysadmin and full-stack development to AWS DevOps and platform engineering
+              {t('timeline.subtitle')}
             </p>
           </motion.div>
 
@@ -212,10 +166,10 @@ export const About = () => {
               {timeline.map((item, index) => {
                 const IconComponent = item.icon;
                 const isEven = index % 2 === 0;
-                
+
                 return (
                   <motion.div
-                    key={item.year}
+                    key={item.year + item.title}
                     initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.6 }}
@@ -257,10 +211,10 @@ export const About = () => {
             className="text-center mb-16"
           >
             <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
-              Tech Philosophy
+              {t('philosophy.title')}
             </h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">
-              Core principles that guide how I build platforms and the developer experience around them
+              {t('philosophy.subtitle')}
             </p>
           </motion.div>
 

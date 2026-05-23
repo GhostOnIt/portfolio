@@ -17,8 +17,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
-        sans: ['Inter', '-apple-system', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', '"Noto Sans Mono CJK JP"', '"Noto Sans JP"', 'monospace'],
+        sans: ['Inter', '-apple-system', 'system-ui', '"Noto Sans JP"', 'sans-serif'],
       },
       colors: {
         primary: {

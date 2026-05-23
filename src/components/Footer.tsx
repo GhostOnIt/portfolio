@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { CONTACT } from '../data/portfolio';
 
 export const Footer = () => {
+  const { t } = useTranslation('common');
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -63,15 +65,15 @@ export const Footer = () => {
               <span>copyright.txt</span>
             </div>
             <div className="mt-2 space-y-1 text-xs">
-              <p>© {currentYear} Alexandre Sonicka Gomah — AWS DevOps Engineer</p>
-              <p>Built with React, TypeScript, and Cyber Terminal Aesthetic</p>
-              <p className="text-primary-500">Status: Available for opportunities</p>
+              <p>{t('footer.copyright', { year: currentYear })}</p>
+              <p>{t('footer.builtWith')}</p>
+              <p className="text-primary-500">{t('footer.status')}</p>
             </div>
           </div>
 
           {/* Tech stack indicator */}
           <div className="flex items-center space-x-4 text-xs font-mono text-neutral-500">
-            <span>Powered by:</span>
+            <span>{t('footer.poweredBy')}</span>
             <div className="flex items-center space-x-2">
               <span className="px-2 py-1 bg-neutral-800 rounded text-primary-500">React</span>
               <span className="px-2 py-1 bg-neutral-800 rounded text-primary-500">TypeScript</span>

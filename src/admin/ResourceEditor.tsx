@@ -9,6 +9,24 @@ function isResourceKey(v: string | undefined): v is ResourceKey {
   return v === 'blog' || v === 'caseStudies' || v === 'projects' || v === 'skills';
 }
 
+function normalizeSourceContent(resource: ResourceKey, data: Record<string, any>) {
+  if (resource === 'skills') return data;
+
+  const next = { ...data };
+  for (const field of FIELDS[resource]) {
+    if (!['localized', 'localizedTextarea', 'localizedList'].includes(field.type)) continue;
+
+    const current = next[field.name];
+    if (field.type === 'localizedList') {
+      next[field.name] = { en: Array.isArray(current?.en) ? current.en : [] };
+    } else {
+      next[field.name] = { en: typeof current?.en === 'string' ? current.en : '' };
+    }
+  }
+
+  return next;
+}
+
 export function ResourceEditor() {
   const { resource, id } = useParams();
   const navigate = useNavigate();
@@ -43,10 +61,11 @@ export function ResourceEditor() {
     setSaving(true);
     setError(null);
     try {
+      const payload = normalizeSourceContent(resource as ResourceKey, value);
       if (isNew) {
-        await contentApi.create(resource as ResourceKey, value);
+        await contentApi.create(resource as ResourceKey, payload);
       } else {
-        await contentApi.update(resource as ResourceKey, numericId as number, value);
+        await contentApi.update(resource as ResourceKey, numericId as number, payload);
       }
       navigate(`/admin/${resource}`);
     } catch (e: any) {

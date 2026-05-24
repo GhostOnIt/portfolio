@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import type { Field } from './fields';
 
-const LANGS: { code: 'en' | 'fr' | 'ja'; label: string }[] = [
-  { code: 'en', label: 'EN' },
-  { code: 'fr', label: 'FR' },
-  { code: 'ja', label: 'JA' },
-];
-
 const inputCls =
   'w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500';
 const labelCls = 'block text-sm font-medium text-zinc-300 mb-1';
 const hintCls = 'text-xs text-zinc-500 mb-1';
+const sourceLangCls = 'mb-1 text-xs font-mono text-zinc-500';
 
 type Props = {
   fields: Field[];
@@ -20,8 +15,7 @@ type Props = {
 
 export function DynamicForm({ fields, value, onChange }: Props) {
   const setField = (name: string, v: any) => onChange({ ...value, [name]: v });
-  const setLocalized = (name: string, lang: string, v: any) =>
-    onChange({ ...value, [name]: { ...(value[name] ?? {}), [lang]: v } });
+  const setLocalizedSource = (name: string, v: any) => onChange({ ...value, [name]: { en: v } });
 
   return (
     <div className="space-y-5">
@@ -99,57 +93,44 @@ export function DynamicForm({ fields, value, onChange }: Props) {
           )}
 
           {f.type === 'localized' && (
-            <div className="space-y-2">
-              {LANGS.map((l) => (
-                <div key={l.code} className="flex items-center gap-2">
-                  <span className="w-8 shrink-0 text-xs font-mono text-zinc-500">{l.label}</span>
-                  <input
-                    type="text"
-                    className={inputCls}
-                    value={value[f.name]?.[l.code] ?? ''}
-                    onChange={(e) => setLocalized(f.name, l.code, e.target.value)}
-                  />
-                </div>
-              ))}
-            </div>
+            <>
+              <p className={sourceLangCls}>Source content</p>
+              <input
+                type="text"
+                className={inputCls}
+                value={value[f.name]?.en ?? ''}
+                onChange={(e) => setLocalizedSource(f.name, e.target.value)}
+              />
+            </>
           )}
 
           {f.type === 'localizedTextarea' && (
-            <div className="space-y-2">
-              {LANGS.map((l) => (
-                <div key={l.code}>
-                  <span className="text-xs font-mono text-zinc-500">{l.label}</span>
-                  <textarea
-                    className={`${inputCls} font-mono`}
-                    rows={f.rows ?? 4}
-                    value={value[f.name]?.[l.code] ?? ''}
-                    onChange={(e) => setLocalized(f.name, l.code, e.target.value)}
-                  />
-                </div>
-              ))}
-            </div>
+            <>
+              <p className={sourceLangCls}>Source content</p>
+              <textarea
+                className={`${inputCls} font-mono`}
+                rows={f.rows ?? 4}
+                value={value[f.name]?.en ?? ''}
+                onChange={(e) => setLocalizedSource(f.name, e.target.value)}
+              />
+            </>
           )}
 
           {f.type === 'localizedList' && (
-            <div className="space-y-2">
-              {LANGS.map((l) => (
-                <div key={l.code}>
-                  <span className="text-xs font-mono text-zinc-500">{l.label}</span>
-                  <textarea
-                    className={`${inputCls} font-mono`}
-                    rows={f.rows ?? 4}
-                    value={Array.isArray(value[f.name]?.[l.code]) ? value[f.name][l.code].join('\n') : ''}
-                    onChange={(e) =>
-                      setLocalized(
-                        f.name,
-                        l.code,
-                        e.target.value.split('\n').map((s) => s.trim()).filter(Boolean),
-                      )
-                    }
-                  />
-                </div>
-              ))}
-            </div>
+            <>
+              <p className={sourceLangCls}>Source content</p>
+              <textarea
+                className={`${inputCls} font-mono`}
+                rows={f.rows ?? 4}
+                value={Array.isArray(value[f.name]?.en) ? value[f.name].en.join('\n') : ''}
+                onChange={(e) =>
+                  setLocalizedSource(
+                    f.name,
+                    e.target.value.split('\n').map((s) => s.trim()).filter(Boolean),
+                  )
+                }
+              />
+            </>
           )}
 
           {f.type === 'json' && (

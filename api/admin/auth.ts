@@ -12,8 +12,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // POST → login
   if (req.method === 'POST') {
-    const { ADMIN_EMAIL, ADMIN_PASSWORD_HASH, AUTH_SECRET } = process.env;
-    if (!ADMIN_EMAIL || !ADMIN_PASSWORD_HASH || !AUTH_SECRET) {
+    const { ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_PASSWORD_HASH, AUTH_SECRET } = process.env;
+    if (!ADMIN_EMAIL || (!ADMIN_PASSWORD && !ADMIN_PASSWORD_HASH) || !AUTH_SECRET) {
       console.error('Missing admin auth env vars');
       return res.status(500).json({ error: 'Server misconfigured' });
     }
@@ -25,7 +25,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const emailOk = email.trim().toLowerCase() === ADMIN_EMAIL.trim().toLowerCase();
-    const passwordOk = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    const passwordOk = ADMIN_PASSWORD
+      ? password === ADMIN_PASSWORD
+      : await bcrypt.compare(password, ADMIN_PASSWORD_HASH as string);
     if (!emailOk || !passwordOk) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }

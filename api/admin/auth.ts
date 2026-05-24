@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import bcrypt from 'bcryptjs';
-import { signToken, setSessionCookie, clearSessionCookie, getSession } from '../_lib/auth';
+import { signToken, setSessionCookie, clearSessionCookie, getSession } from '../_lib/auth.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // GET → current session ("me")

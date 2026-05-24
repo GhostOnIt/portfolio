@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { eq, asc, desc } from 'drizzle-orm';
-import { db } from '../../db';
-import { blogPosts, caseStudies, projects, skills } from '../../db/schema';
-import { requireAuth } from '../_lib/auth';
+import { db } from '../../db/index.js';
+import { blogPosts, caseStudies, projects, skills } from '../../db/schema.js';
+import { requireAuth } from '../_lib/auth.js';
 
 const RESOURCES = {
   blog: { table: blogPosts, order: desc(blogPosts.date), hasTimestamps: true },

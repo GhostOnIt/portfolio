@@ -8,9 +8,16 @@ import { Projects } from './pages/Projects';
 import Blog from './pages/Blog';
 import CaseStudies from './pages/CaseStudies';
 import { Contact } from './pages/Contact';
+import { SUPPORTED_LANGS } from './i18n/config';
 import './App.css';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
+
+const adminFallback = (
+  <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-400">
+    Loading…
+  </div>
+);
 
 function App() {
   return (
@@ -18,29 +25,23 @@ function App() {
       <Routes>
         <Route
           path="/admin/*"
-          element={
-            <Suspense
-              fallback={
-                <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-400">
-                  Loading…
-                </div>
-              }
-            >
-              <AdminApp />
-            </Suspense>
-          }
+          element={<Suspense fallback={adminFallback}>{<AdminApp />}</Suspense>}
         />
 
         <Route path="/" element={<Navigate to="/en" replace />} />
-        <Route path="/:lang" element={<LangLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="skills" element={<Skills />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="case-studies" element={<CaseStudies />} />
-          <Route path="contact" element={<Contact />} />
-        </Route>
+        {SUPPORTED_LANGS.map((lng) => (
+          <Route key={lng} path={lng} element={<LangLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="skills" element={<Skills />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="case-studies" element={<CaseStudies />} />
+            <Route path="contact" element={<Contact />} />
+          </Route>
+        ))}
+
+        <Route path="*" element={<Navigate to="/en" replace />} />
       </Routes>
     </Router>
   );

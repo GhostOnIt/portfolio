@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
-import { Navigate, Outlet, useParams } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { isSupportedLang } from '../i18n/config';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
 export const LangLayout = () => {
-  const { lang } = useParams();
+  const location = useLocation();
+  const lang = location.pathname.split('/')[1];
   const { i18n } = useTranslation();
 
   useEffect(() => {

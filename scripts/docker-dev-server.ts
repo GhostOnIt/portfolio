@@ -100,7 +100,7 @@ async function main() {
     });
   });
 
-  const port = Number(process.env.PORT ?? 3000);
+  const port = Number(process.env.PORT ?? 5173);
   server.listen(port, '0.0.0.0', () => {
     console.log(`Portfolio CMS ready on http://localhost:${port}`);
   });

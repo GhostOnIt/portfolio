@@ -167,7 +167,7 @@ export function ResourceEditor() {
 
   return (
     <div className="mx-auto max-w-7xl">
-      <div className="mb-6 flex flex-col gap-4 border-b border-zinc-800 pb-5 lg:flex-row lg:items-center lg:justify-between">
+      <div className="sticky top-0 z-20 -mx-8 mb-6 flex flex-col gap-4 border-b border-zinc-800 bg-zinc-950/95 px-8 py-5 backdrop-blur lg:flex-row lg:items-center lg:justify-between">
         <div>
           <div className="mb-2 flex items-center gap-3 text-sm text-zinc-500">
             <Link to={`/admin/${resource}`} className="hover:text-zinc-300">

@@ -20,7 +20,13 @@ export function Login() {
       await login(email, password);
       navigate('/admin', { replace: true });
     } catch (err: any) {
-      setError(err?.message || 'Login failed');
+      if (err?.status === 401 || err?.message === 'Invalid credentials') {
+        setError('Email ou mot de passe incorrect.');
+      } else if (err?.status === 404) {
+        setError("Le serveur admin local ne répond pas. Relance l'application avec npm run dev.");
+      } else {
+        setError(err?.message || 'Connexion impossible.');
+      }
     } finally {
       setSubmitting(false);
     }

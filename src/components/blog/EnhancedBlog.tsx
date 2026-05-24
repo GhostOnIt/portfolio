@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
@@ -23,7 +24,8 @@ import {
   Code,
   Database,
   Cloud,
-  Shield
+  Shield,
+  Lock
 } from 'lucide-react';
 import { 
   AnimatedBackground, 
@@ -616,6 +618,18 @@ const EnhancedBlog: React.FC = () => {
             {t('newsletter.disclaimer')}
           </p>
         </motion.section>
+
+        {/* Subtle admin entry point */}
+        <div className="mt-12 text-center">
+          <Link
+            to="/admin"
+            aria-label="Admin"
+            className="inline-flex items-center gap-1 font-mono text-xs text-gray-700 hover:text-green-400 transition-colors"
+          >
+            <Lock className="w-3 h-3" />
+            <span>~/admin</span>
+          </Link>
+        </div>
 
         {/* Blog Post Modal */}
         <AnimatePresence>

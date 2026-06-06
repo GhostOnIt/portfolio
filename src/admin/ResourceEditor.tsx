@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useNavigate, useParams, Link } from 'react-router-dom';
 import { contentApi } from './api';
 import type { ResourceKey } from './api';
@@ -26,6 +26,59 @@ function normalizeSourceContent(resource: ResourceKey, data: Record<string, any>
   }
 
   return next;
+}
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 90);
+}
+
+function getFieldText(value: any) {
+  if (typeof value === 'string') return value.trim();
+  if (Array.isArray(value)) return value.length > 0 ? 'ok' : '';
+  if (value && typeof value === 'object') {
+    if (Array.isArray(value.en)) return value.en.length > 0 ? 'ok' : '';
+    return typeof value.en === 'string' ? value.en.trim() : '';
+  }
+  if (typeof value === 'number') return Number.isFinite(value) ? 'ok' : '';
+  if (typeof value === 'boolean') return 'ok';
+  return '';
+}
+
+function validateResource(resource: ResourceKey, data: Record<string, any>) {
+  const errors: Record<string, string> = {};
+  for (const field of FIELDS[resource]) {
+    if (field.required && !getFieldText(data[field.name])) {
+      errors[field.name] = `${field.label} is required.`;
+    }
+    if (field.name === 'slug' && getFieldText(data[field.name]) && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(data[field.name]))) {
+      errors[field.name] = 'Slug can only contain lowercase letters, numbers, and hyphens.';
+    }
+  }
+  return errors;
+}
+
+function renderMarkdown(markdown: string) {
+  if (!markdown.trim()) return <p className="text-zinc-500">Nothing to preview yet.</p>;
+
+  return (
+    <div className="space-y-3 text-sm leading-6 text-zinc-300">
+      {markdown.split('\n').map((line, index) => {
+        const trimmed = line.trim();
+        if (!trimmed) return <div key={index} className="h-2" />;
+        if (trimmed.startsWith('### ')) return <h4 key={index} className="text-base font-semibold text-zinc-100">{trimmed.slice(4)}</h4>;
+        if (trimmed.startsWith('## ')) return <h3 key={index} className="text-lg font-semibold text-zinc-100">{trimmed.slice(3)}</h3>;
+        if (trimmed.startsWith('# ')) return <h2 key={index} className="text-xl font-semibold text-zinc-100">{trimmed.slice(2)}</h2>;
+        if (trimmed.startsWith('- ')) return <p key={index} className="pl-4 text-zinc-300">- {trimmed.slice(2)}</p>;
+        return <p key={index}>{trimmed}</p>;
+      })}
+    </div>
+  );
 }
 
 type FieldSection = {
@@ -122,48 +175,111 @@ export function ResourceEditor() {
   const numericId = isNew ? undefined : Number(id);
 
   const valid = isResourceKey(resource);
+  const currentResource: ResourceKey = valid ? resource : 'blog';
   const [value, setValue] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [dirty, setDirty] = useState(false);
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
     if (!valid) return;
     if (isNew) {
       setValue(DEFAULTS[resource as ResourceKey]());
+      setDirty(false);
       setLoading(false);
       return;
     }
     setLoading(true);
     contentApi
       .get(resource as ResourceKey, numericId as number)
-      .then((row) => setValue(row))
+      .then((row) => {
+        setValue(row);
+        setDirty(false);
+      })
       .catch((e) => setError(e?.message || 'Failed to load'))
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resource, id]);
 
-  if (!valid) return <Navigate to="/admin" replace />;
+  useEffect(() => {
+    if (!dirty) return;
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [dirty]);
+
+  useEffect(() => {
+    if (!valid || currentResource === 'skills' || value.slug) return;
+    const title = getFieldText(value.title);
+    if (!title) return;
+    setValue((prev) => ({ ...prev, slug: slugify(title) }));
+  }, [valid, currentResource, value.title, value.slug]);
 
   const onSave = async () => {
     setSaving(true);
     setError(null);
+    setNotice(null);
     try {
+      const validation = validateResource(resource as ResourceKey, value);
+      setFieldErrors(validation);
+      if (Object.keys(validation).length > 0) {
+        setSaving(false);
+        setError('Please fix the highlighted fields before saving.');
+        return;
+      }
+
       const payload = normalizeSourceContent(resource as ResourceKey, value);
       if (isNew) {
         await contentApi.create(resource as ResourceKey, payload);
       } else {
         await contentApi.update(resource as ResourceKey, numericId as number, payload);
       }
-      navigate(`/admin/${resource}`);
+      setDirty(false);
+      setNotice('Saved successfully.');
+      if (isNew) navigate(`/admin/${resource}`);
     } catch (e: any) {
       setError(e?.message || 'Save failed');
+    } finally {
       setSaving(false);
     }
   };
 
-  const currentResource = resource as ResourceKey;
-  const layout = valid ? EDITOR_LAYOUT[currentResource] : null;
+  const layout = EDITOR_LAYOUT[currentResource];
+  const mainPreview = useMemo(() => {
+    if (!layout) return null;
+    const previewFields = layout.main.flatMap((section) => section.fields);
+    return previewFields.map((name) => {
+      const field = FIELDS[currentResource].find((item) => item.name === name);
+      if (!field) return null;
+      const current = value[name];
+      const text = field.type === 'localizedList'
+        ? Array.isArray(current?.en) ? current.en.map((item: string) => `- ${item}`).join('\n') : ''
+        : typeof current?.en === 'string' ? current.en : typeof current === 'string' ? current : '';
+      return { name, label: field.label, text };
+    }).filter(Boolean) as { name: string; label: string; text: string }[];
+  }, [currentResource, layout, value]);
+
+  const updateValue = (next: Record<string, any>) => {
+    setValue(next);
+    setDirty(true);
+    setNotice(null);
+  };
+
+  const confirmLeave = (event: React.MouseEvent) => {
+    if (!dirty) return;
+    if (!confirm('You have unsaved changes. Leave without saving?')) {
+      event.preventDefault();
+    }
+  };
+
+  if (!valid) return <Navigate to="/admin" replace />;
 
   return (
     <div className="mx-auto max-w-7xl">
@@ -183,6 +299,7 @@ export function ResourceEditor() {
         <div className="flex items-center gap-3">
           <Link
             to={`/admin/${resource}`}
+            onClick={confirmLeave}
             className="rounded-md border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800"
           >
             Cancel
@@ -202,13 +319,44 @@ export function ResourceEditor() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="space-y-6">
+            {notice && <p className="rounded-md border border-emerald-700/40 bg-emerald-950/30 px-4 py-3 text-sm text-emerald-200">{notice}</p>}
+            {currentResource !== 'skills' && (
+              <div className="inline-flex rounded-md border border-zinc-800 bg-zinc-900 p-1 text-sm">
+                <button
+                  type="button"
+                  onClick={() => setPreview(false)}
+                  className={`rounded px-3 py-1.5 ${!preview ? 'bg-emerald-600 text-white' : 'text-zinc-400 hover:text-zinc-100'}`}
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreview(true)}
+                  className={`rounded px-3 py-1.5 ${preview ? 'bg-emerald-600 text-white' : 'text-zinc-400 hover:text-zinc-100'}`}
+                >
+                  Preview
+                </button>
+              </div>
+            )}
             {layout?.main.map((section) => (
               <EditorSection key={section.title} title={section.title} description={section.description}>
-                <DynamicForm
-                  fields={pickFields(currentResource, section.fields)}
-                  value={value}
-                  onChange={setValue}
-                />
+                {preview ? (
+                  <div className="space-y-6">
+                    {mainPreview.map((item) => (
+                      <div key={item.name}>
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">{item.label}</p>
+                        {renderMarkdown(item.text)}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <DynamicForm
+                    fields={pickFields(currentResource, section.fields)}
+                    value={value}
+                    onChange={updateValue}
+                    errors={fieldErrors}
+                  />
+                )}
               </EditorSection>
             ))}
             {error && <p className="text-sm text-red-400">{error}</p>}
@@ -220,7 +368,8 @@ export function ResourceEditor() {
                 <DynamicForm
                   fields={pickFields(currentResource, section.fields)}
                   value={value}
-                  onChange={setValue}
+                  onChange={updateValue}
+                  errors={fieldErrors}
                 />
               </EditorSection>
             ))}

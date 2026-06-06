@@ -11,9 +11,10 @@ type Props = {
   fields: Field[];
   value: Record<string, any>;
   onChange: (next: Record<string, any>) => void;
+  errors?: Record<string, string>;
 };
 
-export function DynamicForm({ fields, value, onChange }: Props) {
+export function DynamicForm({ fields, value, onChange, errors = {} }: Props) {
   const setField = (name: string, v: any) => onChange({ ...value, [name]: v });
   const setLocalizedSource = (name: string, v: any) => onChange({ ...value, [name]: { en: v } });
 
@@ -27,7 +28,22 @@ export function DynamicForm({ fields, value, onChange }: Props) {
           </label>
           {f.hint && <p className={hintCls}>{f.hint}</p>}
 
-          {f.type === 'text' && (
+          {f.type === 'text' && f.options && (
+            <select
+              className={inputCls}
+              value={value[f.name] ?? ''}
+              onChange={(e) => setField(f.name, e.target.value)}
+            >
+              <option value="">Select...</option>
+              {f.options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {f.type === 'text' && !f.options && (
             <input
               type="text"
               className={inputCls}
@@ -46,22 +62,41 @@ export function DynamicForm({ fields, value, onChange }: Props) {
           )}
 
           {f.type === 'number' && (
-            <input
-              type="number"
-              className={inputCls}
-              value={value[f.name] ?? 0}
-              onChange={(e) => setField(f.name, e.target.value === '' ? 0 : Number(e.target.value))}
-            />
+            f.min != null || f.max != null ? (
+              <div className="space-y-2">
+                <input
+                  type="range"
+                  min={f.min ?? 0}
+                  max={f.max ?? 100}
+                  className="w-full accent-emerald-500"
+                  value={value[f.name] ?? 0}
+                  onChange={(e) => setField(f.name, Number(e.target.value))}
+                />
+                <div className="flex items-center justify-between text-xs text-zinc-500">
+                  <span>{f.min ?? 0}</span>
+                  <span className="rounded bg-zinc-800 px-2 py-1 text-zinc-200">{value[f.name] ?? 0}</span>
+                  <span>{f.max ?? 100}</span>
+                </div>
+              </div>
+            ) : (
+              <input
+                type="number"
+                className={inputCls}
+                value={value[f.name] ?? 0}
+                onChange={(e) => setField(f.name, e.target.value === '' ? 0 : Number(e.target.value))}
+              />
+            )
           )}
 
           {f.type === 'boolean' && (
-            <label className="inline-flex items-center gap-2 text-sm text-zinc-300">
+            <label className="inline-flex cursor-pointer items-center gap-3 text-sm text-zinc-300">
               <input
                 type="checkbox"
-                className="h-4 w-4 rounded border-zinc-600 bg-zinc-900 text-emerald-500 focus:ring-emerald-500"
+                className="peer sr-only"
                 checked={!!value[f.name]}
                 onChange={(e) => setField(f.name, e.target.checked)}
               />
+              <span className="h-6 w-11 rounded-full bg-zinc-700 transition after:ml-1 after:mt-1 after:block after:h-4 after:w-4 after:rounded-full after:bg-zinc-300 after:transition peer-checked:bg-emerald-600 peer-checked:after:translate-x-5" />
               {value[f.name] ? 'Yes' : 'No'}
             </label>
           )}
@@ -76,19 +111,9 @@ export function DynamicForm({ fields, value, onChange }: Props) {
           )}
 
           {f.type === 'tags' && (
-            <input
-              type="text"
-              className={inputCls}
-              value={Array.isArray(value[f.name]) ? value[f.name].join(', ') : ''}
-              onChange={(e) =>
-                setField(
-                  f.name,
-                  e.target.value
-                    .split(',')
-                    .map((s) => s.trim())
-                    .filter(Boolean),
-                )
-              }
+            <TagsField
+              value={Array.isArray(value[f.name]) ? value[f.name] : []}
+              onChange={(next) => setField(f.name, next)}
             />
           )}
 
@@ -136,8 +161,54 @@ export function DynamicForm({ fields, value, onChange }: Props) {
           {f.type === 'json' && (
             <JsonField value={value[f.name]} onChange={(v) => setField(f.name, v)} rows={f.rows ?? 6} />
           )}
+
+          {errors[f.name] && <p className="mt-1 text-xs text-red-400">{errors[f.name]}</p>}
         </div>
       ))}
+    </div>
+  );
+}
+
+function TagsField({ value, onChange }: { value: string[]; onChange: (value: string[]) => void }) {
+  const [draft, setDraft] = useState('');
+
+  const addTag = () => {
+    const next = draft.trim();
+    if (!next || value.includes(next)) return;
+    onChange([...value, next]);
+    setDraft('');
+  };
+
+  return (
+    <div className="rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2">
+      <div className="mb-2 flex flex-wrap gap-2">
+        {value.length === 0 && <span className="text-sm text-zinc-500">No items yet.</span>}
+        {value.map((tag) => (
+          <button
+            key={tag}
+            type="button"
+            onClick={() => onChange(value.filter((item) => item !== tag))}
+            className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-200 transition hover:bg-red-900/50 hover:text-red-200"
+            title="Remove"
+          >
+            {tag} x
+          </button>
+        ))}
+      </div>
+      <input
+        type="text"
+        className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
+        placeholder="Type and press Enter"
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            addTag();
+          }
+        }}
+        onBlur={addTag}
+      />
     </div>
   );
 }

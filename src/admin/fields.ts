@@ -19,6 +19,9 @@ export type Field = {
   required?: boolean;
   rows?: number;
   hint?: string;
+  options?: string[];
+  min?: number;
+  max?: number;
 };
 
 export type Column = { name: string; label: string };
@@ -33,8 +36,8 @@ export const RESOURCE_LABELS: Record<ResourceKey, string> = {
 export const FIELDS: Record<ResourceKey, Field[]> = {
   blog: [
     { name: 'slug', label: 'Slug', type: 'text', required: true },
-    { name: 'category', label: 'Category', type: 'text', required: true },
-    { name: 'difficulty', label: 'Difficulty', type: 'text', required: true, hint: 'e.g. Beginner / Intermediate / Advanced' },
+    { name: 'category', label: 'Category', type: 'text', required: true, options: ['DevOps', 'Cloud Infrastructure', 'Career'] },
+    { name: 'difficulty', label: 'Difficulty', type: 'text', required: true, options: ['Beginner', 'Intermediate', 'Advanced'] },
     { name: 'readTime', label: 'Read time', type: 'text', required: true, hint: 'e.g. "9 min read"' },
     { name: 'date', label: 'Date', type: 'date', required: true },
     { name: 'featured', label: 'Featured', type: 'boolean' },
@@ -50,7 +53,7 @@ export const FIELDS: Record<ResourceKey, Field[]> = {
   ],
   caseStudies: [
     { name: 'slug', label: 'Slug', type: 'text', required: true },
-    { name: 'category', label: 'Category', type: 'text', required: true },
+    { name: 'category', label: 'Category', type: 'text', required: true, options: ['Cloud Infrastructure', 'DevOps', 'Training'] },
     { name: 'featured', label: 'Featured', type: 'boolean' },
     { name: 'published', label: 'Published', type: 'boolean' },
     { name: 'sortOrder', label: 'Sort order', type: 'number' },
@@ -69,7 +72,7 @@ export const FIELDS: Record<ResourceKey, Field[]> = {
   ],
   projects: [
     { name: 'slug', label: 'Slug', type: 'text', required: true },
-    { name: 'category', label: 'Category', type: 'text', required: true },
+    { name: 'category', label: 'Category', type: 'text', required: true, options: ['devops', 'fullstack'] },
     { name: 'published', label: 'Published', type: 'boolean' },
     { name: 'sortOrder', label: 'Sort order', type: 'number' },
     { name: 'image', label: 'Image URL', type: 'text' },
@@ -82,8 +85,8 @@ export const FIELDS: Record<ResourceKey, Field[]> = {
   skills: [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'icon', label: 'Icon URL', type: 'text', required: true },
-    { name: 'category', label: 'Category', type: 'text', required: true },
-    { name: 'level', label: 'Level (0-100)', type: 'number', required: true },
+    { name: 'category', label: 'Category', type: 'text', required: true, options: ['cloud', 'containers', 'infrastructure', 'os', 'devops', 'development', 'database'] },
+    { name: 'level', label: 'Level (0-100)', type: 'number', required: true, min: 0, max: 100 },
     { name: 'sortOrder', label: 'Sort order', type: 'number' },
   ],
 };

@@ -1,11 +1,14 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { BookOpen, Briefcase, FileText, Home, Mail, User, Wrench } from 'lucide-react';
+import { useState } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { BookOpen, Briefcase, ChevronDown, FileText, FolderTree, Home, Mail, User, Wrench } from 'lucide-react';
 import { useAuth } from './AuthContext';
-import { RESOURCE_LABELS } from './fields';
-import type { ResourceKey } from './api';
 
-const RESOURCES: ResourceKey[] = ['blog', 'caseStudies', 'projects', 'skillCategories', 'skills'];
 const PUBLIC_LANG = 'en';
+const ADMIN_LINKS = [
+  { path: '/admin/blog', label: 'Blog posts' },
+  { path: '/admin/caseStudies', label: 'Case studies' },
+  { path: '/admin/projects', label: 'Projects' },
+];
 
 const PUBLIC_LINKS = [
   { path: `/${PUBLIC_LANG}`, label: 'Home', icon: Home },
@@ -20,6 +23,8 @@ const PUBLIC_LINKS = [
 export function AdminLayout() {
   const { email, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [skillsOpen, setSkillsOpen] = useState(() => location.pathname.startsWith('/admin/skills') || location.pathname.startsWith('/admin/skillCategories'));
 
   const onLogout = async () => {
     await logout();
@@ -33,6 +38,7 @@ export function AdminLayout() {
 
   const publicLinkCls =
     'flex items-center gap-2 rounded-md px-3 py-2 text-sm text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100';
+  const skillsActive = location.pathname.startsWith('/admin/skills') || location.pathname.startsWith('/admin/skillCategories');
 
   return (
     <div className="flex h-screen overflow-hidden bg-zinc-950 text-zinc-100">
@@ -48,11 +54,40 @@ export function AdminLayout() {
           <NavLink to="/admin" end className={linkCls}>
             Dashboard
           </NavLink>
-          {RESOURCES.map((r) => (
-            <NavLink key={r} to={`/admin/${r}`} className={linkCls}>
-              {RESOURCE_LABELS[r]}
+          {ADMIN_LINKS.map((item) => (
+            <NavLink key={item.path} to={item.path} className={linkCls}>
+              {item.label}
             </NavLink>
           ))}
+
+          <div>
+            <button
+              type="button"
+              onClick={() => setSkillsOpen((open) => !open)}
+              className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm transition ${
+                skillsActive ? 'bg-emerald-600/20 text-emerald-300' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <Wrench className="h-4 w-4" />
+                Skills
+              </span>
+              <ChevronDown className={`h-4 w-4 transition ${skillsOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {skillsOpen && (
+              <div className="mt-1 space-y-1 border-l border-zinc-800 pl-3">
+                <NavLink to="/admin/skills" className={linkCls}>
+                  All skills
+                </NavLink>
+                <NavLink to="/admin/skillCategories" className={linkCls}>
+                  <span className="inline-flex items-center gap-2">
+                    <FolderTree className="h-4 w-4" />
+                    Categories
+                  </span>
+                </NavLink>
+              </div>
+            )}
+          </div>
         </nav>
 
         <nav className="mt-8 space-y-1">

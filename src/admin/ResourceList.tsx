@@ -5,7 +5,7 @@ import type { ResourceKey } from './api';
 import { COLUMNS, RESOURCE_LABELS } from './fields';
 
 function isResourceKey(v: string | undefined): v is ResourceKey {
-  return v === 'blog' || v === 'caseStudies' || v === 'projects' || v === 'skills';
+  return v === 'blog' || v === 'caseStudies' || v === 'projects' || v === 'skillCategories' || v === 'skills';
 }
 
 function renderCell(value: any, name: string) {

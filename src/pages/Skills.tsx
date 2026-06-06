@@ -1,10 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
 import { Cloud, Container, Code, Database, Terminal as TerminalIcon, Server } from 'lucide-react';
-import { SKILLS, SKILLS_BY_CATEGORY, CONTACT } from '../data/portfolio';
+import { SKILLS, CONTACT } from '../data/portfolio';
+
+type SkillItem = {
+  name: string;
+  icon: string;
+  category: string;
+  level: number;
+  sortOrder?: number;
+};
+
+type SkillCategoryItem = {
+  slug: string;
+  label: string;
+  icon?: string | null;
+  color: string;
+  sortOrder?: number;
+};
+
+const CATEGORY_ICON_MAP = {
+  Cloud,
+  Container,
+  Code,
+  Database,
+  Terminal: TerminalIcon,
+  Server,
+};
+
+const FALLBACK_CATEGORY_META: SkillCategoryItem[] = [
+  { slug: 'cloud', label: 'Cloud', icon: 'Cloud', color: 'text-blue-500', sortOrder: 0 },
+  { slug: 'containers', label: 'Containers', icon: 'Container', color: 'text-blue-400', sortOrder: 1 },
+  { slug: 'infrastructure', label: 'Infrastructure as Code', icon: 'Terminal', color: 'text-purple-500', sortOrder: 2 },
+  { slug: 'os', label: 'Operating Systems', icon: 'Server', color: 'text-yellow-500', sortOrder: 3 },
+  { slug: 'devops', label: 'DevOps', icon: 'Code', color: 'text-green-500', sortOrder: 4 },
+  { slug: 'development', label: 'Development', icon: 'Code', color: 'text-orange-500', sortOrder: 5 },
+  { slug: 'database', label: 'Databases', icon: 'Database', color: 'text-red-500', sortOrder: 6 },
+];
 
 export const Skills = () => {
   const { t } = useTranslation('skills');
@@ -12,58 +47,49 @@ export const Skills = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
+  const [skills, setSkills] = useState<SkillItem[]>(SKILLS);
+  const [skillCategories, setSkillCategories] = useState<SkillCategoryItem[]>(FALLBACK_CATEGORY_META);
 
-  const categories = [
-    {
-      id: 'cloud',
-      title: t('categories.cloud'),
-      icon: Cloud,
-      skills: SKILLS_BY_CATEGORY.cloud,
-      color: 'text-blue-500',
-    },
-    {
-      id: 'containers',
-      title: t('categories.containers'),
-      icon: Container,
-      skills: SKILLS_BY_CATEGORY.containers,
-      color: 'text-blue-400',
-    },
-    {
-      id: 'infrastructure',
-      title: t('categories.infrastructure'),
-      icon: TerminalIcon,
-      skills: SKILLS_BY_CATEGORY.infrastructure,
-      color: 'text-purple-500',
-    },
-    {
-      id: 'os',
-      title: t('categories.os'),
-      icon: Server,
-      skills: SKILLS_BY_CATEGORY.os,
-      color: 'text-yellow-500',
-    },
-    {
-      id: 'devops',
-      title: t('categories.devops'),
-      icon: Code,
-      skills: SKILLS_BY_CATEGORY.devops,
-      color: 'text-green-500',
-    },
-    {
-      id: 'development',
-      title: t('categories.development'),
-      icon: Code,
-      skills: SKILLS_BY_CATEGORY.development,
-      color: 'text-orange-500',
-    },
-    {
-      id: 'database',
-      title: t('categories.database'),
-      icon: Database,
-      skills: SKILLS_BY_CATEGORY.database,
-      color: 'text-red-500',
-    },
-  ];
+  useEffect(() => {
+    let active = true;
+    Promise.all([
+      fetch('/api/content?resource=skills').then((res) => (res.ok ? res.json() : Promise.reject())),
+      fetch('/api/content?resource=skillCategories').then((res) => (res.ok ? res.json() : Promise.reject())),
+    ])
+      .then(([skillRows, categoryRows]) => {
+        if (!active) return;
+        if (Array.isArray(skillRows) && skillRows.length > 0) setSkills(skillRows);
+        if (Array.isArray(categoryRows) && categoryRows.length > 0) setSkillCategories(categoryRows);
+      })
+      .catch(() => {
+        if (!active) return;
+        setSkills(SKILLS);
+        setSkillCategories(FALLBACK_CATEGORY_META);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const categories = useMemo(() => {
+    return skillCategories
+      .slice()
+      .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+      .map((category) => {
+        const Icon = CATEGORY_ICON_MAP[(category.icon ?? 'Code') as keyof typeof CATEGORY_ICON_MAP] ?? Code;
+        const categorySkills = skills
+          .filter((skill) => skill.category === category.slug)
+          .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+        return {
+          id: category.slug,
+          title: t(`categories.${category.slug}`, { defaultValue: category.label }),
+          icon: Icon,
+          skills: categorySkills,
+          color: category.color || 'text-primary-500',
+        };
+      })
+      .filter((category) => category.skills.length > 0);
+  }, [skillCategories, skills, t]);
 
   const manPages: Record<string, string[]> = {
     help: [
@@ -319,7 +345,7 @@ export const Skills = () => {
             output = [t('output.catUsage'), t('output.catTip')];
             break;
           }
-          const skill = SKILLS.find(s => s.name.toLowerCase() === skillName);
+          const skill = skills.find(s => s.name.toLowerCase() === skillName);
           if (skill) {
             output = [
               `${t('output.skillLabel')} ${skill.name}`,
@@ -339,7 +365,7 @@ export const Skills = () => {
         case 'top': {
           const requested = parseInt(args[1], 10);
           const n = Number.isFinite(requested) && requested > 0 ? requested : 5;
-          const sorted = [...SKILLS].sort((a, b) => b.level - a.level).slice(0, n);
+          const sorted = [...skills].sort((a, b) => b.level - a.level).slice(0, n);
           output = [
             t('output.topHeading', { count: sorted.length }),
             '',
@@ -355,7 +381,7 @@ export const Skills = () => {
             output = [t('output.findUsage'), t('output.findDesc')];
             break;
           }
-          const matches = SKILLS.filter(s =>
+          const matches = skills.filter(s =>
             s.name.toLowerCase().includes(query) || s.category.toLowerCase().includes(query)
           );
           output = matches.length
@@ -365,9 +391,9 @@ export const Skills = () => {
         }
 
         case 'stats': {
-          const total = SKILLS.length;
-          const avg = Math.round(SKILLS.reduce((acc, s) => acc + s.level, 0) / total);
-          const highest = [...SKILLS].sort((a, b) => b.level - a.level)[0];
+          const total = skills.length;
+          const avg = Math.round(skills.reduce((acc, s) => acc + s.level, 0) / total);
+          const highest = [...skills].sort((a, b) => b.level - a.level)[0];
           output = [
             t('output.statsHeading'),
             `  ${t('output.statsTotal')} ${total}`,

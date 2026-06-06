@@ -1,4 +1,14 @@
-import type { NewBlogPost, NewCaseStudy, NewProject, NewSkill } from './schema';
+import type { NewBlogPost, NewCaseStudy, NewProject, NewSkill, NewSkillCategory } from './schema';
+
+export const seedSkillCategories: NewSkillCategory[] = [
+  { slug: 'cloud', label: 'Cloud', icon: 'Cloud', color: 'text-blue-500', sortOrder: 0 },
+  { slug: 'containers', label: 'Containers', icon: 'Container', color: 'text-blue-400', sortOrder: 1 },
+  { slug: 'infrastructure', label: 'Infrastructure as Code', icon: 'Terminal', color: 'text-purple-500', sortOrder: 2 },
+  { slug: 'os', label: 'Operating Systems', icon: 'Server', color: 'text-yellow-500', sortOrder: 3 },
+  { slug: 'devops', label: 'DevOps', icon: 'Code', color: 'text-green-500', sortOrder: 4 },
+  { slug: 'development', label: 'Development', icon: 'Code', color: 'text-orange-500', sortOrder: 5 },
+  { slug: 'database', label: 'Databases', icon: 'Database', color: 'text-red-500', sortOrder: 6 },
+];
 
 export const seedBlogPosts: NewBlogPost[] = [
   {

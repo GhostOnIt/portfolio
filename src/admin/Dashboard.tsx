@@ -4,7 +4,7 @@ import { contentApi } from './api';
 import type { ResourceKey } from './api';
 import { RESOURCE_LABELS } from './fields';
 
-const RESOURCES: ResourceKey[] = ['blog', 'caseStudies', 'projects', 'skills'];
+const RESOURCES: ResourceKey[] = ['blog', 'caseStudies', 'projects', 'skillCategories', 'skills'];
 
 export function Dashboard() {
   const [counts, setCounts] = useState<Partial<Record<ResourceKey, number>>>({});

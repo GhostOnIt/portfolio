@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { db } from '../db';
-import { blogPosts, caseStudies, projects, skills } from '../db/schema';
-import { seedBlogPosts, seedCaseStudies, seedProjects, seedSkills } from '../db/seed-data';
+import { blogPosts, caseStudies, projects, skills, skillCategories } from '../db/schema';
+import { seedBlogPosts, seedCaseStudies, seedProjects, seedSkills, seedSkillCategories } from '../db/seed-data';
 
 // Seed each table only if it is empty, so this is safe to run on every
 // Vercel build: it populates the initial content once and never overwrites
@@ -26,6 +26,7 @@ async function main() {
   await seedIfEmpty('blog posts', blogPosts, seedBlogPosts);
   await seedIfEmpty('case studies', caseStudies, seedCaseStudies);
   await seedIfEmpty('projects', projects, seedProjects);
+  await seedIfEmpty('skill categories', skillCategories, seedSkillCategories);
   await seedIfEmpty('skills', skills, seedSkills);
   console.log('Seed complete.');
 }

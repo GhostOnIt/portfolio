@@ -1,13 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { eq, asc, desc } from 'drizzle-orm';
 import { db } from '../../db/index.js';
-import { blogPosts, caseStudies, projects, skills } from '../../db/schema.js';
+import { blogPosts, caseStudies, projects, skills, skillCategories } from '../../db/schema.js';
 import { requireAuth } from '../_lib/auth.js';
 
 const RESOURCES = {
   blog: { table: blogPosts, order: desc(blogPosts.date), hasTimestamps: true },
   caseStudies: { table: caseStudies, order: asc(caseStudies.sortOrder), hasTimestamps: true },
   projects: { table: projects, order: asc(projects.sortOrder), hasTimestamps: true },
+  skillCategories: { table: skillCategories, order: asc(skillCategories.sortOrder), hasTimestamps: true },
   skills: { table: skills, order: asc(skills.sortOrder), hasTimestamps: false },
 } as const;
 
@@ -69,6 +70,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       case 'DELETE': {
         if (id === undefined) return res.status(400).json({ error: 'Missing id' });
+        if (resourceParam === 'skillCategories') {
+          const [category] = await db.select().from(skillCategories).where(eq(skillCategories.id, id)).limit(1);
+          if (!category) return res.status(404).json({ error: 'Not found' });
+          const [used] = await db.select().from(skills).where(eq(skills.category, category.slug)).limit(1);
+          if (used) return res.status(409).json({ error: 'This category is used by skills and cannot be deleted.' });
+        }
         const [row] = await db.delete(table).where(eq(table.id, id)).returning();
         if (!row) return res.status(404).json({ error: 'Not found' });
         return res.status(200).json({ deleted: row.id });

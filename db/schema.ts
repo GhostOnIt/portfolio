@@ -74,6 +74,18 @@ export const skills = pgTable('skills', {
   sortOrder: integer('sort_order').notNull().default(0),
 });
 
+export const skillCategories = pgTable('skill_categories', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  label: text('label').notNull(),
+  icon: text('icon'),
+  color: text('color').notNull().default('text-primary-500'),
+  visible: boolean('visible').notNull().default(true),
+  sortOrder: integer('sort_order').notNull().default(0),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+});
+
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type NewBlogPost = typeof blogPosts.$inferInsert;
 export type CaseStudy = typeof caseStudies.$inferSelect;
@@ -82,3 +94,5 @@ export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
 export type Skill = typeof skills.$inferSelect;
 export type NewSkill = typeof skills.$inferInsert;
+export type SkillCategory = typeof skillCategories.$inferSelect;
+export type NewSkillCategory = typeof skillCategories.$inferInsert;

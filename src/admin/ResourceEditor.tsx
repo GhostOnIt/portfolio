@@ -7,7 +7,7 @@ import type { Field } from './fields';
 import { DynamicForm } from './DynamicForm';
 
 function isResourceKey(v: string | undefined): v is ResourceKey {
-  return v === 'blog' || v === 'caseStudies' || v === 'projects' || v === 'skills';
+  return v === 'blog' || v === 'caseStudies' || v === 'projects' || v === 'skillCategories' || v === 'skills';
 }
 
 function normalizeSourceContent(resource: ResourceKey, data: Record<string, any>) {
@@ -130,6 +130,18 @@ const EDITOR_LAYOUT: Record<ResourceKey, { main: FieldSection[]; sidebar: FieldS
       { title: 'Links and media', fields: ['image', 'githubLink', 'websiteLink'] },
     ],
   },
+  skillCategories: {
+    main: [
+      {
+        title: 'Category',
+        description: 'Create reusable categories for skills. The slug is what skills store internally.',
+        fields: ['label', 'slug', 'icon', 'color'],
+      },
+    ],
+    sidebar: [
+      { title: 'Display', fields: ['visible', 'sortOrder'] },
+    ],
+  },
   skills: {
     main: [
       {
@@ -184,6 +196,7 @@ export function ResourceEditor() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [dirty, setDirty] = useState(false);
   const [preview, setPreview] = useState(false);
+  const [skillCategoryOptions, setSkillCategoryOptions] = useState<string[]>([]);
 
   useEffect(() => {
     if (!valid) return;
@@ -214,6 +227,20 @@ export function ResourceEditor() {
     window.addEventListener('beforeunload', onBeforeUnload);
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, [dirty]);
+
+  useEffect(() => {
+    if (!valid || currentResource !== 'skills') return;
+    contentApi
+      .list('skillCategories')
+      .then((categories) => {
+        const options = categories
+          .filter((category) => category.visible !== false)
+          .map((category) => category.slug)
+          .filter(Boolean);
+        setSkillCategoryOptions(options);
+      })
+      .catch(() => setSkillCategoryOptions([]));
+  }, [valid, currentResource]);
 
   useEffect(() => {
     if (!valid || currentResource === 'skills' || value.slug) return;
@@ -252,6 +279,13 @@ export function ResourceEditor() {
   };
 
   const layout = EDITOR_LAYOUT[currentResource];
+  const fieldsForSection = (names: string[]) => {
+    const fields = pickFields(currentResource, names);
+    if (currentResource !== 'skills' || skillCategoryOptions.length === 0) return fields;
+    return fields.map((field) =>
+      field.name === 'category' ? { ...field, options: skillCategoryOptions } : field,
+    );
+  };
   const mainPreview = useMemo(() => {
     if (!layout) return null;
     const previewFields = layout.main.flatMap((section) => section.fields);
@@ -351,7 +385,7 @@ export function ResourceEditor() {
                   </div>
                 ) : (
                   <DynamicForm
-                    fields={pickFields(currentResource, section.fields)}
+                    fields={fieldsForSection(section.fields)}
                     value={value}
                     onChange={updateValue}
                     errors={fieldErrors}
@@ -366,7 +400,7 @@ export function ResourceEditor() {
             {layout?.sidebar.map((section) => (
               <EditorSection key={section.title} title={section.title} description={section.description}>
                 <DynamicForm
-                  fields={pickFields(currentResource, section.fields)}
+                  fields={fieldsForSection(section.fields)}
                   value={value}
                   onChange={updateValue}
                   errors={fieldErrors}

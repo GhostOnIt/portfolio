@@ -6,6 +6,7 @@ import { createServer as createViteServer } from 'vite';
 
 import adminAuth from '../api/admin/auth.js';
 import adminContent from '../api/admin/content.js';
+import content from '../api/content.js';
 import contact from '../api/contact.js';
 
 type ApiHandler = (req: any, res: any) => Promise<void> | void;
@@ -13,6 +14,7 @@ type ApiHandler = (req: any, res: any) => Promise<void> | void;
 const handlers: Record<string, ApiHandler> = {
   '/api/admin/auth': adminAuth,
   '/api/admin/content': adminContent,
+  '/api/content': content,
   '/api/contact': contact,
 };
 

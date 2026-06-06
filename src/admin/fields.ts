@@ -30,6 +30,7 @@ export const RESOURCE_LABELS: Record<ResourceKey, string> = {
   blog: 'Blog posts',
   caseStudies: 'Case studies',
   projects: 'Projects',
+  skillCategories: 'Skill categories',
   skills: 'Skills',
 };
 
@@ -82,6 +83,14 @@ export const FIELDS: Record<ResourceKey, Field[]> = {
     { name: 'title', label: 'Title', type: 'localized', required: true },
     { name: 'description', label: 'Description', type: 'localizedTextarea', required: true, rows: 6 },
   ],
+  skillCategories: [
+    { name: 'slug', label: 'Slug', type: 'text', required: true, hint: 'Used by skills, e.g. cloud' },
+    { name: 'label', label: 'Label', type: 'text', required: true },
+    { name: 'icon', label: 'Icon', type: 'text', hint: 'Lucide icon name, e.g. Cloud, Code, Database' },
+    { name: 'color', label: 'Color class', type: 'text', required: true, options: ['text-blue-500', 'text-blue-400', 'text-purple-500', 'text-yellow-500', 'text-green-500', 'text-orange-500', 'text-red-500', 'text-primary-500'] },
+    { name: 'visible', label: 'Visible', type: 'boolean' },
+    { name: 'sortOrder', label: 'Sort order', type: 'number' },
+  ],
   skills: [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'icon', label: 'Icon URL', type: 'text', required: true },
@@ -109,6 +118,7 @@ export const DEFAULTS: Record<ResourceKey, () => Record<string, any>> = {
     image: '', githubLink: '', websiteLink: '',
     technologies: [], title: { en: '' }, description: { en: '' },
   }),
+  skillCategories: () => ({ slug: '', label: '', icon: 'Code', color: 'text-primary-500', visible: true, sortOrder: 0 }),
   skills: () => ({ name: '', icon: '', category: '', level: 50, sortOrder: 0 }),
 };
 
@@ -130,6 +140,12 @@ export const COLUMNS: Record<ResourceKey, Column[]> = {
     { name: 'category', label: 'Category' },
     { name: 'sortOrder', label: 'Order' },
     { name: 'published', label: 'Published' },
+  ],
+  skillCategories: [
+    { name: 'label', label: 'Label' },
+    { name: 'slug', label: 'Slug' },
+    { name: 'visible', label: 'Visible' },
+    { name: 'sortOrder', label: 'Order' },
   ],
   skills: [
     { name: 'name', label: 'Name' },

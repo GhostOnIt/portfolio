@@ -1,4 +1,4 @@
-export type ResourceKey = 'blog' | 'caseStudies' | 'projects' | 'skills';
+export type ResourceKey = 'blog' | 'caseStudies' | 'projects' | 'skillCategories' | 'skills';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json' };
 const CREDS: RequestCredentials = 'same-origin';

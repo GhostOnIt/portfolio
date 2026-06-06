@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 import { RESOURCE_LABELS } from './fields';
 import type { ResourceKey } from './api';
 
-const RESOURCES: ResourceKey[] = ['blog', 'caseStudies', 'projects', 'skills'];
+const RESOURCES: ResourceKey[] = ['blog', 'caseStudies', 'projects', 'skillCategories', 'skills'];
 const PUBLIC_LANG = 'en';
 
 const PUBLIC_LINKS = [

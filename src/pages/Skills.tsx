@@ -512,15 +512,29 @@ export const Skills = () => {
                           whileHover={{ scale: 1.02 }}
                           className="bg-bg-elevated border border-neutral-700 p-4 rounded-lg hover:border-primary-500/50 transition-all duration-300 group"
                         >
-                          <div className="flex items-center space-x-3">
-                            <img
-                              src={skill.icon}
-                              alt={skill.name}
-                              className="w-8 h-8 filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
-                            />
-                            <span className="font-mono font-medium text-neutral-200">
-                              {skill.name}
-                            </span>
+                          <div className="space-y-3">
+                            <div className="flex items-center space-x-3">
+                              <img
+                                src={skill.icon}
+                                alt={skill.name}
+                                className="w-8 h-8 filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
+                              />
+                              <span className="font-mono font-medium text-neutral-200">
+                                {skill.name}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="mb-1 flex items-center justify-between text-xs font-mono">
+                                <span className="text-neutral-500">{t('output.proficiencyLabel')}</span>
+                                <span className="text-primary-500">{skill.level}%</span>
+                              </div>
+                              <div className="h-1.5 overflow-hidden rounded-full bg-neutral-800">
+                                <div
+                                  className="h-full rounded-full bg-primary-500/80 transition-all duration-500 group-hover:bg-primary-500"
+                                  style={{ width: `${Math.max(0, Math.min(skill.level, 100))}%` }}
+                                />
+                              </div>
+                            </div>
                           </div>
                         </motion.div>
                       ))}

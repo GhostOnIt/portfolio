@@ -397,6 +397,25 @@ export const seedCaseStudies: NewCaseStudy[] = [
 
 export const seedProjects: NewProject[] = [
   {
+    slug: 'sfec-national-e-invoicing-infrastructure',
+    image: '/assets/projects/sfec-devsecops.svg',
+    technologies: ['AWS', 'Kubernetes', 'ArgoCD', 'Jenkins', 'Vault', 'Cloudflare', 'Kafka', 'Redis'],
+    category: 'devops',
+    githubLink: null,
+    websiteLink: 'https://sfec.gouv.cg',
+    title: {
+      en: 'SFEC National E-Invoicing Infrastructure',
+      fr: 'SFEC - Infrastructure nationale de facturation électronique',
+      ja: 'SFEC 全国電子インボイス基盤',
+    },
+    description: {
+      en: "Designed, deployed, and operated the DevSecOps infrastructure for SFEC, Congo's national certified electronic invoicing platform. Built the cloud architecture, Kubernetes orchestration, GitOps delivery, mTLS communications, secrets management, monitoring, backups, and disaster recovery across AWS and a government datacenter. The platform has processed 50K+ invoices/hour with zero-downtime rolling updates and 99.73% observed SLA.",
+      fr: "Conception, déploiement et exploitation de l'infrastructure DevSecOps du SFEC, le système national de facturation électronique certifiée du Congo. Mise en place de l'architecture cloud, de l'orchestration Kubernetes, du GitOps, des communications mTLS, de la gestion des secrets, du monitoring, des backups et de la reprise après sinistre entre AWS et un datacenter gouvernemental. La plateforme a validé plus de 50 000 factures par heure avec des rolling updates sans downtime et un SLA observé de 99,73 %.",
+      ja: 'コンゴ共和国の全国認証電子インボイス基盤である SFEC の DevSecOps インフラを設計、デプロイ、運用。クラウドアーキテクチャ、Kubernetes オーケストレーション、GitOps、mTLS 通信、シークレット管理、監視、バックアップ、災害復旧を AWS と政府系データセンターの両方で整備しました。プラットフォームは 1 時間あたり 50,000 件以上の請求書処理、ゼロダウンタイムの rolling update、99.73% の観測 SLA を達成しています。',
+    },
+    sortOrder: 0,
+  },
+  {
     slug: 'aws-cloud-migration',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     technologies: ['AWS EC2', 'AWS S3', 'AWS EBS', 'Route 53', 'CodeCommit', 'CloudFormation', 'Python'],
@@ -413,7 +432,7 @@ export const seedProjects: NewProject[] = [
       fr: "Pilotage de la migration de plus de 230 instances d'applications NodeJS et React, d'une infrastructure on-premise vers le Cloud AWS chez Ginov Digital Congo. Réduction des dépenses cloud de 40 % grâce au right-sizing, aux instances réservées et à la rationalisation de l'architecture. Travail sur EC2, S3, EBS, CodeCommit, Route 53 et CloudFormation.",
       ja: 'Ginov Digital Congo にて、230 以上の NodeJS および React アプリケーションインスタンスをオンプレミス環境から AWS クラウドへ移行するプロジェクトを主導。right-sizing、リザーブドインスタンス、アーキテクチャの合理化により、クラウドコストを 40% 削減。EC2、S3、EBS、CodeCommit、Route 53、CloudFormation を横断的に活用。',
     },
-    sortOrder: 0,
+    sortOrder: 1,
   },
   {
     slug: 'gitops-platform',
@@ -432,7 +451,7 @@ export const seedProjects: NewProject[] = [
       fr: "Plateforme GitOps de qualité production chez Akieni, déployant des microservices sur Kubernetes via ArgoCD, avec configuration déclarative, synchronisation automatisée et rollbacks auditables. Les pipelines provisionnent et mettent à jour l'infrastructure via des workflows Terraform plan/apply déclenchés depuis Git.",
       ja: 'Akieni における本番品質の GitOps プラットフォーム。ArgoCD を介して Kubernetes にマイクロサービスをデプロイし、宣言的な構成、自動同期、監査可能なロールバックを実現。パイプラインは Git から起動される Terraform plan/apply ワークフローでインフラをプロビジョニング・更新します。',
     },
-    sortOrder: 1,
+    sortOrder: 2,
   },
   {
     slug: 'terraform-iac',
@@ -451,7 +470,7 @@ export const seedProjects: NewProject[] = [
       fr: "Base de code Terraform modulaire provisionnant une infrastructure AWS multi-environnements avec des modules réutilisables, un état distant et des workflows plan/apply pilotés par la CI. Conçue pour garder les environnements dev, staging et production cohérents et auditables.",
       ja: '再利用可能なモジュール、リモートステート、CI 駆動の plan/apply ワークフローを備え、マルチ環境の AWS インフラをプロビジョニングするモジュール式 Terraform コードベース。dev、staging、production の各環境を一貫性のある監査可能な状態に保つよう設計。',
     },
-    sortOrder: 2,
+    sortOrder: 3,
   },
   {
     slug: 'devops-automation-toolkit',
@@ -470,7 +489,7 @@ export const seedProjects: NewProject[] = [
       fr: "Suite de plus de 40 outils Python et Bash développés chez Ginov pour automatiser le déploiement, l'administration et le monitoring de services web sur AWS. Réduction du travail opérationnel répétitif et raccourcissement du temps d'onboarding des nouveaux ingénieurs rejoignant la plateforme.",
       ja: 'AWS 上の Web サービスのデプロイ・管理・モニタリングを自動化するために Ginov で構築した 40 以上の Python・Bash ツール群。運用上の手作業を削減し、プラットフォームに参加する新規エンジニアのオンボーディング時間を短縮しました。',
     },
-    sortOrder: 3,
+    sortOrder: 4,
   },
 ];
 

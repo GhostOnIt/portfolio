@@ -104,7 +104,7 @@ export const Projects = () => {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-neutral-200 text-sm leading-relaxed line-clamp-3">
+                  <p className="text-neutral-200 text-sm leading-relaxed line-clamp-4">
                     {t(`items.${project.id}.description`)}
                   </p>
 
@@ -127,15 +127,17 @@ export const Projects = () => {
 
                   {/* Action Buttons */}
                   <div className="flex items-center space-x-4 pt-4">
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-neutral-400 hover:text-primary-500 transition-colors group/btn"
-                    >
-                      <Github size={16} className="group-hover/btn:scale-110 transition-transform" />
-                      <span className="text-sm font-mono">{t('links.code')}</span>
-                    </a>
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-neutral-400 hover:text-primary-500 transition-colors group/btn"
+                      >
+                        <Github size={16} className="group-hover/btn:scale-110 transition-transform" />
+                        <span className="text-sm font-mono">{t('links.code')}</span>
+                      </a>
+                    )}
                     
                     {project.websiteLink && (
                       <a

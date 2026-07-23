@@ -32,6 +32,10 @@
     "start": "プロジェクトを始める"
   },
   "items": {
+    "sfec": {
+      "title": "SFEC 全国電子インボイス基盤",
+      "description": "コンゴ共和国の全国認証電子インボイス基盤である SFEC の DevSecOps インフラを設計、デプロイ、運用。クラウドアーキテクチャ、Kubernetes オーケストレーション、GitOps、mTLS 通信、シークレット管理、監視、バックアップ、災害復旧を AWS と政府系データセンターの両方で整備しました。プラットフォームは 1 時間あたり 50,000 件以上の請求書処理、ゼロダウンタイムの rolling update、99.73% の観測 SLA を達成しています。"
+    },
     "awsMigration": {
       "title": "AWS クラウド移行とコスト最適化",
       "description": "Ginov Digital Congo にて、230 以上の NodeJS および React アプリケーションインスタンスをオンプレミス環境から AWS クラウドへ移行するプロジェクトを主導。right-sizing、リザーブドインスタンス、アーキテクチャの合理化により、クラウドコストを 40% 削減。EC2、S3、EBS、CodeCommit、Route 53、CloudFormation を横断的に活用。"

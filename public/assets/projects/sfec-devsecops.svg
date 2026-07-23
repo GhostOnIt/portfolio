@@ -1,0 +1,105 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">SFEC DevSecOps architecture illustration</title>
+  <desc id="desc">Simplified architecture diagram for the SFEC national electronic invoicing platform.</desc>
+  <rect width="1200" height="675" fill="#05070A"/>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.06 0 0 0 0 0.72 0 0 0 0 0.51 0 0 0 0.55 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M94 119C219 54 360 47 489 94C624 143 666 228 811 195C946 164 1049 91 1131 127V675H0V174C27 155 58 138 94 119Z" fill="#0B1220"/>
+  <path d="M94 119C219 54 360 47 489 94C624 143 666 228 811 195C946 164 1049 91 1131 127" stroke="#1F2937" stroke-width="2"/>
+  <text x="64" y="82" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">SFEC</text>
+  <text x="64" y="119" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="20">National e-invoicing platform infrastructure</text>
+  <text x="64" y="153" fill="#10B981" font-family="JetBrains Mono, Consolas, monospace" font-size="18">50K+ invoices/hour • GitOps • mTLS • zero-downtime rolling updates</text>
+
+  <g stroke="#334155" stroke-width="2" opacity="0.9">
+    <path d="M236 311H355"/>
+    <path d="M492 311H610"/>
+    <path d="M762 311H894"/>
+    <path d="M736 396V474H898"/>
+    <path d="M736 396V474H574"/>
+    <path d="M736 228V166H934"/>
+    <path d="M616 228V166H413"/>
+  </g>
+  <g stroke="url(#accent)" stroke-width="3" stroke-linecap="round" opacity="0.85">
+    <path d="M236 311H355"/>
+    <path d="M492 311H610"/>
+    <path d="M762 311H894"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <rect x="63" y="247" width="174" height="128" rx="18" fill="url(#panel)" stroke="#1E293B"/>
+    <circle cx="105" cy="296" r="20" fill="#10B981"/>
+    <path d="M96 296H114M105 287V305" stroke="#052E2B" stroke-width="4" stroke-linecap="round"/>
+    <text x="83" y="340" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Taxpayers</text>
+  </g>
+
+  <g>
+    <rect x="355" y="244" width="138" height="134" rx="18" fill="url(#panel)" stroke="#1E293B"/>
+    <text x="388" y="291" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">WAF</text>
+    <text x="387" y="322" fill="#38BDF8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">Shield</text>
+    <text x="383" y="348" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">Cloudflare</text>
+  </g>
+
+  <g>
+    <rect x="610" y="228" width="153" height="168" rx="22" fill="#071A17" stroke="#10B981" stroke-width="2"/>
+    <text x="643" y="274" fill="#ECFDF5" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">Kubernetes</text>
+    <text x="642" y="306" fill="#10B981" font-family="JetBrains Mono, Consolas, monospace" font-size="14">EKS → Gov DC</text>
+    <rect x="633" y="327" width="44" height="38" rx="9" fill="#0F766E"/>
+    <rect x="687" y="327" width="44" height="38" rx="9" fill="#0F766E"/>
+    <rect x="633" y="373" width="98" height="8" rx="4" fill="#34D399"/>
+  </g>
+
+  <g>
+    <rect x="894" y="244" width="244" height="134" rx="18" fill="url(#panel)" stroke="#1E293B"/>
+    <text x="926" y="291" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">Certification API</text>
+    <text x="926" y="322" fill="#38BDF8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">mTLS + rate limits</text>
+    <text x="926" y="348" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">Public and private routes</text>
+  </g>
+
+  <g>
+    <rect x="364" y="122" width="98" height="88" rx="16" fill="#111827" stroke="#334155"/>
+    <text x="389" y="158" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Vault</text>
+    <text x="383" y="183" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="13">CA + secrets</text>
+  </g>
+
+  <g>
+    <rect x="934" y="122" width="144" height="88" rx="16" fill="#111827" stroke="#334155"/>
+    <text x="971" y="158" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">GitOps</text>
+    <text x="958" y="183" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="13">Jenkins + ArgoCD</text>
+  </g>
+
+  <g>
+    <rect x="504" y="443" width="140" height="90" rx="16" fill="#111827" stroke="#334155"/>
+    <text x="535" y="479" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">LGMT</text>
+    <text x="523" y="504" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="13">Grafana Alloy</text>
+  </g>
+
+  <g>
+    <rect x="898" y="443" width="164" height="90" rx="16" fill="#111827" stroke="#334155"/>
+    <text x="938" y="477" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Database</text>
+    <text x="927" y="503" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="13">Reader / Writer</text>
+  </g>
+
+  <g>
+    <rect x="64" y="555" width="1072" height="64" rx="18" fill="#0F172A" stroke="#1E293B"/>
+    <text x="99" y="594" fill="#E2E8F0" font-family="JetBrains Mono, Consolas, monospace" font-size="17">SLA 99.73%</text>
+    <text x="285" y="594" fill="#E2E8F0" font-family="JetBrains Mono, Consolas, monospace" font-size="17">8% resource usage</text>
+    <text x="546" y="594" fill="#E2E8F0" font-family="JetBrains Mono, Consolas, monospace" font-size="17">DR + backups</text>
+    <text x="760" y="594" fill="#E2E8F0" font-family="JetBrains Mono, Consolas, monospace" font-size="17">Dev/Staging/Production</text>
+  </g>
+</svg>

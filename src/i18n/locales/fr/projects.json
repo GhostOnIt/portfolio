@@ -32,6 +32,10 @@
     "start": "Lancer un projet"
   },
   "items": {
+    "sfec": {
+      "title": "SFEC - Infrastructure nationale de facturation électronique",
+      "description": "Conception, déploiement et exploitation de l'infrastructure DevSecOps du SFEC, le système national de facturation électronique certifiée du Congo. Mise en place de l'architecture cloud, de l'orchestration Kubernetes, du GitOps, des communications mTLS, de la gestion des secrets, du monitoring, des backups et de la reprise après sinistre entre AWS et un datacenter gouvernemental. La plateforme a validé plus de 50 000 factures par heure avec des rolling updates sans downtime et un SLA observé de 99,73 %."
+    },
     "awsMigration": {
       "title": "Migration Cloud AWS & optimisation des coûts",
       "description": "Pilotage de la migration de plus de 230 instances d'applications NodeJS et React, d'une infrastructure on-premise vers le Cloud AWS chez Ginov Digital Congo. Réduction des dépenses cloud de 40 % grâce au right-sizing, aux instances réservées et à la rationalisation de l'architecture. Travail sur EC2, S3, EBS, CodeCommit, Route 53 et CloudFormation."

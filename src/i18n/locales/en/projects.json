@@ -32,6 +32,10 @@
     "start": "Start a Project"
   },
   "items": {
+    "sfec": {
+      "title": "SFEC National E-Invoicing Infrastructure",
+      "description": "Designed, deployed, and operated the DevSecOps infrastructure for SFEC, Congo's national certified electronic invoicing platform. Built the cloud architecture, Kubernetes orchestration, GitOps delivery, mTLS communications, secrets management, monitoring, backups, and disaster recovery across AWS and a government datacenter. The platform has processed 50K+ invoices/hour with zero-downtime rolling updates and 99.73% observed SLA."
+    },
     "awsMigration": {
       "title": "AWS Cloud Migration & Cost Optimization",
       "description": "Led the migration of 230+ NodeJS and React application instances from on-premise infrastructure to AWS Cloud at Ginov Digital Congo. Reduced cloud service expenses by 40% through right-sizing, reserved instances, and architecture rationalization. Worked across EC2, S3, EBS, CodeCommit, Route 53, and CloudFormation."

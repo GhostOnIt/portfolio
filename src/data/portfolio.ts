@@ -47,6 +47,16 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
+    id: 'sfec',
+    title: 'SFEC National E-Invoicing Infrastructure',
+    image: '/assets/projects/sfec-devsecops.svg',
+    description: 'Designed, deployed, and operated the DevSecOps infrastructure for SFEC, Congo\'s national certified electronic invoicing platform. Built the cloud architecture, Kubernetes orchestration, GitOps delivery, mTLS communications, secrets management, monitoring, backups, and disaster recovery across AWS and a government datacenter.',
+    technologies: ['AWS', 'Kubernetes', 'ArgoCD', 'Jenkins', 'Vault', 'Cloudflare', 'Kafka', 'Redis'],
+    category: 'devops',
+    githubLink: '',
+    websiteLink: 'https://sfec.gouv.cg',
+  },
+  {
     id: 'awsMigration',
     title: 'AWS Cloud Migration & Cost Optimization',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',

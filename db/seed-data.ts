@@ -12,6 +12,187 @@ export const seedSkillCategories: NewSkillCategory[] = [
 
 export const seedBlogPosts: NewBlogPost[] = [
   {
+    slug: 'inside-sfec-devsecops-national-e-invoicing-platform',
+    category: 'Cloud Infrastructure',
+    difficulty: 'Advanced',
+    readTime: '13 min read',
+    date: '2026-07-24',
+    featured: true,
+    views: 980,
+    likes: 76,
+    comments: 9,
+    tags: ['SFEC', 'Kubernetes', 'GitOps', 'DevSecOps', 'mTLS', 'Vault'],
+    heroImage: '/assets/projects/sfec-devsecops.svg',
+    title: {
+      en: 'Inside SFEC: Building DevSecOps Infrastructure for a National E-Invoicing Platform',
+    },
+    excerpt: {
+      en: "How I helped design and operate the infrastructure behind SFEC, Congo's national certified e-invoicing platform, across AWS, Kubernetes, GitOps, mTLS, Vault, monitoring, backups, and disaster recovery.",
+    },
+    content: {
+      en: `
+# Inside SFEC: Building DevSecOps Infrastructure for a National E-Invoicing Platform
+
+SFEC is the national certified electronic invoicing platform of the Republic of Congo. It is the kind of system where infrastructure is not just hosting. It becomes part of the trust model: invoices need to be certified, APIs need to respond under load, terminals need reliable health checks, and sensitive communications need to remain protected from the first request to the final certificate.
+
+I joined the project as a Senior DevOps engineer in a two-person infrastructure team, and I was involved from the earliest design discussions through deployment, optimization, security hardening, and production operations.
+
+## The Mission
+
+The project covered several public and internal surfaces:
+
+- the public institutional site at sfec.gouv.cg
+- the technical documentation at docs.sfec.gouv.cg
+- the API and backend services
+- the cloud infrastructure
+- the CI/CD and GitOps delivery model
+- the security perimeter
+- monitoring, logs, backup, and disaster recovery
+
+The platform had to serve a national use case, so the expectations were high from day one: confidentiality, resilience, robustness, short delivery deadlines, and capacity to absorb significant traffic without downtime or data loss.
+
+## The Infrastructure Path
+
+The first version of the infrastructure was deployed on AWS. That gave us managed building blocks and enough speed to move quickly while the platform was still evolving.
+
+Key components included:
+
+- Global Accelerator for resilient entry points
+- Load Balancers for traffic distribution
+- AWS Shield and WAF controls for protection
+- Route53 for DNS, later complemented by Cloudflare
+- S3 for storage needs
+- database topology with reader and writer separation
+- CDN and caching layers where they made sense
+- EKS for the initial Kubernetes runtime
+
+Later, the target shifted toward a government datacenter. That changed the operating model: instead of relying only on managed services, we had to reproduce part of the platform discipline ourselves. The Kubernetes layer moved from EKS to a cluster built from scratch, keeping the same operational mindset: declarative deployments, controlled rollouts, observability, and security by default.
+
+## Kubernetes As The Runtime Contract
+
+Kubernetes became the stable contract between development and operations. It gave us a consistent way to package, deploy, isolate, scale, and observe services across dev, staging, and production.
+
+The goal was not to make developers learn every cluster detail. The goal was to give them a platform where a service could move from code to production through a predictable path.
+
+That meant standardizing:
+
+- namespace organization
+- environment variables
+- service exposure
+- health checks
+- deployment strategies
+- resource requests and limits
+- secrets injection
+- operational conventions around logs and metrics
+
+This was one of the most important parts of the work: making the deployment platform understandable enough for developers to use without turning every release into an infrastructure meeting.
+
+## GitOps Delivery
+
+The delivery flow was built around GitOps with ArgoCD. A new version goes through validation before the cluster state changes.
+
+The release path looks like this:
+
+- code is pushed
+- release notes are prepared
+- CI validates the change
+- images are built and published
+- deployment manifests are updated
+- ArgoCD reconciles the desired state into the cluster
+- rollouts happen without downtime when checks pass
+
+This made deployments faster, more auditable, and easier for developers to operate themselves. Instead of depending on manual actions, the deployment process became a reviewed, repeatable workflow.
+
+## Security Was The Hard Part
+
+The hardest part of the project was communication security, especially mTLS.
+
+In a national invoicing platform, not every route has the same trust level. Some surfaces are public. Some are private. Some are internal. Some endpoints exist mostly to allow terminals and infrastructure components to prove that they are healthy.
+
+We had to separate those concerns carefully:
+
+- public routes for user-facing and terminal-facing flows
+- private routes requiring authentication
+- internal routes protected behind the platform boundary
+- health check routes that expose enough signal without exposing sensitive behavior
+- rate limiting to reduce API saturation risk
+- WAF rules against common attack classes
+- DDoS protection through AWS Shield and Cloudflare
+
+Certificates were managed with Vault acting as a certificate authority. Vault also handled secrets, while Kubernetes handled environment configuration injected into workloads before deployment.
+
+## Observability And Operations
+
+For production operations, we needed to know what the platform was doing before users reported problems. Logs were collected with Grafana Alloy as part of the LGMT observability stack.
+
+The operational layer covered:
+
+- application logs
+- cluster signals
+- API saturation indicators
+- rollout health
+- resource consumption
+- backup status
+- disaster recovery readiness
+
+This mattered because the system had to avoid three major risks: downtime, data loss, and API overload.
+
+## Backup And Disaster Recovery
+
+Backup was not treated as a checkbox. The platform needed a recovery posture that could support real incidents, not just happy-path restores.
+
+The infrastructure included backup and disaster recovery planning around the database, persistent components, and the operational state needed to rebuild or recover services.
+
+For a system tied to certified invoices, recovery is part of the product promise. Losing infrastructure state is not acceptable when the business object is legally and operationally sensitive.
+
+## Performance And Capacity
+
+The strongest result so far is that the platform can process more than 50,000 invoices in one hour while using only about 8% of available resources.
+
+That tells two useful stories at the same time:
+
+- the platform has room to scale
+- the infrastructure is not oversized beyond reason
+
+The observed SLA so far is 99.73%, with the platform online for around eight months. Rolling updates have been effective, allowing releases without downtime.
+
+## What This Changed For The Team
+
+The biggest product of the infrastructure work was not only the cluster. It was developer autonomy.
+
+Before a platform is mature, every deployment can become a negotiation between developers and operations. After the GitOps flow and Kubernetes conventions were in place, developers could ship more confidently and manage deployments through the platform itself.
+
+That reduced friction, shortened release cycles, and made the system easier to operate with a small team.
+
+## Key Decisions I Owned
+
+The work that best represents my DevOps level on this project sits around orchestration and GitOps:
+
+- designing the deployment flow around ArgoCD
+- helping move from managed EKS to Kubernetes from scratch
+- shaping how services are exposed and separated
+- securing sensitive communications with mTLS
+- using Vault for secrets and certificate management
+- keeping public health check routes useful but limited
+- building the operational model around monitoring, logs, backups, and recovery
+
+## What I Would Revisit
+
+The infrastructure is ready for scale, but part of the application stack may eventually need to evolve. Some services are heavy in JavaScript for the kind of workload the platform expects. A future technical direction could be moving selected backend components toward Go or Rust, depending on the final performance and maintainability trade-offs.
+
+That is a good kind of next step: the infrastructure gives the team enough stability to make application-level improvements deliberately.
+
+## Final Takeaway
+
+SFEC is one of the projects where my DevSecOps work had to balance speed, security, resilience, and public-sector reliability at the same time.
+
+The result is a production platform capable of processing national-scale certified invoices, with GitOps delivery, Kubernetes orchestration, mTLS communications, Vault-managed secrets, disaster recovery planning, and zero-downtime rolling updates.
+
+This is the kind of infrastructure I like building: not only servers and pipelines, but an operating model that lets a critical platform keep moving safely.
+    `,
+    },
+  },
+  {
     slug: 'migrating-230-nodejs-instances-to-aws',
     category: 'DevOps',
     difficulty: 'Intermediate',

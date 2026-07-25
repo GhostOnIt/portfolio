@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { TerminalHeader } from '../components/TerminalHeader';
 import { Typewriter } from '../components/Typewriter';
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, ExternalLink, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Github, Linkedin, ExternalLink, CheckCircle } from 'lucide-react';
 import { CONTACT } from '../data/portfolio';
 
 export const Contact = () => {
@@ -132,12 +132,6 @@ export const Contact = () => {
       url: CONTACT.social.linkedin,
       icon: Linkedin,
       color: 'hover:text-blue-500',
-    },
-    {
-      name: 'Twitter',
-      url: CONTACT.social.twitter,
-      icon: Twitter,
-      color: 'hover:text-blue-400',
     },
   ];
 
@@ -360,7 +354,7 @@ export const Contact = () => {
                 <h3 className="font-mono text-lg font-semibold text-primary-500 mb-6">
                   {t('social.title')}
                 </h3>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   {socialLinks.map((link) => {
                     const IconComponent = link.icon;
                     return (

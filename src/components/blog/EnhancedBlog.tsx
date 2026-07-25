@@ -58,6 +58,181 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 6,
+    title: "Building FinOps Visibility with AWS CUR, Athena, and Grafana",
+    category: "Cloud Infrastructure",
+    difficulty: "Advanced",
+    readTime: "12 min read",
+    date: "2026-07-24",
+    featured: true,
+    views: "860",
+    likes: "69",
+    comments: "8",
+    excerpt: "How I used AWS Cost and Usage Reports, S3, Athena, and Grafana to make costs readable by project and client inside a shared AWS infrastructure.",
+    tags: ["AWS CUR", "Athena", "Grafana", "FinOps", "AWS Organizations", "Cost Allocation"],
+    heroImage: "/assets/projects/aws-cur-athena-grafana-finops.svg",
+    content: `
+# Building FinOps Visibility with AWS CUR, Athena, and Grafana
+
+At some point, a shared cloud platform stops having a simple billing story. The AWS invoice says what the organization spent, but it does not always explain why the bill moved, which client drove the change, or which project needs attention.
+
+I ran into this problem in an AWS environment where multiple applications, projects, and client resources lived inside the same infrastructure perimeter. The teams could see the total spend, but the useful questions were harder to answer:
+
+- How much does each project cost?
+- Which client is consuming the most?
+- What is production costing compared with staging or dev?
+- Which services are growing fastest?
+- Which resources are not tagged correctly?
+- Which shared costs should be allocated back to project owners?
+
+The real problem was not knowing how much AWS cost. The real problem was knowing why, for whom, and where.
+
+## Why Native AWS Billing Was Not Enough
+
+AWS Cost Explorer is useful for quick exploration, but I needed a more flexible operating view. The infrastructure was shared, and the cost model had to follow the way the business and engineering teams actually worked.
+
+That meant slicing spend by:
+
+- AWS account
+- project
+- client
+- environment
+- service
+- region
+- resource tags
+- shared platform components
+
+Cost Explorer could answer some of those questions, but it was not the dashboarding and reporting layer I wanted for repeated analysis. I needed something queryable, versionable, and easy to expose to teams.
+
+## The Architecture
+
+The platform I implemented used four main pieces:
+
+- AWS Cost and Usage Report as the detailed billing source
+- S3 as the storage layer
+- Athena as the SQL query engine
+- Grafana as the dashboarding and alerting interface
+
+The flow looked like this:
+
+- AWS Organizations centralizes billing in the payer account
+- CUR exports detailed cost and usage data to S3
+- Glue catalogs the CUR files
+- Athena queries the report with SQL
+- Grafana reads from Athena and displays dashboards
+
+This setup kept the solution close to AWS native services, avoided introducing a paid FinOps platform, and gave enough flexibility to build exactly the cost views the organization needed.
+
+## CUR As The Source Of Truth
+
+AWS Cost and Usage Report is the lowest-level billing dataset I usually want before introducing a dedicated FinOps product. It gives enough granularity to analyze usage by account, service, usage type, operation, region, pricing model, tags, and commitment discounts.
+
+For this use case, the important choices were:
+
+- export from the payer account so linked accounts were included
+- use Parquet to reduce query cost and improve Athena performance
+- include resource IDs when deeper investigation was needed
+- include cost allocation tags
+- partition by billing period so queries could stay focused
+
+CUR is not a dashboard. It is a dataset. Its value appears when the tagging model and query layer are clean enough to turn raw billing lines into decisions.
+
+## The Tagging Model
+
+The hardest part was not connecting Grafana to Athena. The hardest part was making the cost data trustworthy.
+
+In a shared environment, tags become a financial contract. If a resource is missing a project or client tag, the cost can exist but become invisible to the right owner.
+
+The key tags I pushed toward were:
+
+- Project
+- Client
+- Environment
+- Owner
+- CostCenter
+- Application
+- ManagedBy
+
+The goal was to make every significant resource answer a few simple questions: who owns me, what project do I support, what environment am I part of, and should this cost be allocated directly or treated as shared platform spend?
+
+## Enforcing Tag Hygiene
+
+Tagging cannot depend only on goodwill. People forget. Infrastructure grows. Emergency changes happen.
+
+The better approach is to push tags into the delivery path:
+
+- Terraform modules receive standard tags by default
+- CI checks reject missing mandatory tags where possible
+- shared modules normalize tag names and values
+- dashboards expose untagged spend as a visible hygiene metric
+- teams review unallocated cost regularly
+
+This changed the conversation. Instead of arguing about a vague monthly bill, teams could see where the data was clean and where it needed correction.
+
+## Athena As The Analysis Layer
+
+Athena made the CUR data useful because it allowed cost questions to become SQL queries.
+
+Some of the most useful queries were:
+
+- monthly cost by project
+- daily cost by client
+- cost by AWS linked account
+- cost by service and environment
+- top services by monthly increase
+- untagged or badly tagged spend
+- shared platform cost separated from project cost
+- production versus non-production spend
+
+I preferred building reusable SQL views for the repeated questions. Grafana panels could then query a cleaner abstraction instead of embedding complicated billing logic everywhere.
+
+## Grafana As The FinOps Interface
+
+Grafana turned the query layer into something teams could actually use.
+
+The dashboards were organized around a few views:
+
+- Executive view: monthly spend, trend, and top cost drivers
+- Project view: cost by project, environment, and service
+- Client view: spend per client and allocation quality
+- Engineering view: service-level breakdown and resource hot spots
+- Hygiene view: untagged spend, missing tags, and allocation gaps
+
+This gave different audiences the same source of truth without forcing everyone to read CUR columns directly.
+
+## What The Dashboards Made Visible
+
+The biggest win was clarity. Once the dashboards were in place, the team could answer questions that used to require manual billing exploration.
+
+The platform made it easier to see:
+
+- which projects were growing month over month
+- which clients were driving infrastructure usage
+- which environments were costing too much for their purpose
+- which AWS services needed optimization work
+- which teams needed to fix missing tags
+- how much cost was shared platform overhead
+
+That visibility is what makes FinOps practical. Optimization starts after ownership becomes visible.
+
+## Lessons Learned
+
+The first lesson is that cost visibility is a data quality problem before it is a dashboard problem. A beautiful Grafana dashboard is not useful if half of the spend is untagged or mislabeled.
+
+The second lesson is that CUR is powerful but not friendly by default. You need naming conventions, reusable queries, and a clear model for amortized cost, shared cost, and tag-based allocation.
+
+The third lesson is that the best FinOps dashboards do not only show money. They show accountability. They make ownership visible enough for engineering teams to act.
+
+## Final Takeaway
+
+AWS CUR, Athena, and Grafana gave me a low-cost and flexible FinOps stack for a shared AWS infrastructure where multiple client applications lived together.
+
+The value was not only in seeing the AWS bill. The value was in transforming one global invoice into project-level and client-level visibility, backed by SQL, tags, dashboards, and repeatable operating habits.
+
+That is the difference between billing and FinOps: billing tells you what happened; FinOps helps teams understand it, own it, and improve it.
+    `
+  },
+  {
     id: 5,
     title: "Inside SFEC: Building DevSecOps Infrastructure for a National E-Invoicing Platform",
     category: "Cloud Infrastructure",
@@ -546,7 +721,7 @@ const EnhancedBlog: React.FC = () => {
         >
           <StatsCard
             title={t('stats.totalArticles')}
-            value="5"
+            value="6"
             icon={<BookOpen className="w-6 h-6" />}
             color="completed"
           />
@@ -568,7 +743,7 @@ const EnhancedBlog: React.FC = () => {
           />
           <StatsCard
             title={t('stats.avgReadTime')}
-            value="8 min"
+            value="10 min"
             change={t('stats.avgReadChange')}
             icon={<Clock className="w-6 h-6" />}
             color="completed"

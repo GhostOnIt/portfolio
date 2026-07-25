@@ -1,16 +1,24 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ExternalLink, Github, Code2 } from 'lucide-react';
-import { Grid3DBackground } from '../components/Grid3D';
-import { Typewriter } from '../components/Typewriter';
 import { SKILLS } from '../data/portfolio';
 import { useLocalizedPath } from '../i18n/useLocalizedPath';
+
+const GridGuides = () => (
+  <div className="mb-guides" aria-hidden="true">
+    {Array.from({ length: 12 }, (_, index) => (
+      <span key={index} className="mb-guide-col" />
+    ))}
+  </div>
+);
 
 export const Home = () => {
   const { t } = useTranslation('home');
   const { t: tCommon } = useTranslation('common');
   const localized = useLocalizedPath();
+  const [gridVisible, setGridVisible] = useState(false);
 
   const stats = [
     { label: t('stats.yearsExperience'), value: '9+' },
@@ -21,77 +29,108 @@ export const Home = () => {
 
   const featuredSkills = SKILLS.slice(0, 6);
 
+  useEffect(() => {
+    document.body.classList.toggle('mb-grid-on', gridVisible);
+    return () => document.body.classList.remove('mb-grid-on');
+  }, [gridVisible]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'g' && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        setGridVisible((value) => !value);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const alignDisplayInk = () => {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      if (!context) return;
+
+      document.querySelectorAll<HTMLElement>('.mb-display, .mb-numeral').forEach((element) => {
+        element.style.marginLeft = '0px';
+        const styles = window.getComputedStyle(element);
+        const firstChar = (element.textContent || '').trim()[0];
+        if (!firstChar) return;
+        context.font = `${styles.fontStyle} ${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+        const left = context.measureText(firstChar).actualBoundingBoxLeft;
+        if (Number.isFinite(left)) {
+          element.style.marginLeft = `${left.toFixed(2)}px`;
+        }
+      });
+    };
+
+    document.fonts?.ready.then(alignDisplayInk).catch(alignDisplayInk);
+    window.addEventListener('resize', alignDisplayInk);
+    return () => window.removeEventListener('resize', alignDisplayInk);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-bg-page relative overflow-hidden">
-      {/* 3D Grid Background */}
-      <Grid3DBackground />
-      
-      {/* Main Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center relative z-10">
+    <div className="mb-page min-h-screen relative overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setGridVisible((value) => !value)}
+        className="mb-toggle"
+        aria-pressed={gridVisible}
+      >
+        Grid {gridVisible ? 'on' : 'off'} / G
+      </button>
+
+      <section className="relative py-24">
+        <div className="mb-wrap min-h-[calc(100vh-18rem)]">
+          <GridGuides />
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="mb-band relative z-10"
           >
-            {/* Terminal prompt */}
-            <div className="font-mono text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide">
-              <span className="text-accent-500 mr-3">$</span>
-              <span className="text-primary-500">{t('terminal.prompt')}</span>
+            <div className="col-span-6 col-start-1 max-md:col-span-6">
+              <p className="mb-kicker text-[color:var(--mb-accent)]">{t('terminal.prompt')}</p>
+              <h1 className="mb-display mt-6 max-w-[9ch] uppercase">
+                {t('typewriter')}
+              </h1>
             </div>
 
-            {/* Typewriter heading */}
-            <div className="font-mono text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight text-primary-500">
-              <Typewriter text={t('typewriter')} delay={80} />
-              <span className="terminal-cursor ml-2" />
+            <div className="col-span-4 col-start-8 mt-24 max-md:col-span-6 max-md:col-start-1 max-md:mt-12">
+              <div className="mb-rule mb-6" />
+              <p className="mb-body">
+                {t('subtitle')}
+              </p>
+              <div className="mt-12 flex flex-col gap-4">
+                <Link
+                  to={localized('/projects')}
+                  className="inline-flex h-12 items-center justify-between border border-white/20 bg-white/[0.02] px-4 text-sm font-bold uppercase text-[color:var(--mb-ink)] transition hover:border-[color:var(--mb-accent)] hover:bg-[color:var(--mb-accent)] hover:text-black"
+                >
+                  <span>{tCommon('ctas.viewProjects')}</span>
+                  <Code2 className="h-4 w-4" />
+                </Link>
+                <Link
+                  to={localized('/contact')}
+                  className="inline-flex h-12 items-center justify-between bg-[color:var(--mb-accent)] px-4 text-sm font-bold uppercase text-black transition hover:bg-[color:var(--mb-accent-strong)]"
+                >
+                  <span>{tCommon('ctas.contactMe')}</span>
+                  <ExternalLink className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2 }}
-              className="text-xl md:text-2xl text-neutral-200 max-w-4xl mx-auto leading-relaxed"
-            >
-              {t('subtitle')}
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
-            >
-              <Link
-                to={localized('/projects')}
-                className="group inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-bg-surface transition-all duration-200 font-semibold tracking-wide rounded-lg shadow-glow hover:shadow-card-hover"
-              >
-                <Code2 className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                {tCommon('ctas.viewProjects')}
-              </Link>
-              <Link
-                to={localized('/contact')}
-                className="group inline-flex items-center px-8 py-4 border-2 border-neutral-600 bg-neutral-800 text-neutral-200 hover:border-primary-500 hover:text-primary-500 transition-all duration-200 font-semibold tracking-wide rounded-lg"
-              >
-                <ExternalLink className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                {tCommon('ctas.contactMe')}
-              </Link>
-            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-24 relative z-10 bg-bg-surface/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative z-10 py-10">
+        <div className="mb-wrap">
+          <GridGuides />
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="mb-band relative z-10"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -100,15 +139,13 @@ export const Home = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1, duration: 0.4 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="col-span-3 border-t border-white/10 pt-6 max-md:col-span-3"
               >
-                <div className="bg-bg-elevated border border-neutral-700 p-6 rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 hover:border-primary-500/50">
-                  <div className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-neutral-400 font-medium">
-                    {stat.label}
-                  </div>
+                <div className="mb-numeral">
+                  {stat.value}
+                </div>
+                <div className="mb-kicker mt-2 text-[color:var(--mb-muted)]">
+                  {stat.label}
                 </div>
               </motion.div>
             ))}
@@ -116,20 +153,20 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Featured Skills Section */}
-      <section className="py-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative z-10 py-20">
+        <div className="mb-wrap">
+          <GridGuides />
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-band relative z-10 mb-16"
           >
-            <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-4">
+            <h2 className="col-span-4 mb-kicker text-[color:var(--mb-accent)]">
               {t('featuredTechs.title')}
             </h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto">
+            <p className="col-span-5 col-start-7 mb-body max-md:col-span-6 max-md:col-start-1 max-md:mt-6">
               {t('featuredTechs.subtitle')}
             </p>
           </motion.div>
@@ -139,7 +176,7 @@ export const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, staggerChildren: 0.1 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+            className="mb-band relative z-10 gap-y-8"
           >
             {featuredSkills.map((skill, index) => (
               <motion.div
@@ -148,15 +185,14 @@ export const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.4 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-bg-elevated border border-neutral-700 p-4 rounded-lg text-center hover:border-primary-500/50 transition-all duration-300 group"
+                className="col-span-2 border-t border-white/10 pt-4 max-md:col-span-3"
               >
                 <img
                   src={skill.icon}
                   alt={skill.name}
-                  className="w-8 h-8 mx-auto mb-3 filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
+                  className="mb-6 h-8 w-8 grayscale invert opacity-85"
                 />
-                <div className="font-mono text-sm text-neutral-200 font-medium">
+                <div className={`mb-kicker text-[color:var(--mb-muted)] ${skill.name === 'GCP' ? 'line-through decoration-[color:var(--mb-accent-strong)] decoration-2 opacity-60' : ''}`}>
                   {skill.name}
                 </div>
               </motion.div>
@@ -168,51 +204,53 @@ export const Home = () => {
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            className="mb-band relative z-10 mt-16"
           >
             <Link
               to={localized('/skills')}
-              className="inline-flex items-center text-primary-500 hover:text-primary-400 font-mono font-semibold group"
+              className="col-span-3 col-start-10 inline-flex h-12 items-center justify-between border border-white/20 bg-white/[0.02] px-4 text-sm font-bold uppercase text-[color:var(--mb-ink)] transition hover:border-[color:var(--mb-accent)] hover:bg-[color:var(--mb-accent)] hover:text-black max-md:col-span-6 max-md:col-start-1"
             >
-              <span className="mr-2">{tCommon('ctas.viewAllSkills')}</span>
-              <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <span>{tCommon('ctas.viewAllSkills')}</span>
+              <ExternalLink className="h-4 w-4" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative z-10 bg-gradient-to-b from-transparent to-bg-elevated/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative z-10 py-20">
+        <div className="mb-wrap">
+          <GridGuides />
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-bg-elevated border border-primary-500/20 p-12 rounded-2xl shadow-glow"
+            className="mb-band relative z-10"
           >
-            <h2 className="font-mono text-3xl md:text-4xl font-bold text-primary-500 mb-6">
+            <h2 className="col-span-5 text-5xl font-extrabold uppercase leading-[56px] max-md:col-span-6">
               {t('cta.title')}
             </h2>
-            <p className="text-xl text-neutral-200 mb-8 leading-relaxed">
-              {t('cta.body')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to={localized('/contact')}
-                className="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-bg-surface font-semibold rounded-lg hover:bg-primary-700 transition-all duration-200 shadow-glow hover:shadow-card-hover"
-              >
-                {tCommon('ctas.startProject')}
-              </Link>
-              <a
-                href="https://github.com/GhostOnIt"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-neutral-600 text-neutral-200 hover:border-primary-500 hover:text-primary-500 font-semibold rounded-lg transition-all duration-200"
-              >
-                <Github className="mr-2 h-5 w-5" />
-                {tCommon('ctas.viewCode')}
-              </a>
+            <div className="col-span-5 col-start-8 max-md:col-span-6 max-md:col-start-1 max-md:mt-8">
+              <p className="mb-body mb-12">
+                {t('cta.body')}
+              </p>
+              <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+                <Link
+                  to={localized('/contact')}
+                  className="inline-flex h-12 items-center justify-center bg-[color:var(--mb-accent)] px-4 text-sm font-bold uppercase text-black transition hover:bg-[color:var(--mb-accent-strong)]"
+                >
+                  {tCommon('ctas.startProject')}
+                </Link>
+                <a
+                  href="https://github.com/GhostOnIt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-12 items-center justify-center gap-2 border border-white/20 bg-white/[0.02] px-4 text-sm font-bold uppercase text-[color:var(--mb-ink)] transition hover:border-[color:var(--mb-accent)] hover:bg-[color:var(--mb-accent)] hover:text-black"
+                >
+                  <Github className="h-4 w-4" />
+                  {tCommon('ctas.viewCode')}
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>

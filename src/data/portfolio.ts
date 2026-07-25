@@ -104,7 +104,7 @@ export const CONTACT = {
   email: 'alexsonicka11@gmail.com',
   social: {
     github: 'https://github.com/GhostOnIt',
-    linkedin: 'https://www.linkedin.com/in/alexandre-gomah',
+    linkedin: 'https://www.linkedin.com/in/alexandre-gomah/',
     twitter: '',
   }
 };

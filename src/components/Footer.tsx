@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { CONTACT } from '../data/portfolio';
 
 export const Footer = () => {
@@ -17,16 +17,6 @@ export const Footer = () => {
       name: 'LinkedIn',
       url: CONTACT.social.linkedin,
       icon: Linkedin,
-    },
-    {
-      name: 'Twitter',
-      url: CONTACT.social.twitter,
-      icon: Twitter,
-    },
-    {
-      name: 'Email',
-      url: `mailto:${CONTACT.email}`,
-      icon: Mail,
     },
   ];
 

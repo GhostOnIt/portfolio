@@ -1,0 +1,96 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AWS CUR Athena Grafana FinOps dashboard architecture</title>
+  <desc id="desc">Illustration of a FinOps cost visibility platform using AWS Cost and Usage Reports, S3, Athena, and Grafana across multiple AWS accounts.</desc>
+  <rect width="1200" height="675" fill="#05070A"/>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+    <linearGradient id="money" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+    <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.96 0 0 0 0 0.62 0 0 0 0 0.04 0 0 0 0.45 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <path d="M0 150C141 91 255 117 365 165C520 232 628 229 764 155C900 81 1030 79 1200 130V675H0V150Z" fill="#0B1220"/>
+  <path d="M0 150C141 91 255 117 365 165C520 232 628 229 764 155C900 81 1030 79 1200 130" stroke="#1F2937" stroke-width="2"/>
+
+  <text x="64" y="78" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="800">AWS Cost Visibility Platform</text>
+  <text x="64" y="116" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="20">CUR + S3 + Athena + Grafana for shared multi-project infrastructure</text>
+  <text x="64" y="151" fill="#F59E0B" font-family="JetBrains Mono, Consolas, monospace" font-size="18">cost by account • project • client • service • environment • tag hygiene</text>
+
+  <g stroke="#334155" stroke-width="2">
+    <path d="M236 320H365"/>
+    <path d="M490 320H620"/>
+    <path d="M747 320H877"/>
+    <path d="M622 419L528 501"/>
+    <path d="M747 419L860 501"/>
+  </g>
+  <g stroke="url(#money)" stroke-width="3" stroke-linecap="round">
+    <path d="M236 320H365"/>
+    <path d="M490 320H620"/>
+    <path d="M747 320H877"/>
+  </g>
+
+  <g filter="url(#softGlow)">
+    <rect x="64" y="237" width="172" height="166" rx="20" fill="url(#panel)" stroke="#1E293B"/>
+    <text x="96" y="283" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">AWS Org</text>
+    <text x="91" y="315" fill="#FBBF24" font-family="JetBrains Mono, Consolas, monospace" font-size="14">payer account</text>
+    <rect x="92" y="343" width="116" height="12" rx="6" fill="#475569"/>
+    <rect x="92" y="366" width="80" height="12" rx="6" fill="#334155"/>
+  </g>
+
+  <g>
+    <rect x="365" y="237" width="126" height="166" rx="20" fill="url(#panel)" stroke="#1E293B"/>
+    <text x="401" y="293" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">CUR</text>
+    <text x="394" y="325" fill="#FBBF24" font-family="JetBrains Mono, Consolas, monospace" font-size="14">Parquet</text>
+    <text x="391" y="352" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">cost + usage</text>
+  </g>
+
+  <g>
+    <rect x="620" y="224" width="128" height="192" rx="22" fill="#071A17" stroke="#10B981" stroke-width="2"/>
+    <text x="658" y="282" fill="#ECFDF5" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">S3</text>
+    <text x="646" y="316" fill="#10B981" font-family="JetBrains Mono, Consolas, monospace" font-size="14">partitioned</text>
+    <rect x="648" y="344" width="72" height="14" rx="7" fill="#10B981"/>
+    <rect x="648" y="369" width="52" height="14" rx="7" fill="#065F46"/>
+  </g>
+
+  <g>
+    <rect x="877" y="237" width="134" height="166" rx="20" fill="url(#panel)" stroke="#1E293B"/>
+    <text x="907" y="293" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="800">Athena</text>
+    <text x="907" y="325" fill="#38BDF8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">SQL views</text>
+    <text x="907" y="352" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">tag joins</text>
+  </g>
+
+  <g>
+    <rect x="446" y="492" width="164" height="92" rx="18" fill="#111827" stroke="#334155"/>
+    <text x="491" y="530" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Glue</text>
+    <text x="474" y="557" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">data catalog</text>
+  </g>
+
+  <g filter="url(#softGlow)">
+    <rect x="860" y="492" width="214" height="92" rx="18" fill="#111827" stroke="#334155"/>
+    <text x="919" y="530" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Grafana</text>
+    <text x="898" y="557" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="14">dashboards + alerts</text>
+  </g>
+
+  <g>
+    <rect x="64" y="492" width="270" height="92" rx="18" fill="#0F172A" stroke="#1E293B"/>
+    <text x="94" y="529" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800">Allocation Tags</text>
+    <text x="94" y="558" fill="#F59E0B" font-family="JetBrains Mono, Consolas, monospace" font-size="14">Project / Client / Env</text>
+  </g>
+
+  <g>
+    <rect x="64" y="620" width="1072" height="34" rx="17" fill="#0F172A" stroke="#1E293B"/>
+    <text x="102" y="642" fill="#CBD5E1" font-family="JetBrains Mono, Consolas, monospace" font-size="14">The question was not only "how much does AWS cost?" but "why, for whom, and where?"</text>
+  </g>
+</svg>

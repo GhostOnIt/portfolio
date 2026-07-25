@@ -62,11 +62,7 @@ function createApiResponse(res: ServerResponse) {
 }
 
 async function main() {
-  const vite = await createViteServer({
-    server: { middlewareMode: true, host: '0.0.0.0' },
-    appType: 'spa',
-  });
-
+  let vite: Awaited<ReturnType<typeof createViteServer>>;
   const server = createHttpServer(async (req, res) => {
     const parsed = parseUrl(req.url ?? '/', true);
     const pathname = parsed.pathname ?? '/';
@@ -100,6 +96,15 @@ async function main() {
         res.end(err.message);
       }
     });
+  });
+
+  vite = await createViteServer({
+    server: {
+      middlewareMode: true,
+      host: '0.0.0.0',
+      hmr: { server },
+    },
+    appType: 'spa',
   });
 
   const port = Number(process.env.PORT ?? 5173);

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ExternalLink, Github, Code2 } from 'lucide-react';
+import { Typewriter } from '../components/Typewriter';
 import { SKILLS } from '../data/portfolio';
 import { useLocalizedPath } from '../i18n/useLocalizedPath';
 
@@ -92,7 +93,14 @@ export const Home = () => {
             <div className="col-span-6 col-start-1 max-md:col-span-6">
               <p className="mb-kicker text-[color:var(--mb-accent)]">{t('terminal.prompt')}</p>
               <h1 className="mb-display mt-6 max-w-[9ch] uppercase">
-                {t('typewriter')}
+                <Typewriter
+                  text={t('typewriter')}
+                  texts={['DevOps Engineer', t('typewriter')]}
+                  delay={80}
+                  deleteDelay={36}
+                  pauseDelay={900}
+                  cursorClassName="mb-type-cursor ml-2 bg-[color:var(--mb-accent)]"
+                />
               </h1>
             </div>
 

@@ -2,8 +2,8 @@
   "terminal": {
     "prompt": "whoami"
   },
-  "typewriter": "DevOps Engineer",
-  "subtitle": "Building scalable AWS infrastructures from code to cloud. DevOps Engineer specializing in Terraform IaC, Kubernetes orchestration with ArgoCD, and CI/CD automation — turning complex, high-availability requirements into reliable production systems.",
+  "typewriter": "Platform Engineer",
+  "subtitle": "Building scalable AWS infrastructures from code to cloud. Platform Engineer specializing in Terraform IaC, Kubernetes orchestration with ArgoCD, developer platforms, and CI/CD automation — turning complex, high-availability requirements into reliable production systems.",
   "stats": {
     "yearsExperience": "Years Experience",
     "serversMigrated": "Servers Migrated",

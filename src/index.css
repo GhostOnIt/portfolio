@@ -221,6 +221,12 @@ body.mb-grid-on .mb-guides {
   letter-spacing: 0;
 }
 
+.mb-type-cursor {
+  width: clamp(4px, 0.5vw, 8px);
+  height: 0.78em;
+  transform: translateY(0.08em);
+}
+
 .mb-body {
   font-size: 18px;
   line-height: var(--mb-lh);

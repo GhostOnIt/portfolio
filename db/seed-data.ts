@@ -216,7 +216,7 @@ That is the difference between billing and FinOps: billing tells you what happen
 
 SFEC is the national certified electronic invoicing platform of the Republic of Congo. It is the kind of system where infrastructure is not just hosting. It becomes part of the trust model: invoices need to be certified, APIs need to respond under load, terminals need reliable health checks, and sensitive communications need to remain protected from the first request to the final certificate.
 
-I joined the project as a Senior DevOps engineer in a two-person infrastructure team, and I was involved from the earliest design discussions through deployment, optimization, security hardening, and production operations.
+I joined the project as a Senior Platform Engineer in a two-person infrastructure team, and I was involved from the earliest design discussions through deployment, optimization, security hardening, and production operations.
 
 ## The Mission
 
@@ -394,7 +394,7 @@ This is the kind of infrastructure I like building: not only servers and pipelin
       en: `
 # Migrating 230+ NodeJS Instances to AWS: A 40% Cost Reduction Story
 
-When I joined Ginov Digital Congo as DevOps Engineer Team Lead, the platform was running 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. The cloud bill was growing fast and visibility was low. Over the following months we drove that bill down by 40% while improving reliability.
+When I joined Ginov Digital Congo as Cloud & Automation Team Lead, the platform was running 230+ NodeJS and React application instances across a mix of on-premise and lightly-tuned AWS resources. The cloud bill was growing fast and visibility was low. Over the following months we drove that bill down by 40% while improving reliability.
 
 ## The Starting Point
 
@@ -511,14 +511,14 @@ GitOps isn't magic — it's discipline encoded in tooling. Done well, it makes t
     comments: 32,
     tags: ['Career', 'Linux', 'Mentoring', 'Teaching', 'LPIC'],
     title: {
-      en: 'From Linux Trainer to DevOps Engineer: Knowledge Sharing as a Career Multiplier',
+      en: 'From Linux Trainer to Platform Engineer: Knowledge Sharing as a Career Multiplier',
     },
     excerpt: {
       en: 'A year teaching Linux administration at NGO YEKOLAB taught me more about engineering than any single technical role since. Here\'s why I think every engineer should teach.',
     },
     content: {
       en: `
-# From Linux Trainer to DevOps Engineer: Knowledge Sharing as a Career Multiplier
+# From Linux Trainer to Platform Engineer: Knowledge Sharing as a Career Multiplier
 
 In 2018, after four years as a self-taught Linux admin, I spent a year delivering LPIC 1 & 2 courses at NGO YEKOLAB. It looked like a detour from my path toward DevOps. In retrospect, it was the most useful detour I've taken.
 
